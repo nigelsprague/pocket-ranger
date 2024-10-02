@@ -23,12 +23,12 @@ const routes = [
     component: loadPage('HomePage')
   },
   {
-    path: '/community',
+    path: '/community/:parkId',
     name: 'Park Community',
     component: loadPage('ParkCommunityPage')
   },
   {
-    path: '/park',
+    path: '/park/:parkId',
     name: 'Park Details',
     component: loadPage('ParkDetailsPage')
   },

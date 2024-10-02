@@ -8,7 +8,7 @@ export const api = Axios.create({
 })
 
 export const npsAPI = Axios.create({
-  baseURL: 'developer.nps.gov/api/v1',
+  baseURL: 'https://developer.nps.gov/api/v1',
   params: {
     api_key: '0D0r4dzq02dhNbi87kJxZdNuZfi7xskb7zTvZkdo'
   },

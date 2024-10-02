@@ -31,7 +31,7 @@ async function getAllParks() {
       </div>
     </section>
     <section class="row">
-      <div v-for="park in parks" :key="park.id" class="col-12 col-md-4">
+      <div v-for="park in parks" :key="park.parkCode" class="col-12 col-md-4">
         <ParkCard :park="park" />
       </div>
     </section>

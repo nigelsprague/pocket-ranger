@@ -12,7 +12,6 @@ defineProps({ park: { type: Park, required: true } })
       <img :src="park.images[0].url" :alt="park.images[0].title" class="card-img-top park-img">
       <div class="card-body">
         <h5 class="card-title">{{ park.fullName }}</h5>
-        <!-- <p class="card-text">{{ park.description }}</p> -->
       </div>
     </div>
   </RouterLink>

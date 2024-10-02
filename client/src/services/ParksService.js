@@ -12,7 +12,7 @@ class ParksService {
   }
 
   async getAllParks() {
-    const response = await npsAPI.get('/parks')
+    const response = await npsAPI.get(`/parks`)
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks

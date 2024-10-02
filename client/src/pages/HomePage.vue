@@ -24,13 +24,21 @@ async function getAllParks() {
 </script>
 
 <template>
-  <div class="container">
-    <section class="row">
-      <div class="col-12">
-        <h1>All Parks</h1>
+  <div class="hero-img">
+    <div class="container h-100">
+      <div class="d-flex h-100 align-items-center">
+        <div class="hero-txt">
+          <h1>Pocket Ranger</h1>
+          <h4>A better way to love our parks</h4>
+        </div>
       </div>
-    </section>
-    <section class="row">
+    </div>
+  </div>
+  <div class="title-bar text-cream">
+    <h5>Explore Parks</h5>
+  </div>
+  <div class="container-fluid">
+    <section class="row g-3 mb-3 p-5">
       <div v-for="park in parks" :key="park.parkCode" class="col-12 col-md-4">
         <ParkCard :park="park" />
       </div>
@@ -38,4 +46,20 @@ async function getAllParks() {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.hero-img {
+  background-image: url('https://images.unsplash.com/photo-1443632864897-14973fa006cf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  height: calc(70vh - 64px);
+  background-position: center;
+  background-size: cover;
+}
+
+.hero-txt {
+  color: var(--cream);
+}
+
+.title-bar {
+  background-color: var(--secondary-brown);
+  padding: 1em;
+}
+</style>

@@ -3,10 +3,9 @@
 @import "./loaders.scss";
 
 :root {
-  --primary-brown: #99532b;
   --secondary-brown: #c56c39;
   --cream: #F3ECD3;
-  --forest: #2c4a1e;
+  --offwhite: #FDFBF1;
   --green: #69a24f;
 }
 
@@ -18,11 +17,11 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--cream);
+  background-color: var(--bs-page);
 }
 
 .text-forest {
-  color: var(--forest);
+  color: var(--bs-secondary);
 }
 
 .text-cream {

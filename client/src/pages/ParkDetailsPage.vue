@@ -11,16 +11,16 @@ defineProps({ park: { type: Park, required: true } })
 const route = useRoute()
 
 onMounted(() => {
-  getParkByCode
+  getParkByCode()
 })
 
-async function getParkByCode(){
+async function getParkByCode() {
   try {
     const parkCode = route.params.parkCode
     logger.log('Id of the park from the URL', parkCode)
     await parksService.getParkByCode(parkCode)
   }
-  catch (error){
+  catch (error) {
     Pop.error(error)
     logger.log(error)
   }
@@ -30,7 +30,7 @@ async function getParkByCode(){
 
 
 <template>
-<h1>{{ park.fullName }}</h1>
+  <h1>{{ park.fullName }}</h1>
 </template>
 
 

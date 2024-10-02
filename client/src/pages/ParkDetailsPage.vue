@@ -13,11 +13,11 @@ onMounted(() => {
   getParkByCode()
 })
 
-async function getParkByCode(){
+async function getParkByCode() {
   try {
     await parksService.getParkByCode(route.params.parkCode)
   }
-  catch (error){
+  catch (error) {
     Pop.error(error)
     logger.log(error)
   }
@@ -27,20 +27,20 @@ async function getParkByCode(){
 
 
 <template>
-<div v-if="park" class="container-fluid">
-  <section class="row">
-    <div class="col-12">
-      <h1>{{ park.fullName }}</h1>
-    </div>
-    <!-- <div class="col-12"> -->
+  <div v-if="park" class="container-fluid">
+    <section class="row">
+      <div class="col-12">
+        <h1>{{ park.fullName }}</h1>
+      </div>
+      <!-- <div class="col-12"> -->
       <div class="d-flex justify-content-center p-0">
         <img class="img-fluid" :src="park.images[0].url" alt="">
-      <!-- </div> -->
-    </div>
+        <!-- </div> -->
+      </div>
 
 
-  </section>
-</div>
+    </section>
+  </div>
 </template>
 
 

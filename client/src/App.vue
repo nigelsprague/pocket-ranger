@@ -44,7 +44,7 @@ import { AppState } from './AppState.js';
 @import '@/assets/scss/main.scss';
 
 footer {
-  background-color: var(--primary-brown);
+  background-color: var(--bs-primary);
 }
 
 a {

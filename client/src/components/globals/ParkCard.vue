@@ -8,7 +8,7 @@ defineProps({ park: { type: Park, required: true } })
 
 <template>
   <RouterLink :to="{ name: 'Park Details', params: { parkCode: park.parkCode } }">
-    <div class="card">
+    <div class="card h-100">
       <img :src="park.images[0].url" :alt="park.images[0].title" class="card-img-top park-img">
       <div class="card-body">
         <h5 class="card-title">{{ park.fullName }}</h5>
@@ -24,5 +24,9 @@ defineProps({ park: { type: Park, required: true } })
   height: 15rem;
   object-fit: cover;
   object-position: center;
+}
+
+.card {
+  background-color: var(--offwhite);
 }
 </style>

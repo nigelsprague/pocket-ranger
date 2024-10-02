@@ -12,11 +12,11 @@ onMounted(() => {
   getAllParks()
 })
 
-async function getAllParks(){
+async function getAllParks() {
   try {
     await parksService.getAllParks()
   }
-  catch (error){
+  catch (error) {
     Pop.error(error)
     logger.log(error)
   }
@@ -31,8 +31,8 @@ async function getAllParks(){
       </div>
     </section>
     <section class="row">
-      <div v-for="park in parks" :key="park.id" class="col-md-4">
-        <ParkCard :park="park"/>
+      <div v-for="park in parks" :key="park.id" class="col-12 col-md-4">
+        <ParkCard :park="park" />
       </div>
     </section>
   </div>

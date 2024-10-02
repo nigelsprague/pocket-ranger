@@ -18,11 +18,12 @@ async function getAllParks(){
     logger.log(error)
   }
 }
-
 </script>
 
 <template>
-  <div></div>
+  <div>
+    <!-- <HereMap :center="center" /> -->
+  </div>
 </template>
 
 <style scoped lang="scss"></style>

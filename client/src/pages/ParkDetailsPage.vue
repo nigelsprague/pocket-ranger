@@ -6,12 +6,11 @@ import Pop from '@/utils/Pop.js';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
-defineProps({ park: { type: Park, required: true } })
 
 const route = useRoute()
 
 onMounted(() => {
-  getParkByCode
+  getParkByCode()
 })
 
 async function getParkByCode(){
@@ -30,7 +29,7 @@ async function getParkByCode(){
 
 
 <template>
-<h1>{{ park.fullName }}</h1>
+<div></div>
 </template>
 
 

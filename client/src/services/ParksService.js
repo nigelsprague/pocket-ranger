@@ -5,10 +5,10 @@ import { AppState } from "@/AppState.js"
 
 class ParksService {
   async getParkByCode(parkCode) {
-    const response = await npsAPI.get(`/parks/${parkCode}`)
-    logger.log('Got park - park service', response.data)
-    const newPark = new Park(response.data)
-    AppState.activePark = newPark
+    const response = await npsAPI.get(`/parks/?parkcode=${parkCode}`)
+    logger.log('Got park - park service', response.data.data)
+    AppState.activePark = new Park(response.data.data[0])
+    // AppState.activePark = { name: 'Test' }
   }
 
   async getAllParks() {

@@ -7,6 +7,14 @@ export const api = Axios.create({
   timeout: 8000
 })
 
+export const npsAPI = Axios.create({
+  baseURL: 'developer.nps.gov/api/v1',
+  params: {
+    api_key: '0D0r4dzq02dhNbi87kJxZdNuZfi7xskb7zTvZkdo'
+  },
+  timeout: 4000
+})
+
 api.interceptors.request.use(config => config, handleAxiosError)
 api.interceptors.response.use(response => response, handleAxiosError)
 
@@ -18,9 +26,9 @@ function handleAxiosError(error) {
   } else if (error.request) {
     // The request was made but no response was received
     logger.warn('[📡 AXIOS_ERROR_NO_RESPONSE]', error.request)
-  }else {
+  } else {
     // Something happened in setting up the request that triggered an Error
-    logger.warn('[📡 AXIOS_ERROR_INVALID_REQUEST]',error.message)
+    logger.warn('[📡 AXIOS_ERROR_INVALID_REQUEST]', error.message)
   }
   return Promise.reject(error)
 }

@@ -1,13 +1,13 @@
 <script setup>
-import { Park } from '@/models/Park.js';
+import { AppState } from '@/AppState.js';
 import { parksService } from '@/services/ParksService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
-
 const route = useRoute()
+const park = computed(() => AppState.activePark)
 
 onMounted(() => {
   getParkByCode()
@@ -15,9 +15,7 @@ onMounted(() => {
 
 async function getParkByCode(){
   try {
-    const parkCode = route.params.parkCode
-    logger.log('Id of the park from the URL', parkCode)
-    await parksService.getParkByCode(parkCode)
+    await parksService.getParkByCode(route.params.parkCode)
   }
   catch (error){
     Pop.error(error)
@@ -29,7 +27,20 @@ async function getParkByCode(){
 
 
 <template>
-<div></div>
+<div v-if="park" class="container-fluid">
+  <section class="row">
+    <div class="col-12">
+      <h1>{{ park.fullName }}</h1>
+    </div>
+    <!-- <div class="col-12"> -->
+      <div class="d-flex justify-content-center p-0">
+        <img class="img-fluid" :src="park.images[0].url" alt="">
+      <!-- </div> -->
+    </div>
+
+
+  </section>
+</div>
 </template>
 
 

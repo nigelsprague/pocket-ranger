@@ -14,7 +14,7 @@ import { AppState } from './AppState.js';
   <footer>
     <div class="container py-3">
       <section class="row text-cream justify-content-between align-items-center">
-        <div class="col-5 p-0">
+        <div class="col-5">
           <div class="d-flex justify-content-between">
             <a class="mdi mdi-facebook" href="https://www.facebook.com/nationalparkservice"> Facebook</a>
             <a class="mdi mdi-youtube" href="https://www.youtube.com/nationalparkservice"> Youtube</a>
@@ -24,7 +24,7 @@ import { AppState } from './AppState.js';
             <a class="mdi mdi-instagram" href="https://www.instagram.com/nationalparkservice/"> Instagram</a>
           </div>
         </div>
-        <div class="col-5 p-0">
+        <div class="col-5">
           <div>
             <a class="footer-links" href="https://www.nps.gov/index.htm">NPS WEBSITE</a>
             <span> | </span>

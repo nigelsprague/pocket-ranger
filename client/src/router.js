@@ -7,11 +7,6 @@ function loadPage(page) {
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: loadPage('HomePage')
-  },
-  {
     path: '/about',
     name: 'About',
     component: loadPage('AboutPage')
@@ -21,7 +16,27 @@ const routes = [
     name: 'Account',
     component: loadPage('AccountPage'),
     beforeEnter: authGuard
-  }
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: loadPage('HomePage')
+  },
+  {
+    path: '/community',
+    name: 'Park Community',
+    component: loadPage('ParkCommunityPage')
+  },
+  {
+    path: '/park',
+    name: 'Park Details',
+    component: loadPage('ParkDetailsPage')
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: loadPage('SearchPage')
+  },
 ]
 
 export const router = createRouter({

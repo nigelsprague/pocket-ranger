@@ -27,21 +27,43 @@ async function getParkByCode() {
 
 
 <template>
-  <div v-if="park" class="container-fluid">
-    <section class="row">
-      <div class="col-12">
-        <h1>{{ park.fullName }}</h1>
-      </div>
-      <!-- <div class="col-12"> -->
-      <div class="d-flex justify-content-center p-0">
-        <img class="img-fluid" :src="park.images[0].url" alt="">
-        <!-- </div> -->
-      </div>
-
-
-    </section>
+  <div v-if="park">
+    <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
+      <section class="row">
+        <div class="align-content-center justify-content-between d-flex">
+          <div class="col-md-5">
+            <div class="card m-5 p-3">
+              <h3>{{ park.fullName }}</h3>
+              <span>{{ park.address.line1 }}</span>
+              <span>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</span>
+              <br/>
+              <p>{{ park.description }}</p>
+            </div>
+          </div>
+          <div class="m-5">
+            <div class="col-md-2">
+              <button class="btn btn-success">
+                <i class="mdi mdi-star-outline"></i>
+                <p class="m-0">Favorite</p>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.bg-hero{
+  height: 87vh;
+  background-size: cover;
+  background-position: center;
+}
+.card{
+  background-color: rgba(0, 0, 0, 0.334);
+  color: white;
+  border: none;
+}
+</style>

@@ -35,6 +35,11 @@ function toggleTheme() {
             About
           </router-link>
         </li>
+        <li>
+          <router-link :to="{ name: 'Search' }" class="btn lighten-30 selectable text-uppercase text-forest">
+            Search
+          </router-link>
+        </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <div>

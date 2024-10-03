@@ -4,6 +4,9 @@
     "./src/**/*.js"
   ],
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "paths": {
       "@/*": [
         "./src/*"
@@ -11,8 +14,9 @@
     },
     "jsx": "preserve",
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
   },
+  "extends": [],
   "exclude": [
     "node_modules",
     "dist"

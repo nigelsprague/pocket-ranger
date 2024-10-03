@@ -1,9 +1,9 @@
 <script setup>
 import { AppState } from '@/AppState';
 import { parksService } from '@/services/ParksService';
-import { logger } from '@/utils/Logger';
-import Pop from '@/utils/Pop';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 onUnmounted(() => {
   parksService.clearSearch()

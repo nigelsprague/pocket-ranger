@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import ToDoCard from '@/components/globals/ToDoCard.vue';
 import { parksService } from '@/services/ParksService.js';
 import { toDoService } from '@/services/ToDoService.js';
 import { logger } from '@/utils/Logger.js';
@@ -9,6 +10,7 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute()
 const park = computed(() => AppState.activePark)
+const thingsToDo = computed(() => AppState.thingsToDo)
 
 onMounted(() => {
   getParkByCode()
@@ -62,6 +64,18 @@ async function getToDoByCode(parkCode){
           </div>
         </div>
       </section>
+    </div>
+    <div v-if="thingsToDo">
+      <div class="container">
+        <section class="row">
+          <div class="col-12">
+            <h1>Things To Do</h1>
+          </div>
+          <div v-for="toDo in thingsToDo" :key="toDo.id" class="">
+            <ToDoCard :toDo="toDo"/>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 </template>

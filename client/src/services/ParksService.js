@@ -28,5 +28,3 @@ class ParksService {
 }
 
 export const parksService = new ParksService()
-
-// .filter(park => park.designation == '')

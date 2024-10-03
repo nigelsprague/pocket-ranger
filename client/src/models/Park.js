@@ -1,6 +1,7 @@
 export class Park {
   constructor(data) {
     this.id = data.id
+    this.address = data.addresses[0]
     this.fullName = data.fullName
     this.description = data.description
     this.images = data.images

@@ -9,5 +9,13 @@
       "path": "server"
     }
   ],
-  "settings": {}
+  "settings": {
+    "[vue]": {
+      "editor.defaultFormatter": "Vue.volar"
+    },
+    "javascript.referencesCodeLens.enabled": true,
+    "[javascript]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+  }
 }

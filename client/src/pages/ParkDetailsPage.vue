@@ -69,7 +69,7 @@ async function getToDoByCode(parkCode){
       <div class="container">
         <section class="row">
           <div class="col-12">
-            <h1>Things To Do</h1>
+            <h3>Things To Do</h3>
           </div>
           <div v-for="toDo in thingsToDo" :key="toDo.id" class="">
             <ToDoCard :toDo="toDo"/>

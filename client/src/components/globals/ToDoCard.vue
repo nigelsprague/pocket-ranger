@@ -29,9 +29,15 @@ defineProps({ toDo: {type: ThingsToDo, required: true}})
 
 <style lang="scss" scoped>
 img{
-  height: 100%;
+  height: 150px;
+  width: 150px;
   object-fit: cover;
   object-position: center;
   align-items: center;
+}
+.card{
+  background-color: #FDFBF1;
+  border-color: #2C4A1E;
+  border-width: 4px;
 }
 </style>

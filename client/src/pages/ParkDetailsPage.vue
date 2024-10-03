@@ -1,6 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import { parksService } from '@/services/ParksService.js';
+import { toDoService } from '@/services/ToDoService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
@@ -11,6 +12,7 @@ const park = computed(() => AppState.activePark)
 
 onMounted(() => {
   getParkByCode()
+  getToDoByCode()
 })
 
 async function getParkByCode() {
@@ -18,6 +20,16 @@ async function getParkByCode() {
     await parksService.getParkByCode(route.params.parkCode)
   }
   catch (error) {
+    Pop.error(error)
+    logger.log(error)
+  }
+}
+
+async function getToDoByCode(parkCode){
+  try {
+    await toDoService.getToDoByCode(route.params.parkCode)
+  }
+  catch (error){
     Pop.error(error)
     logger.log(error)
   }

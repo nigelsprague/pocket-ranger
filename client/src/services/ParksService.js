@@ -16,8 +16,11 @@ class ParksService {
     AppState.activePark = new Park(response.data.data[0])
   }
 
-  async getAllParks() {
-    const response = await npsAPI.get(`/parks/?limit=472&parkcode=${AppState.parkList}`)
+  async getAllParks(limit) {
+    if(!limit) {
+      limit = 472;
+    }
+    const response = await npsAPI.get(`/parks/?limit=${limit}&parkcode=${AppState.parkList}`)
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks

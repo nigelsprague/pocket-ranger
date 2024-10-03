@@ -4,10 +4,13 @@ import { Park } from "@/models/Park.js"
 import { AppState } from "@/AppState.js"
 
 class ParksService {
+  clearSearch() {
+    AppState.parkQuery = ''
+  }
   async searchParks(parkQuery) {
-    const response = await npsAPI.get(`parks/?query=${parkQuery}`)
+    const response = await npsAPI.get(`/parks/?q=${parkQuery}&parkcode=${AppState.parkList}`)
     AppState.parkQuery = parkQuery
-    const newParks = response.data.map(park => new Park(park))
+    const newParks = response.data.data.map(park => new Park(park))
     AppState.parks = newParks
   }
   async getParkByCode(parkCode) {

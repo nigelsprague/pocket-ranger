@@ -3,7 +3,11 @@ import { AppState } from '@/AppState';
 import { parksService } from '@/services/ParksService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
-import { computed, ref } from 'vue';
+import { computed, onUnmounted, ref } from 'vue';
+
+onUnmounted(() => {
+  parksService.clearSearch()
+})
 
 const editableQuery = ref('')
 const parks = computed(() => AppState.parks)

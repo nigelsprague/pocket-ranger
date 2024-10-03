@@ -42,8 +42,8 @@ async function getParkByCode() {
           </div>
           <div class="m-5">
             <div class="col-md-2">
-              <button class="btn btn-success">
-                <i class="mdi mdi-star-outline"></i>
+              <button class="btn favorite-btn">
+                <i class="mdi mdi-star-outline fs-4"></i>
                 <p class="m-0">Favorite</p>
               </button>
             </div>
@@ -65,5 +65,9 @@ async function getParkByCode() {
   background-color: rgba(0, 0, 0, 0.334);
   color: white;
   border: none;
+}
+.favorite-btn{
+  background-color: rgba(0, 0, 0, 0.334);
+  color: white;
 }
 </style>

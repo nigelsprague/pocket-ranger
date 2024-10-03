@@ -15,7 +15,7 @@ onMounted(() => {
 
 async function getAllParks() {
   try {
-    await parksService.getAllParks()
+    await parksService.getAllParks(20)
   }
   catch (error) {
     Pop.error(error)

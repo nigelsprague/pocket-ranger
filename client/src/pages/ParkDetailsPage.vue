@@ -4,6 +4,7 @@ import FeeCard from '@/components/globals/FeeCard.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/ModalWrapper.vue';
 import { alertsService } from '@/services/AlertsService.js';
+import { followersService } from '@/services/FollowersService.js';
 import { parksService } from '@/services/ParksService.js';
 import { toDoService } from '@/services/ToDoService.js';
 import { logger } from '@/utils/Logger.js';
@@ -12,13 +13,25 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
+const account = computed(() => AppState.account);
 const park = computed(() => AppState.activePark)
 const thingsToDo = computed(() => AppState.thingsToDo)
 const fees = computed(() => AppState.activePark.entranceFees)
 const activeFee = ref(null)
+const followers = computed(() => AppState.followers);
+
+const alreadyFollowing = computed(() => {
+  const foundFollower = followers.value.find(follower => follower.creatorId == account.value?.id);
+  if (foundFollower) {
+    return true;
+  } else {
+    return false;
+  }
+})
 
 onMounted(() => {
   getParkByCode()
+  getFollowersByCode()
   getToDoByCode()
   getAlertByCode()
 })
@@ -53,6 +66,34 @@ async function getAlertByCode() {
   }
 }
 
+async function getFollowersByCode() {
+  try {
+    await followersService.getFollowersByCode(route.params.parkCode);
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
+
+async function createFollower() {
+  try {
+    await followersService.createFollower(route.params.parkCode);
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
+
+async function deleteFollower() {
+  try {
+    const foundFollower = followers.value.find(follower => follower.creatorId == account.value?.id);
+    await followersService.deleteFollower(foundFollower.id);
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
+
 </script>
 
 
@@ -72,9 +113,13 @@ async function getAlertByCode() {
           </div>
           <div class="m-5">
             <div class="col-md-2">
-              <button class="btn favorite-btn">
-                <i class="mdi mdi-star-outline fs-4"></i>
-                <p class="m-0">Favorite</p>
+              <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
+                <i class="mdi mdi-heart-outline fs-4"></i>
+                <p class="m-0">Follow</p>
+              </button>
+              <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
+                <i class="mdi mdi-heart fs-4"></i>
+                <p class="m-0">Unfollow</p>
               </button>
             </div>
           </div>
@@ -131,7 +176,7 @@ async function getAlertByCode() {
   border: none;
 }
 
-.favorite-btn {
+.follow-btn {
   background-color: rgba(0, 0, 0, 0.334);
   color: white;
 }

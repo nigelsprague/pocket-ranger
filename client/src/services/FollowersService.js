@@ -7,6 +7,9 @@ class FollowersService {
     AppState.followers = []
     const response = await api.get(`account/followers`)
     const following = response.data.map(follower => new Follower(follower));
+    // let codes = '';
+    // following.forEach(follower => codes += follower.parkCode + ',');
+    // console.log(codes)
     return following
     // const parks = await npsAPI.get(`/parks/?parkcode=${parkCode}`)
   }

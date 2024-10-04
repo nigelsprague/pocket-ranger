@@ -1,17 +1,16 @@
 import { AppState } from "@/AppState.js";
 import { api } from "./AxiosService.js";
 import { Follower } from "@/models/Follower.js";
+import { logger } from "@/utils/Logger.js";
 
 class FollowersService {
   async getAccountFollows() {
     AppState.followers = []
     const response = await api.get(`account/followers`)
     const following = response.data.map(follower => new Follower(follower));
-    // let codes = '';
-    // following.forEach(follower => codes += follower.parkCode + ',');
-    // console.log(codes)
-    return following
-    // const parks = await npsAPI.get(`/parks/?parkcode=${parkCode}`)
+    let codes = [];
+    following.forEach(follower => codes.push(follower.parkCode));
+    return codes
   }
 
   async getFollowersByCode(parkCode) {

@@ -15,7 +15,7 @@ export class Park {
     this.description = data.description
     this.images = data.images
     this.parkCode = data.parkCode
-    this.entranceFees = data.entranceFees.map(fee => new Fee(fee))
+    this.entranceFees = data.entranceFees.map(fee => new Fee(fee)) //NOTE - intelisense for an array of objects
     this.operatingHours = data.operatingHours
     this.weather = data.weather
     this.states = data.states

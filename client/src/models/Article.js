@@ -14,7 +14,7 @@ export class Article {
     this.url = data.url
     this.title = data.title
     this.body = data.listingDescription
-    this.listingImage = new ArticleImage(data.listingImage)
+    this.listingImage = new ArticleImage(data.listingImage) //NOTE - intelisense for objects
   }
 }
 

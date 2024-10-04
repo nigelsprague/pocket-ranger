@@ -22,7 +22,9 @@ const park = computed(() => AppState.activePark)
 const thingsToDo = computed(() => AppState.thingsToDo)
 const alerts = computed(() => AppState.alerts)
 const articles = computed(() => AppState.articles)
-const fees = computed(() => AppState.activePark.entranceFees)
+const fees = computed(() => AppState.activePark?.entranceFees)
+const phoneNumbers = computed(() => AppState.activePark?.phoneNumbers)
+const emails = computed(() => AppState.activePark?.emails)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
@@ -182,6 +184,18 @@ async function deleteFollower() {
                   <div>{{ fee.title }} : ${{ fee.cost }}</div>
                 </button>
               </div>
+            </div>
+            <div class="col-4">
+              <h5>Park Contact Information</h5>
+              <div v-for="phoneNumber in phoneNumbers" :key="phoneNumber.phoneNumber">
+                <p>Phone Number: {{ phoneNumber.phoneNumber }}</p>
+              </div>
+              <div v-for="email in emails" :key="email.emailAddress">
+                <p>Email: {{ email.emailAddress }}</p>
+              </div>
+            </div>
+            <div class="col-4">
+              <h5>Park Operating Hours</h5>
             </div>
           </section>
         </div>

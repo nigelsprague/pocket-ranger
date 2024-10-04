@@ -22,6 +22,7 @@ export class Park {
     this.designation = data.designation
     this.contacts = data.contacts
     this.activities = data.activities
-    this.latLong = data.latLong
+    this.latitude = data.latitude
+    this.longitude = data.longitude
   }
 }

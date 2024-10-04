@@ -8,6 +8,8 @@ export const AppState = reactive({
   account: null,
   /**@type {import('./models/Park.js').Park[]} */
   parks: [],
+  favoritedParks: [],
+  visitedParks: [],
   parkQuery: '',
   /**@type {import('./models/Park.js').Park} */
   activePark: null,

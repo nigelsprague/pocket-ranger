@@ -5,6 +5,7 @@ import FeeCard from '@/components/globals/FeeCard.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/Modalwrapper.vue';
 import { alertsService } from '@/services/AlertsService.js';
+import { articlesService } from '@/services/ArticlesService.js';
 import { followersService } from '@/services/FollowersService.js';
 import { parksService } from '@/services/ParksService.js';
 import { toDoService } from '@/services/ToDoService.js';
@@ -37,6 +38,7 @@ onMounted(() => {
   getFollowersByCode()
   getToDoByCode()
   getAlertByCode()
+  getArticleByCode()
 })
 
 async function getParkByCode() {
@@ -66,6 +68,16 @@ async function getAlertByCode() {
   catch (error) {
     Pop.error(error)
     logger.log(error)
+  }
+}
+
+async function getArticleByCode(){
+  try {
+    await articlesService.getArticleByCode(route.params.parkCode)
+  }
+  catch (error){
+    Pop.error(error)
+    logger.log
   }
 }
 
@@ -131,10 +143,15 @@ async function deleteFollower() {
     </div>
     <div class="container">
       <section class="row">
-        <div class="col-12">
-          <button @click="activeContainer = 'parkInformation'" class="btn">Entry Information</button> |
-          <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> | 
-          <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
+        <div class="d-flex justify-content-center">
+        <div class="col-8">
+          <div class="text-center">
+            <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
+            <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> | 
+            <button @click="activeContainer = 'parkInformation'" class="btn">Entry Information</button> |
+            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
+          </div>
+          </div>
         </div>
       </section>
     </div>

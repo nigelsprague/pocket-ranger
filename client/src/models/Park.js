@@ -1,4 +1,4 @@
-class Fee {
+export class Fee {
   constructor(data) {
     this.id = data.id
     this.cost = data.cost

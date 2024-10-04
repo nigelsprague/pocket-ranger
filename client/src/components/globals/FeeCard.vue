@@ -1,5 +1,6 @@
 <script setup>
-import { Fee } from '@/models/Fee.js';
+import { Fee } from '@/models/Park.js';
+
 
 defineProps({ activeFee: { type: Fee, required: true } })
 

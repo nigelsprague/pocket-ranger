@@ -36,7 +36,6 @@ let markersLoaded = false;
 watch(center, () => {
   if (center.value) {
     AppState.mapMarkers.push(center.value);
-    console.log(AppState.mapMarkers)
     markersLoaded = true;
   }
 })

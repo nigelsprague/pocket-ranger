@@ -1,10 +1,27 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
+import Pop from '@/utils/Pop.js';
+import { followersService } from '@/services/FollowersService.js';
+import { logger } from '@/utils/Logger.js';
+
+onMounted(() => {
+  getFavoriteParks()
+})
 
 const account = computed(() => AppState.account)
 const favoritedParks = computed(() => AppState.favoritedParks)
 const visitedParks = computed(() => AppState.visitedParks)
+
+async function getFavoriteParks() {
+  try {
+    const following = await followersService.getAccountFollows()
+    logger.log(following)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
 </script>
 
 <template>

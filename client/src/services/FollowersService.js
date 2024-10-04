@@ -3,7 +3,13 @@ import { api } from "./AxiosService.js";
 import { Follower } from "@/models/Follower.js";
 
 class FollowersService {
-
+  async getAccountFollows() {
+    AppState.followers = []
+    const response = await api.get(`account/followers`)
+    const following = response.data.map(follower => new Follower(follower));
+    return following
+    // const parks = await npsAPI.get(`/parks/?parkcode=${parkCode}`)
+  }
 
   async getFollowersByCode(parkCode) {
     const response = await api.get(`api/park/${parkCode}/followers`);
@@ -11,7 +17,7 @@ class FollowersService {
   }
 
   async createFollower(parkCode) {
-    const payload = {parkCode: parkCode};
+    const payload = { parkCode: parkCode };
     const response = await api.post('api/followers', payload);
     AppState.followers.push(new Follower(response.data));
   }

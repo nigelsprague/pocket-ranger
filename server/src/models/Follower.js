@@ -15,9 +15,9 @@ FollowerSchema.virtual('creator', {
   justOne: true
 })
 
-// FollowerSchema.virtual('park', {
-//   localField: 'parkCode',
-//   ref: 'Parks',
-//   foreignField: 'parkCode',
-//   justOne: true
-// })
+FollowerSchema.virtual('park', {
+  localField: 'parkCode',
+  ref: 'Park',
+  foreignField: 'parkCode',
+  justOne: true
+})

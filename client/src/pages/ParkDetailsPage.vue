@@ -2,6 +2,7 @@
 import { AppState } from '@/AppState.js';
 import AlertCard from '@/components/globals/AlertCard.vue';
 import FeeCard from '@/components/globals/FeeCard.vue';
+import HereMap from '@/components/globals/HereMap.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/Modalwrapper.vue';
 import { alertsService } from '@/services/AlertsService.js';
@@ -21,6 +22,11 @@ const alerts = computed(() => AppState.alerts)
 const fees = computed(() => AppState.activePark.entranceFees)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers);
+const center = computed(() => {
+  const lat = park.value.latitude
+  const lng = park.value.longitude
+  return { lat: lat, lng: lng }
+})
 
 const alreadyFollowing = computed(() => {
   const foundFollower = followers.value.find(follower => follower.creatorId == account.value?.id);
@@ -127,6 +133,9 @@ async function deleteFollower() {
           </div>
         </div>
       </section>
+    </div>
+    <div v-if="park">
+      <HereMap :center="center" />
     </div>
     <div v-if="fees">
       <div class="container">

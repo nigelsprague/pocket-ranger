@@ -9,12 +9,20 @@ defineProps({ activeFee: { type: Fee, required: true } })
 <template>
   <div class="card">
     <div class="card-body">
-      <div class="card-title">{{ activeFee.title }}</div>
+      <h4 class="card-title">{{ activeFee.title }}</h4>
       <h1>${{ activeFee.cost }}</h1>
-      <p class="card-text">{{ activeFee.description }}</p>
+      <div class="text-start">
+        <p class="card-text">{{ activeFee.description }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card-body{
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+</style>

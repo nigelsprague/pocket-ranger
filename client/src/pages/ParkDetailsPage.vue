@@ -79,7 +79,7 @@ async function getToDoByCode() {
             <h3>Entry Information</h3>
           </div>
           <div class="col-4">
-            <h5>Entry Fees</h5>
+            <h5>Park Fees</h5>
             <div v-for="fee in fees" :key="fee.id">
               <button @click="activeFee = fee" data-bs-toggle="modal" data-bs-target="#fee-card"
                 class="btn bg-info p-0 order-0 w-100">

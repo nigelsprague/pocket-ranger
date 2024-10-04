@@ -1,3 +1,5 @@
+import { Fee } from "./Fee.js"
+
 export class Park {
   constructor(data) {
     this.id = data.id
@@ -6,7 +8,7 @@ export class Park {
     this.description = data.description
     this.images = data.images
     this.parkCode = data.parkCode
-    this.entranceFees = data.entranceFees
+    this.entranceFees = data.entranceFees.map(fee => new Fee(fee))
     this.operatingHours = data.operatingHours
     this.weather = data.weather
     this.states = data.states

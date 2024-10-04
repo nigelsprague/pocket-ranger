@@ -18,7 +18,7 @@ async function getFavoriteParks() {
   try {
     const codes = await followersService.getAccountFollows()
     logger.log(codes)
-    const parks = await parksService.getFavoriteParks(codes)
+    await parksService.getFavoriteParks(codes)
   }
   catch (error) {
     Pop.error(error);

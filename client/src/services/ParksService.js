@@ -4,6 +4,12 @@ import { Park } from "@/models/Park.js"
 import { AppState } from "@/AppState.js"
 
 class ParksService {
+  async getFavoriteParks(codes) {
+    const response = await npsAPI.get(`/parks/?parkcode=${codes}`)
+    logger.log(response.data.data)
+    const myParks = response.data.data.map(park => new Park(park))
+    AppState.favoritedParks = myParks
+  }
   clearSearch() {
     AppState.parkQuery = ''
   }
@@ -20,7 +26,7 @@ class ParksService {
   }
 
   async getAllParks(limit) {
-    if(!limit) {
+    if (!limit) {
       limit = 472;
     }
     const response = await npsAPI.get(`/parks/?limit=${limit}&parkcode=${AppState.parkList}`)

@@ -1,10 +1,29 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
+import Pop from '@/utils/Pop.js';
+import { followersService } from '@/services/FollowersService.js';
+import { logger } from '@/utils/Logger.js';
+import { parksService } from '@/services/ParksService.js';
+
+onMounted(() => {
+  getFavoriteParks()
+})
 
 const account = computed(() => AppState.account)
 const favoritedParks = computed(() => AppState.favoritedParks)
 const visitedParks = computed(() => AppState.visitedParks)
+
+async function getFavoriteParks() {
+  try {
+    const codes = await followersService.getAccountFollows()
+    logger.log(codes)
+    await parksService.getFavoriteParks(codes)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
 </script>
 
 <template>
@@ -31,12 +50,14 @@ const visitedParks = computed(() => AppState.visitedParks)
         <section class="row align-items-baseline justify-content-between text-forest fs-5">
           <div class="col-md-4">
             <h4>Favorited Parks</h4>
-            <div v-for="park in favoritedParks" :key="park.parkCode" class="col-12">
+            <hr />
+            <div v-for="park in favoritedParks" :key="park.parkCode" class="col-12 mb-3">
               <ParkCard :park="park" />
             </div>
           </div>
           <div class="col-md-4">
             <h4>Visited Parks</h4>
+            <hr />
             <div v-for="park in visitedParks" :key="park.parkCode" class="col-12">
               <ParkCard :park="park" />
             </div>

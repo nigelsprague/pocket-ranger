@@ -14,7 +14,7 @@ onMounted(() => {
 
 async function getAllParks() {
   try {
-    await parksService.getAllParks(20)
+    await parksService.getAllParks(15)
   }
   catch (error) {
     Pop.error(error)
@@ -27,7 +27,7 @@ async function getAllParks() {
   <div class="hero-img">
     <div class="container h-100">
       <div class="d-flex h-100 align-items-center">
-        <div class="hero-txt">
+        <div class="hero-txt text-shadow">
           <h1>Pocket Ranger</h1>
           <h4>A better way to love our parks</h4>
         </div>
@@ -61,5 +61,9 @@ async function getAllParks() {
 .title-bar {
   background-color: var(--secondary-brown);
   padding: 1em;
+}
+
+.text-shadow {
+  text-shadow: 0 1px 3px black;
 }
 </style>

@@ -2,6 +2,10 @@ import { dbContext } from "../db/DbContext.js";
 import { BadRequest, NotFound } from "../utils/Errors.js";
 
 class FollowersService {
+  async getAccountFollows(creatorId) {
+    const followers = await dbContext.Followers.find({ creatorId: creatorId });
+    return followers
+  }
 
   async getFollowersByCode(parkCode) {
     const followers = await dbContext.Followers.find({ parkCode: parkCode }).populate('creator');

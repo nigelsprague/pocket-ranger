@@ -8,6 +8,7 @@ export class FollowersController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createFollower)
+      .delete('/:followerId', this.deleteFollower)
   }
 
   async createFollower(request, response, next) {
@@ -16,6 +17,17 @@ export class FollowersController extends BaseController {
       followerData.creatorId = request.userInfo.id;
       const follower = await followersService.createFollower(followerData);
       response.send(follower);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteFollower(request, response, next) {
+    try {
+      const followerId = request.params.followerId;
+      const userId = request.userInfo.id;
+      const message = await followersService.deleteFollower(followerId, userId);
+      response.send(message);
     } catch (error) {
       next(error);
     }

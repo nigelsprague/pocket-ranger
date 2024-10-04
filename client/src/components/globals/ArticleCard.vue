@@ -13,11 +13,14 @@ defineProps({ article: { type: Article, required: true } })
         <div class="d-flex">
           <div class="col-4">
             <img class="img-fluid" :src="article.listingImage.url" :alt="article.listingImage.altText">
+            <i  v-if="!article.listingImage.url">No Article Image</i>
           </div>
           <div class="col-8">
             <div class="px-3">
               <h5>{{ article.title }}</h5>
               <p class="m-0">{{ article.body }}</p>
+              <br/>
+              <a v-if="article.url" :href="article.url" class="btn bg-info">Read More</a>
             </div>
           </div>
         </div>

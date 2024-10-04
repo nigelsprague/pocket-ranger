@@ -18,6 +18,8 @@ defineProps({ toDo: { type: ThingsToDo, required: true } })
             <div class="px-3">
               <h5>{{ toDo.title }}</h5>
               <p class="m-0">{{ toDo.shortDescription }}</p>
+              <br>
+              <a v-if="toDo.url" :href="toDo.url" class="btn bg-info">More Details</a>
             </div>
           </div>
         </div>

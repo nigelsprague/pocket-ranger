@@ -17,6 +17,8 @@ export const AppState = reactive({
   thingsToDo: [],
   /**@type {import('./models/Alert.js').Alert[]} */
   alerts: [],
+  /**@type {import('./models/Article.js').Article[]} */
+  articles: [],
   /** @type {import('./models/Follower.js').Follower[]} */
   followers: [],
   mapMarkers: [],

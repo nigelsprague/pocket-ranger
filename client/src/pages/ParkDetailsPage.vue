@@ -1,11 +1,13 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import AlertCard from '@/components/globals/AlertCard.vue';
+import ArticleCard from '@/components/globals/ArticleCard.vue';
 import FeeCard from '@/components/globals/FeeCard.vue';
 import HereMap from '@/components/globals/HereMap.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/Modalwrapper.vue';
 import { alertsService } from '@/services/AlertsService.js';
+import { articlesService } from '@/services/ArticlesService.js';
 import { followersService } from '@/services/FollowersService.js';
 import { parksService } from '@/services/ParksService.js';
 import { toDoService } from '@/services/ToDoService.js';
@@ -19,6 +21,7 @@ const account = computed(() => AppState.account)
 const park = computed(() => AppState.activePark)
 const thingsToDo = computed(() => AppState.thingsToDo)
 const alerts = computed(() => AppState.alerts)
+const articles = computed(() => AppState.articles)
 const fees = computed(() => AppState.activePark.entranceFees)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
@@ -52,6 +55,7 @@ onMounted(() => {
   getFollowersByCode()
   getToDoByCode()
   getAlertByCode()
+  getArticleByCode()
 })
 
 onUnmounted(() => {
@@ -86,6 +90,16 @@ async function getAlertByCode() {
   catch (error) {
     Pop.error(error)
     logger.log(error)
+  }
+}
+
+async function getArticleByCode() {
+  try {
+    await articlesService.getArticleByCode(route.params.parkCode)
+  }
+  catch (error) {
+    Pop.error(error)
+    logger.log
   }
 }
 
@@ -155,9 +169,12 @@ async function deleteFollower() {
     <div class="container">
       <section class="row">
         <div class="col-12">
-          <button @click="activeContainer = 'parkInformation'" class="btn">Entry Information</button> |
-          <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> |
-          <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
+          <div class="text-center">
+            <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> |
+            <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
+            <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
+            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
+          </div>
         </div>
       </section>
     </div>
@@ -179,6 +196,20 @@ async function deleteFollower() {
                   <div>{{ fee.title }} : ${{ fee.cost }}</div>
                 </button>
               </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div v-if="activeContainer == 'articles'">
+      <div v-if="articles">
+        <div class="container">
+          <section class="row">
+            <div class="col-12">
+              <h3>Articles</h3>
+            </div>
+            <div v-for="article in articles" :key="article.id">
+              <ArticleCard :article />
             </div>
           </section>
         </div>

@@ -1,7 +1,7 @@
 <script setup>
-import { ThingsToDo } from '@/models/ThingsToDo.js';
+import { Article } from '@/models/Article.js';
 
-defineProps({ toDo: { type: ThingsToDo, required: true } })
+defineProps({ article: { type: Article, required: true } })
 
 </script>
 
@@ -12,14 +12,15 @@ defineProps({ toDo: { type: ThingsToDo, required: true } })
       <div class="card p-3 my-1">
         <div class="d-flex">
           <div class="col-4">
-            <img class="img-fluid" :src="toDo.images[0].url" :alt="toDo.images[0].altText">
+            <img class="img-fluid" :src="article.listingImage.url" :alt="article.listingImage.altText">
+            <i  v-if="!article.listingImage.url">No Article Image</i>
           </div>
           <div class="col-8">
             <div class="px-3">
-              <h5>{{ toDo.title }}</h5>
-              <p class="m-0">{{ toDo.shortDescription }}</p>
-              <br>
-              <a v-if="toDo.url" :href="toDo.url" class="btn bg-info">More Details</a>
+              <h5>{{ article.title }}</h5>
+              <p class="m-0">{{ article.body }}</p>
+              <br/>
+              <a v-if="article.url" :href="article.url" class="btn bg-info">Read More</a>
             </div>
           </div>
         </div>

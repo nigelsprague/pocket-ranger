@@ -20,7 +20,7 @@ class ParksService {
   }
 
   async getAllParks(limit) {
-    if(!limit) {
+    if (!limit) {
       limit = 472;
     }
     const response = await npsAPI.get(`/parks/?limit=${limit}&parkcode=${AppState.parkList}`)

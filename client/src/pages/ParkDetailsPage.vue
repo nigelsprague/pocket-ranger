@@ -11,7 +11,7 @@ import { parksService } from '@/services/ParksService.js';
 import { toDoService } from '@/services/ToDoService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
@@ -24,9 +24,18 @@ const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
 const center = computed(() => {
-  const lat = park.value.latitude
-  const lng = park.value.longitude
+  const lat = park.value?.latitude
+  const lng = park.value?.longitude
   return { lat: lat, lng: lng }
+})
+let markersLoaded = false;
+
+watch(center, () => {
+  if (center.value) {
+    AppState.mapMarkers.push(center.value);
+    console.log(AppState.mapMarkers)
+    markersLoaded = true;
+  }
 })
 
 const alreadyFollowing = computed(() => {
@@ -43,6 +52,11 @@ onMounted(() => {
   getFollowersByCode()
   getToDoByCode()
   getAlertByCode()
+})
+
+onUnmounted(() => {
+  AppState.mapMarkers = [];
+  AppState.activePark = null;
 })
 
 async function getParkByCode() {
@@ -135,7 +149,7 @@ async function deleteFollower() {
         </div>
       </section>
     </div>
-    <div v-if="park">
+    <div v-if="markersLoaded">
       <HereMap :center="center" />
     </div>
     <div class="container">

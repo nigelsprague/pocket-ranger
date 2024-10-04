@@ -1,11 +1,14 @@
 <!-- eslint-disable no-undef -->
 <script setup>
-import { onMounted, ref } from 'vue';
+import { AppState } from '@/AppState.js';
+import { computed, onMounted, ref } from 'vue';
 
 
 const props = defineProps({
   center: { type: Object }
 })
+
+const markers = computed(() => AppState.mapMarkers);
 
 let platform = null;
 const apikey = "KvvHdUFGZY2O9XDAprwpX4vQCzvRds9lzfhwkff-Ux0";
@@ -23,7 +26,7 @@ function initializeHereMap() {
 
   // Instantiate (and display) a map object:
   var map = new H.Map(mapContainer.value, maptypes.vector.normal.map, {
-    zoom: 10,
+    zoom: 12,
     center: props.center
     // center object { lat: 40.730610, lng: -73.935242 }
   });
@@ -36,6 +39,17 @@ function initializeHereMap() {
   // add UI
   H.ui.UI.createDefault(map, maptypes);
   // End rendering the initial map
+
+
+  addMarkersToMap(map)
+}
+
+function addMarkersToMap(map) {
+  for (let i = 0; i < markers.value.length; i++) {
+    let marker = markers.value[i];
+    let newMarker = new H.map.Marker({ lat: marker.lat, lng: marker.lng });
+    map.addObject(newMarker);
+  }
 }
 </script>
 

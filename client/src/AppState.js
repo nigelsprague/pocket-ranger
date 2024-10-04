@@ -19,6 +19,7 @@ export const AppState = reactive({
   alerts: [],
   /** @type {import('./models/Follower.js').Follower[]} */
   followers: [],
+  mapMarkers: [],
   parkList: 'acad,arch,badl,bibe,bisc,blca,brca,cany,care,cave,chis,cong,crla,cuva,dena,deva,drto,ever,jeff,gaar,glac,glba,grca,grsa,grte,grba,grsm,gumo,hale,havo,hosp,indu,isro,jotr,katm,kefj,kova,lacl,lavo,maca,meve,mora,neri,noca,npsa,olym,pefo,pinn,redw,romo,sagu,seki,shen,thro,viis,voya,whsa,wica,wrst,yell,yose,zion'
 })
 

@@ -3,7 +3,8 @@ import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 
 const account = computed(() => AppState.account)
-const parks = computed(() => AppState.parks)
+const favoritedParks = computed(() => AppState.favoritedParks)
+const visitedParks = computed(() => AppState.visitedParks)
 </script>
 
 <template>
@@ -24,19 +25,39 @@ const parks = computed(() => AppState.parks)
           <button class="btn mdi mdi-alert-outline fs-2 text-offwhite p-0 px-1" title="My Park Alerts"></button>
         </div>
       </div>
-      <div class="container">
-        <section class="row align-items-baseline text-forest fs-5">
-          <div class="col-md-5 fw-bold">
-            <span>Favorited Parks</span>
-            <div v-for="park in parks" :key="park.parkCode" class="col-12">
+      <div class="container mt-2">
+        <section class="row align-items-baseline justify-content-between text-forest fs-5">
+          <div class="col-md-4">
+            <h4>Favorited Parks</h4>
+            <div v-for="park in favoritedParks" :key="park.parkCode" class="col-12">
               <ParkCard :park="park" />
             </div>
           </div>
-          <div class="col-md-5 fw-bold">
-            <span>Visited Parks</span>
+          <div class="col-md-4">
+            <h4>Visited Parks</h4>
+            <div v-for="park in visitedParks" :key="park.parkCode" class="col-12">
+              <ParkCard :park="park" />
+            </div>
           </div>
-          <div class="col-md-2">
-            <span class="text-end">Notifications</span>
+          <div class="col-md-3 text-end">
+            <h4>Notifications</h4>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="alerts" checked />
+              <label class="form-check-label" for="alerts">Alerts</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="community" checked />
+              <label class="form-check-label" for="community">Community</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="articles" checked />
+              <label class="form-check-label" for="articles">Articles</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="events" checked />
+              <label class="form-check-label" for="events">Events</label>
+            </div>
+
           </div>
         </section>
       </div>
@@ -50,5 +71,14 @@ const parks = computed(() => AppState.parks)
 <style scoped lang="scss">
 img {
   max-width: 100px;
+}
+
+.form-check-input {
+  background-color: var(--offwhite);
+}
+
+.form-check-input:checked {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
 }
 </style>

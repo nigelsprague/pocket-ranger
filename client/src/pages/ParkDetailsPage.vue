@@ -3,6 +3,7 @@ import { AppState } from '@/AppState.js';
 import FeeCard from '@/components/globals/FeeCard.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/Modalwrapper.vue';
+import { alertsService } from '@/services/AlertsService.js';
 import { parksService } from '@/services/ParksService.js';
 import { toDoService } from '@/services/ToDoService.js';
 import { logger } from '@/utils/Logger.js';
@@ -19,6 +20,7 @@ const activeFee = ref(null)
 onMounted(() => {
   getParkByCode()
   getToDoByCode()
+  getAlertByCode()
 })
 
 async function getParkByCode() {
@@ -36,6 +38,16 @@ async function getToDoByCode() {
     await toDoService.getToDoByCode(route.params.parkCode)
   }
   catch (error) {
+    Pop.error(error)
+    logger.log(error)
+  }
+}
+
+async function getAlertByCode(){
+  try {
+    await alertsService.getAlertByCode(route.params.parkCode)
+  }
+  catch (error){
     Pop.error(error)
     logger.log(error)
   }

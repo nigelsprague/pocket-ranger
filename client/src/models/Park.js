@@ -1,4 +1,11 @@
-import { Fee } from "./Fee.js"
+class Fee {
+  constructor(data) {
+    this.id = data.id
+    this.cost = data.cost
+    this.title = data.title
+    this.description = data.description
+  }
+}
 
 export class Park {
   constructor(data) {

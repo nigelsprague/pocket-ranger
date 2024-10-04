@@ -1,17 +1,20 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import FeeCard from '@/components/globals/FeeCard.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
+import Modalwrapper from '@/components/Modalwrapper.vue';
 import { parksService } from '@/services/ParksService.js';
 import { toDoService } from '@/services/ToDoService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
 const park = computed(() => AppState.activePark)
 const thingsToDo = computed(() => AppState.thingsToDo)
 const fees = computed(() => AppState.activePark.entranceFees)
+const activeFee = ref(null)
 
 onMounted(() => {
   getParkByCode()
@@ -28,7 +31,7 @@ async function getParkByCode() {
   }
 }
 
-async function getToDoByCode(parkCode) {
+async function getToDoByCode() {
   try {
     await toDoService.getToDoByCode(route.params.parkCode)
   }
@@ -66,20 +69,29 @@ async function getToDoByCode(parkCode) {
         </div>
       </section>
     </div>
-    <div v-if="thingsToDo">
+    <div v-if="fees">
       <div class="container">
+        <Modalwrapper id="fee-card">
+          <FeeCard v-if="activeFee" :activeFee />
+        </Modalwrapper>
         <section class="row">
           <div class="col-12">
             <h3>Entry Information</h3>
           </div>
           <div class="col-4">
-            <h5>Entry Fees</h5>
+            <h5>Park Fees</h5>
             <div v-for="fee in fees" :key="fee.id">
-              <p>{{ fee.title }} : ${{ fee.cost }}</p>
-              <p>{{ fee.description }}</p>
+              <button @click="activeFee = fee" data-bs-toggle="modal" data-bs-target="#fee-card"
+                class="btn bg-info p-0 order-0 w-100">
+                <div>{{ fee.title }} : ${{ fee.cost }}</div>
+              </button>
             </div>
           </div>
         </section>
+      </div>
+    </div>
+    <div v-if="thingsToDo">
+      <div class="container">
         <section class="row">
           <div class="col-12">
             <h3>Things To Do</h3>

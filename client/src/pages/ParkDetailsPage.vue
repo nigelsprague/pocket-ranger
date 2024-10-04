@@ -158,7 +158,7 @@ async function deleteFollower() {
           <div class="text-center">
             <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> |
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
-            <button @click="activeContainer = 'parkInformation'" class="btn">Entry Information</button> |
+            <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
             <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
           </div>
         </div>

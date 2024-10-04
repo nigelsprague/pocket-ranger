@@ -12,7 +12,7 @@ export const npsAPI = Axios.create({
   params: {
     api_key: '0D0r4dzq02dhNbi87kJxZdNuZfi7xskb7zTvZkdo'
   },
-  timeout: 4000
+  timeout: 8000
 })
 
 api.interceptors.request.use(config => config, handleAxiosError)

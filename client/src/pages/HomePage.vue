@@ -7,7 +7,6 @@ import Pop from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
 
 const parks = computed(() => AppState.parks)
-// const parkCodeList = {}
 
 onMounted(() => {
   getAllParks()

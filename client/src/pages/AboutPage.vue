@@ -5,7 +5,7 @@
 <template>
   <!-- + Readme/About Page of app problem statement, concept, description, contributors, and languages/tools used -->
   <div class="container-fluid p-0">
-    <div class="sectional light">
+    <div class="sectional light justify-content-evenly">
       <div>
         <img src="../assets/img/pr-logo-alt.png" alt="alt pocket ranger logo" class="sectional-img">
       </div>
@@ -17,7 +17,7 @@
           one spot and allows the user to keep up-to-date on alerts and events in selected national parks.</p>
       </div>
     </div>
-    <div class="sectional justify-content-end">
+    <div class="sectional justify-content-evenly">
       <div class="w-50 text-end">
         <h2>Concepts and Tools Used</h2>
         <p>To do this, we wanted to retrieve and display the relevant data from the National Parks Service API using

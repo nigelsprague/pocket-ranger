@@ -1,16 +1,30 @@
 <script setup>
 import { AppState } from '@/AppState';
 import { parksService } from '@/services/ParksService';
-import { logger } from '@/utils/Logger';
-import Pop from '@/utils/Pop';
-import { computed, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 onUnmounted(() => {
   parksService.clearSearch()
 })
 
+onMounted(() => {
+  getAllParks()
+})
+
 const editableQuery = ref('')
 const parks = computed(() => AppState.parks)
+
+async function getAllParks() {
+  try {
+    await parksService.getAllParks(20)
+  }
+  catch (error) {
+    Pop.error(error)
+    logger.log(error)
+  }
+}
 
 async function searchParks() {
   try {

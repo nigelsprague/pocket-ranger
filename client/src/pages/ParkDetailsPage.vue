@@ -11,6 +11,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 const park = computed(() => AppState.activePark)
 const thingsToDo = computed(() => AppState.thingsToDo)
+const fees = computed(() => AppState.activePark.entranceFees)
 
 onMounted(() => {
   getParkByCode()
@@ -27,11 +28,11 @@ async function getParkByCode() {
   }
 }
 
-async function getToDoByCode(parkCode){
+async function getToDoByCode(parkCode) {
   try {
     await toDoService.getToDoByCode(route.params.parkCode)
   }
-  catch (error){
+  catch (error) {
     Pop.error(error)
     logger.log(error)
   }
@@ -50,7 +51,7 @@ async function getToDoByCode(parkCode){
               <h3>{{ park.fullName }}</h3>
               <span>{{ park.address.line1 }}</span>
               <span>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</span>
-              <br/>
+              <br />
               <p>{{ park.description }}</p>
             </div>
           </div>
@@ -69,10 +70,22 @@ async function getToDoByCode(parkCode){
       <div class="container">
         <section class="row">
           <div class="col-12">
+            <h3>Entry Information</h3>
+          </div>
+          <div class="col-4">
+            <h5>Entry Fees</h5>
+            <div v-for="fee in fees" :key="fee.id">
+              <p>{{ fee.title }} : ${{ fee.cost }}</p>
+              <p>{{ fee.description }}</p>
+            </div>
+          </div>
+        </section>
+        <section class="row">
+          <div class="col-12">
             <h3>Things To Do</h3>
           </div>
           <div v-for="toDo in thingsToDo" :key="toDo.id" class="">
-            <ToDoCard :toDo="toDo"/>
+            <ToDoCard :toDo="toDo" />
           </div>
         </section>
       </div>
@@ -82,17 +95,19 @@ async function getToDoByCode(parkCode){
 
 
 <style lang="scss" scoped>
-.bg-hero{
+.bg-hero {
   height: 87vh;
   background-size: cover;
   background-position: center;
 }
-.card{
+
+.card {
   background-color: rgba(0, 0, 0, 0.334);
   color: white;
   border: none;
 }
-.favorite-btn{
+
+.favorite-btn {
   background-color: rgba(0, 0, 0, 0.334);
   color: white;
 }

@@ -1,4 +1,4 @@
-class ArticleImage {
+export class ArticleImage {
   constructor(data) {
     this.url = data.url
     this.credit = data.credit
@@ -14,7 +14,7 @@ export class Article {
     this.url = data.url
     this.title = data.title
     this.body = data.listingDescription
-    this.listingImage = data.listingImage.map(articleImage => new ArticleImage(articleImage))
+    this.listingImage = new ArticleImage(data.listingImage)
   }
 }
 

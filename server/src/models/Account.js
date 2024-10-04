@@ -8,7 +8,7 @@ export const AccountSchema = new Schema(
     name: { type: String, required: true },
     picture: { type: String },
     // NOTE If you wish to add additional properties do so here
-    phone: { type: Number, minlength: 10, maxlength: 10, unique: true }
+    phone: { type: Number, min: 10, max: 10 }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

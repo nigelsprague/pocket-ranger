@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import AlertCard from '@/components/globals/AlertCard.vue';
 import FeeCard from '@/components/globals/FeeCard.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/Modalwrapper.vue';
@@ -14,6 +15,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 const park = computed(() => AppState.activePark)
 const thingsToDo = computed(() => AppState.thingsToDo)
+const alerts = computed(() => AppState.alerts)
 const fees = computed(() => AppState.activePark.entranceFees)
 const activeFee = ref(null)
 
@@ -43,11 +45,11 @@ async function getToDoByCode() {
   }
 }
 
-async function getAlertByCode(){
+async function getAlertByCode() {
   try {
     await alertsService.getAlertByCode(route.params.parkCode)
   }
-  catch (error){
+  catch (error) {
     Pop.error(error)
     logger.log(error)
   }
@@ -102,14 +104,26 @@ async function getAlertByCode(){
         </section>
       </div>
     </div>
+    <div v-if="alerts">
+      <div class="container">
+        <section class="row">
+          <div class="col-12">
+            <h3>Alerts</h3>
+          </div>
+          <div v-for="alert in alerts" :key="alert.id">
+            <AlertCard :alert />
+          </div>
+        </section>
+      </div>
+    </div>
     <div v-if="thingsToDo">
       <div class="container">
         <section class="row">
           <div class="col-12">
             <h3>Things To Do</h3>
           </div>
-          <div v-for="toDo in thingsToDo" :key="toDo.id" class="">
-            <ToDoCard :toDo="toDo" />
+          <div v-for="toDo in thingsToDo" :key="toDo.id">
+            <ToDoCard :toDo />
           </div>
         </section>
       </div>

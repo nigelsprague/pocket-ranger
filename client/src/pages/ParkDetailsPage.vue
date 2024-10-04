@@ -2,7 +2,7 @@
 import { AppState } from '@/AppState.js';
 import FeeCard from '@/components/globals/FeeCard.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
-import Modalwrapper from '@/components/Modalwrapper.vue';
+import Modalwrapper from '@/components/ModalWrapper.vue';
 import { alertsService } from '@/services/AlertsService.js';
 import { followersService } from '@/services/FollowersService.js';
 import { parksService } from '@/services/ParksService.js';

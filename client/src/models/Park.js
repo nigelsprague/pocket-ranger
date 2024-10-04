@@ -1,4 +1,11 @@
-import { Fee } from "./Fee.js"
+export class Fee {
+  constructor(data) {
+    this.id = data.id
+    this.cost = data.cost
+    this.title = data.title
+    this.description = data.description
+  }
+}
 
 export class Park {
   constructor(data) {
@@ -8,13 +15,14 @@ export class Park {
     this.description = data.description
     this.images = data.images
     this.parkCode = data.parkCode
-    this.entranceFees = data.entranceFees.map(fee => new Fee(fee))
+    this.entranceFees = data.entranceFees.map(fee => new Fee(fee)) //NOTE - intelisense for an array of objects
     this.operatingHours = data.operatingHours
     this.weather = data.weather
     this.states = data.states
     this.designation = data.designation
     this.contacts = data.contacts
     this.activities = data.activities
-    this.latLong = data.latLong
+    this.latitude = data.latitude
+    this.longitude = data.longitude
   }
 }

@@ -5,7 +5,7 @@ import ArticleCard from '@/components/globals/ArticleCard.vue';
 import FeeCard from '@/components/globals/FeeCard.vue';
 import HereMap from '@/components/globals/HereMap.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
-import Modalwrapper from '@/components/Modalwrapper.vue';
+import Modalwrapper from '@/components/ModalWrapper.vue';
 import { alertsService } from '@/services/AlertsService.js';
 import { articlesService } from '@/services/ArticlesService.js';
 import { followersService } from '@/services/FollowersService.js';

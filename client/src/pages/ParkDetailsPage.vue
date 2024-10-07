@@ -120,7 +120,7 @@ async function createFollower() {
     await followersService.createFollower(route.params.parkCode);
   }
   catch (error) {
-    Pop.error(error);
+    Pop.error('Log in to follow park', error)
   }
 }
 
@@ -140,17 +140,40 @@ async function deleteFollower() {
 <template>
   <div v-if="park">
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
-      <section class="row justify-content-between">
-        <div class="col-12 col-md-5 align-content-md-center">
+      <section class="row">
+        <div class="col-12 col-md-6 align-content-md-center">
+
+
           <div class="card mt-3 m-md-5 p-3">
-            <h3>{{ park.fullName }}</h3>
-            <span>{{ park.address.line1 }}</span>
-            <span>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</span>
-            <br />
-            <p>{{ park.description }}</p>
+            <div class="container-fluid">
+              <section class="row">
+                <div class="col-9 p-0 d-flex">
+                  <h3 class=" align-content-center">{{ park.fullName }}</h3>
+
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+                  <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn2">
+                    <i class="mdi mdi-heart-outline fs-4"></i>
+                    <p class="m-0">Follow</p>
+                  </button>
+                  <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn2">
+                    <i class="mdi mdi-heart fs-4"></i>
+                    <p class="m-0">Unfollow</p>
+                  </button>
+                </div>
+                <div class="col-12 p-0">
+                  <span>{{ park.address.line1 }}</span>
+                  <br>
+                  <p>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</p>
+
+                  <p>{{ park.description }}</p>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center">
+
+        <!-- <div class="col-12 col-md-2 d-flex justify-content-center">
           <div class="m-md-5">
             <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
               <i class="mdi mdi-heart-outline fs-4"></i>
@@ -161,7 +184,7 @@ async function deleteFollower() {
               <p class="m-0">Unfollow</p>
             </button>
           </div>
-        </div>
+        </div> -->
       </section>
     </div>
     <div v-if="markersLoaded">
@@ -210,7 +233,7 @@ async function deleteFollower() {
 
     <!-- // SECTION - PARK INFORMATION -->
     <div v-if="activeContainer == null || activeContainer == 'parkInformation'">
-      <div v-if="fees && fees != []">
+      <div v-if="fees">
         <div class="container">
           <Modalwrapper id="fee-card">
             <FeeCard v-if="activeFee" :activeFee />
@@ -219,6 +242,7 @@ async function deleteFollower() {
             <div class="col-12">
               <h3>Park Information</h3>
               <p v-if="operatingHours[0].description">{{ operatingHours[0].description }}</p>
+              <br>
               <h5>Weather</h5>
               <p v-if="park.weather" class="box">{{ park.weather }}</p>
             </div>
@@ -330,13 +354,21 @@ async function deleteFollower() {
 }
 
 .card {
-  background-color: rgba(0, 0, 0, 0.334);
+  background-color: rgba(0, 0, 0, 0.542);
   color: white;
   border: none;
+  text-shadow: rgb(0, 0, 0) 1px 0 2px;
 }
 
 .follow-btn {
-  background-color: rgba(0, 0, 0, 0.334);
+  background-color: rgba(0, 0, 0, 0.542);
+  text-shadow: rgb(0, 0, 0) 1px 0 2px;
+  color: white;
+}
+
+.follow-btn2 {
+  // background-color: rgba(0, 0, 0, 0.542);
+  text-shadow: rgb(0, 0, 0) 1px 0 2px;
   color: white;
 }
 
@@ -353,27 +385,22 @@ async function deleteFollower() {
 
 .masonry-layout {
   column-count: 4;
-  /* Adjust the number of columns based on your design */
   column-gap: 1rem;
-  /* Space between columns */
   width: 100%;
-  /* Full width of the container */
 }
 
 .masonry-item {
   break-inside: avoid;
-  /* Prevent items from splitting across columns */
   margin-bottom: 1rem;
-  /* Space between items */
-  // background-color: #f2f2f2;
-  /* Example background color */
-  // padding: 1rem;
-  /* Padding inside items */
 }
 
 @media (max-width: 768px) {
   .masonry-layout {
     column-count: 2;
+  }
+
+  .bg-hero {
+    height: 80vh;
   }
 }
 
@@ -381,17 +408,25 @@ async function deleteFollower() {
   .masonry-layout {
     column-count: 1;
   }
+
+  .bg-hero {
+    height: 80vh;
+  }
+
+  .follow-btn {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 142px;
+    right: 12px;
+  }
 }
 </style>
+
+
 
 <style>
 #fee-card .modal-body {
   padding: 8px;
-  /* background-color: #FDFBF1;
-  border-color: #2C4A1E;
-  border-style: solid; */
-  /* border-width: 4px; */
-  /* border-radius: 5%; */
 }
 
 #fee-card .modal-content {

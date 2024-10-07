@@ -1,11 +1,12 @@
 <!-- eslint-disable no-undef -->
 <script setup>
 import { AppState } from '@/AppState.js';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 
 const props = defineProps({
-  center: { type: Object }
+  center: { type: Object, required: true },
+  zoom: { type: Number }
 })
 
 const markers = computed(() => AppState.mapMarkers);
@@ -25,10 +26,16 @@ function initializeHereMap() {
   // Obtain the default map types from the platform object
   var maptypes = platform.createDefaultLayers();
 
+  let zoom;
+  if (!props.zoom) {
+    zoom = 12;
+  } else {
+    zoom = props.zoom;
+  }
   // Instantiate (and display) a map object:
   // @ts-ignore
   var map = new H.Map(mapContainer.value, maptypes.vector.normal.map, {
-    zoom: 12,
+    zoom: zoom,
     center: props.center
     // center object { lat: 40.730610, lng: -73.935242 }
   });
@@ -44,6 +51,9 @@ function initializeHereMap() {
   H.ui.UI.createDefault(map, maptypes);
   // End rendering the initial map
 
+  watch(AppState.mapMarkers, () => {
+    addMarkersToMap(map)
+  })
 
   addMarkersToMap(map)
 }

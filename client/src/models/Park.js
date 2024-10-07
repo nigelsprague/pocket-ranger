@@ -31,18 +31,28 @@ class OperatingHours {
   }
 }
 
+class Image {
+  constructor(data) {
+    this.credit = data.credit
+    this.title = data.title
+    this.caption = data.caption
+    this.url = data.url
+  }
+}
+
 export class Park {
   constructor(data) {
     this.id = data.id
     this.address = data.addresses[0]
     this.fullName = data.fullName
     this.description = data.description
-    this.images = data.images
+    /**@type {Image[]} */
+    this.images = data.images.map(image => new Image(image))
     this.parkCode = data.parkCode
     this.entranceFees = data.entranceFees.map(fee => new Fee(fee)) //NOTE - intelisense for an array of objects
     /**@type {OperatingHours[]} */
     this.operatingHours = data.operatingHours.map(hours => new OperatingHours(hours))
-    this.weather = data.weather
+    this.weather = data.weatherInfo
     this.states = data.states
     this.designation = data.designation
     /** @type {PhoneNumber[]}*/
@@ -57,7 +67,7 @@ export class Park {
 
 
 
-const data = {
+const parkData = {
   "id": "36240051-018E-4915-B6EA-3F1A7F24FBE4",
   "url": "https://www.nps.gov/arch/index.htm",
   "fullName": "Arches National Park",
@@ -319,7 +329,7 @@ const data = {
   "relevanceScore": 1
 }
 
-const data2 = {
+const hoursData = {
   "operatingHours": [
     {
       "exceptions": [],
@@ -334,4 +344,12 @@ const data2 = {
         "saturday": "All Day"
       },
     }]
+}
+
+const imageData = {
+  "credit": "NPS/Veronica Verdin",
+  "title": "An afternoon at Delicate Arch",
+  "altText": "A crowd of people sit and watch the sunset at delicate arch.",
+  "caption": "Exploration awaits at Arches",
+  "url": "https://www.nps.gov/common/uploads/structured_data/473F5463-F0D2-261D-CEF5FCB39363590B.jpg"
 }

@@ -22,8 +22,9 @@ defineProps({ activeFee: { type: Fee, required: true } })
 
 <style lang="scss" scoped>
 .card-body{
-  background-color: white;
   color: black;
   text-align: center;
+  background-color: #FDFBF1;
+  border-radius: 3px;
 }
 </style>

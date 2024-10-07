@@ -26,6 +26,7 @@ const fees = computed(() => AppState.activePark?.entranceFees)
 const phoneNumbers = computed(() => AppState.activePark?.phoneNumbers)
 const emails = computed(() => AppState.activePark?.emails)
 const operatingHours = computed(() => AppState.activePark?.operatingHours)
+const images = computed(() => AppState.activePark?.images)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
@@ -119,7 +120,7 @@ async function createFollower() {
     await followersService.createFollower(route.params.parkCode);
   }
   catch (error) {
-    Pop.error(error);
+    Pop.error('Log in to follow park', error)
   }
 }
 
@@ -139,17 +140,40 @@ async function deleteFollower() {
 <template>
   <div v-if="park">
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
-      <section class="row justify-content-between">
-        <div class="col-12 col-md-5 align-content-md-center">
+      <section class="row">
+        <div class="col-12 col-md-6 align-content-md-center">
+
+
           <div class="card mt-3 m-md-5 p-3">
-            <h3>{{ park.fullName }}</h3>
-            <span>{{ park.address.line1 }}</span>
-            <span>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</span>
-            <br />
-            <p>{{ park.description }}</p>
+            <div class="container-fluid">
+              <section class="row">
+                <div class="col-9 p-0 d-flex">
+                  <h3 class=" align-content-center">{{ park.fullName }}</h3>
+
+                </div>
+                <div class="col-3 d-flex justify-content-center">
+                  <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn2">
+                    <i class="mdi mdi-heart-outline fs-4"></i>
+                    <p class="m-0">Follow</p>
+                  </button>
+                  <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn2">
+                    <i class="mdi mdi-heart fs-4"></i>
+                    <p class="m-0">Unfollow</p>
+                  </button>
+                </div>
+                <div class="col-12 p-0">
+                  <span>{{ park.address.line1 }}</span>
+                  <br>
+                  <p>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</p>
+                  
+                  <p>{{ park.description }}</p>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center">
+
+        <!-- <div class="col-12 col-md-2 d-flex justify-content-center">
           <div class="m-md-5">
             <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
               <i class="mdi mdi-heart-outline fs-4"></i>
@@ -160,7 +184,7 @@ async function deleteFollower() {
               <p class="m-0">Unfollow</p>
             </button>
           </div>
-        </div>
+        </div> -->
       </section>
     </div>
     <div v-if="markersLoaded">
@@ -172,47 +196,89 @@ async function deleteFollower() {
           <div class="text-center">
             <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> |
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
+            <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
             <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
             <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
           </div>
         </div>
       </section>
     </div>
+    <br>
+
+    <!-- // SECTION - GALLERY -->
+    <div v-if="activeContainer == 'gallery'">
+      <div v-if="images">
+        <div class="container">
+          <section class="row justify-content-center">
+            <div class="col-12">
+              <h3>Park Gallery</h3>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="masonry-layout">
+                  <div class="masonry-item" v-for="image in images" :key="image.url">
+                    <a :href="image.url">
+                      <img :src="image.url + '?width=500'" :alt="image.title" class="img-fluid shadow"
+                        title="Click to see full-size image!">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <!-- // SECTION - PARK INFORMATION -->
     <div v-if="activeContainer == null || activeContainer == 'parkInformation'">
       <div v-if="fees">
         <div class="container">
           <Modalwrapper id="fee-card">
             <FeeCard v-if="activeFee" :activeFee />
           </Modalwrapper>
-          <section class="row">
+          <section class="row justify-content-center">
             <div class="col-12">
               <h3>Park Information</h3>
-              <p>{{ operatingHours[0].description }}</p>
+              <p v-if="operatingHours[0].description">{{ operatingHours[0].description }}</p>
+              <br>
+              <h5>Weather</h5>
+              <p v-if="park.weather" class="box">{{ park.weather }}</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-12">
+              <br>
               <h5>Park Fees</h5>
-              <div v-for="fee in fees" :key="fee.id">
-                <button @click="activeFee = fee" data-bs-toggle="modal" data-bs-target="#fee-card"
-                  class="btn bg-info p-0 order-0 w-100">
-                  <div>{{ fee.title }} : ${{ fee.cost }}</div>
-                </button>
+            </div>
+            <div v-for="fee in fees" :key="fee.id" class="col-11 col-md-2 mb-3 mx-3 m-md-3 btn fee-btn">
+              <div @click="activeFee = fee" data-bs-toggle="modal" data-bs-target="#fee-card">
+                <div>{{ fee.title }}</div>
+                <div>${{ fee.cost }}</div>
               </div>
             </div>
-            <div class="col-md-4">
+          </section>
+          <section class="row">
+            <div class="col-md-9">
+              <br>
               <h5>Park Operating Hours</h5>
-              <div v-for="hours in operatingHours" :key="hours.id">
-                  <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
-                <div>Sunday: {{ hours.standardHours.sunday }}</div>
-                <div>Monday: {{ hours.standardHours.monday }}</div>
-                <div>Tuesday: {{ hours.standardHours.tuesday }}</div>
-                <div>Wednesday: {{ hours.standardHours.wednesday }}</div>
-                <div>Thursday: {{ hours.standardHours.thursday }}</div>
-                <div>Friday: {{ hours.standardHours.friday }}</div>
-                <div>Saturday: {{ hours.standardHours.saturday }}</div>
-                <br>
+              <div class="container-fluid">
+                <section class="row">
+                  <div v-for="hours in operatingHours" :key="hours.id" class="col-6 col-md-3">
+                    <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
+                    <div>Sunday: {{ hours.standardHours.sunday }}</div>
+                    <div>Monday: {{ hours.standardHours.monday }}</div>
+                    <div>Tuesday: {{ hours.standardHours.tuesday }}</div>
+                    <div>Wednesday: {{ hours.standardHours.wednesday }}</div>
+                    <div>Thursday: {{ hours.standardHours.thursday }}</div>
+                    <div>Friday: {{ hours.standardHours.friday }}</div>
+                    <div>Saturday: {{ hours.standardHours.saturday }}</div>
+                    <br>
+                  </div>
+                </section>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+              <br>
               <h5>Park Contact Information</h5>
               <div v-for="phoneNumber in phoneNumbers" :key="phoneNumber.phoneNumber">
                 <p>Phone Number: {{ phoneNumber.phoneNumber }}</p>
@@ -225,6 +291,8 @@ async function deleteFollower() {
         </div>
       </div>
     </div>
+
+    <!-- // SECTION - ARTICLES -->
     <div v-if="activeContainer == 'articles'">
       <div v-if="articles">
         <div class="container">
@@ -238,7 +306,10 @@ async function deleteFollower() {
           </section>
         </div>
       </div>
+      <br>
     </div>
+
+    <!-- // SECTION - PARK ALERTS -->
     <div v-if="activeContainer == 'parkAlerts'">
       <div v-if="alerts">
         <div class="container">
@@ -252,7 +323,10 @@ async function deleteFollower() {
           </section>
         </div>
       </div>
+      <br>
     </div>
+
+    <!-- // SECTION - THINGS TO DO -->
     <div v-if="activeContainer == 'thingsToDo'">
       <div v-if="thingsToDo">
         <div class="container">
@@ -266,6 +340,7 @@ async function deleteFollower() {
           </section>
         </div>
       </div>
+      <br>
     </div>
   </div>
 </template>
@@ -279,13 +354,82 @@ async function deleteFollower() {
 }
 
 .card {
-  background-color: rgba(0, 0, 0, 0.334);
+  background-color: rgba(0, 0, 0, 0.542);
   color: white;
   border: none;
+  text-shadow: rgb(0, 0, 0) 1px 0 2px;
 }
 
 .follow-btn {
-  background-color: rgba(0, 0, 0, 0.334);
+  background-color: rgba(0, 0, 0, 0.542);
+  text-shadow: rgb(0, 0, 0) 1px 0 2px;
   color: white;
+}
+
+.follow-btn2 {
+  // background-color: rgba(0, 0, 0, 0.542);
+  text-shadow: rgb(0, 0, 0) 1px 0 2px;
+  color: white;
+}
+
+.box {
+  overflow-wrap: break-word;
+}
+
+.fee-btn {
+  background-color: #FDFBF1;
+  border-color: #2C4A1E;
+  border-style: solid;
+  border-width: 4px;
+}
+
+.masonry-layout {
+  column-count: 4;
+  column-gap: 1rem;
+  width: 100%;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .masonry-layout {
+    column-count: 2;
+  }
+
+  .bg-hero {
+    height: 80vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-layout {
+    column-count: 1;
+  }
+
+  .bg-hero {
+    height: 80vh;
+  }
+
+  .follow-btn {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 142px;
+    right: 12px;
+  }
+}
+</style>
+
+
+
+<style>
+#fee-card .modal-body {
+  padding: 8px;
+}
+
+#fee-card .modal-content {
+  background-color: #2C4A1E;
 }
 </style>

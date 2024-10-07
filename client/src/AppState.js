@@ -11,6 +11,8 @@ export const AppState = reactive({
   favoritedParks: [],
   visitedParks: [],
   parkQuery: '',
+  currentPage: 0,
+  totalPages: 0,
   /**@type {import('./models/Park.js').Park} */
   activePark: null,
   /**@type {import('./models/ThingsToDo.js').ThingsToDo[]} */

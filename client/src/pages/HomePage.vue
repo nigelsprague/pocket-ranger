@@ -7,6 +7,8 @@ import Pop from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
 
 const parks = computed(() => AppState.parks)
+const currentPage = computed(() => AppState.currentPage)
+const totalPages = computed(() => AppState.totalPages)
 
 onMounted(() => {
   getAllParks()
@@ -21,6 +23,17 @@ async function getAllParks() {
     logger.log(error)
   }
 }
+
+async function changePage(pageNumber){
+  try {
+    await parksService.changeParksPage(pageNumber, 15)
+    logger.log('Going to page', pageNumber)
+}
+catch (error){
+  Pop.error(error)
+}
+}
+
 </script>
 
 <template>
@@ -41,6 +54,13 @@ async function getAllParks() {
     <section class="row g-3 mb-3 p-5">
       <div v-for="park in parks" :key="park.parkCode" class="col-12 col-md-4">
         <ParkCard :park="park" />
+      </div>
+      <div class="col-12">
+        <div class="d-flex gap-3 align-items-center my-3">
+          <button @click="changePage(currentPage -1)" class="btn btn-outline-dark">Previous</button>
+          <span class="fs-f"> Page {{ currentPage }} of {{ totalPages }}</span>
+          <button @click="changePage(currentPage +1)" class="btn btn-outline-dark">Next</button>
+        </div>
       </div>
     </section>
   </div>

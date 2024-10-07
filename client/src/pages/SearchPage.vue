@@ -19,7 +19,7 @@ const parks = computed(() => AppState.parks)
 
 async function getAllParks() {
   try {
-    await parksService.getAllParks(20)
+    await parksService.getAllParks(62)
   }
   catch (error) {
     Pop.error(error)

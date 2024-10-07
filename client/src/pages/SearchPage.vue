@@ -4,6 +4,7 @@ import { parksService } from '@/services/ParksService';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
+import HereMap from '@/components/globals/HereMap.vue';
 
 onUnmounted(() => {
   parksService.clearSearch()
@@ -46,6 +47,7 @@ async function searchParks() {
           placeholder="Search for...">
         <button class="btn bg-secondary ms-2"><span class="mdi mdi-magnify fs-3 text-cream"></span></button>
       </form>
+      <HereMap />
     </section>
     <section class="row">
       <section class="row g-3 m-0 mb-3">

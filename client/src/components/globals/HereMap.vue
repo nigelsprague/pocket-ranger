@@ -20,6 +20,7 @@ onMounted(() => {
 })
 
 function initializeHereMap() {
+  // @ts-ignore
   platform = new window.H.service.Platform({ apikey: apikey })
 
   // Obtain the default map types from the platform object
@@ -32,6 +33,7 @@ function initializeHereMap() {
     zoom = props.zoom;
   }
   // Instantiate (and display) a map object:
+  // @ts-ignore
   var map = new H.Map(mapContainer.value, maptypes.vector.normal.map, {
     zoom: zoom,
     center: props.center
@@ -41,9 +43,11 @@ function initializeHereMap() {
   addEventListener("resize", () => map.getViewPort().resize());
 
   // add behavior control
+  // @ts-ignore
   new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
   // add UI
+  // @ts-ignore
   H.ui.UI.createDefault(map, maptypes);
   // End rendering the initial map
 
@@ -57,6 +61,7 @@ function initializeHereMap() {
 function addMarkersToMap(map) {
   for (let i = 0; i < markers.value.length; i++) {
     let marker = markers.value[i];
+    // @ts-ignore
     let newMarker = new H.map.Marker({ lat: marker.lat, lng: marker.lng });
     map.addObject(newMarker);
   }

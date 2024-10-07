@@ -40,6 +40,14 @@
             <div>
               <h4>Autumn Page</h4>
               <p>Bio here</p>
+              <h2>
+                <a href="https://github.com/seasonofleaves">
+                  <i class="mdi mdi-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/autumneckley/">
+                  <i class="mdi mdi-linkedin"></i>
+                </a>
+              </h2>
             </div>
           </div>
         </div>
@@ -49,6 +57,14 @@
           <div>
             <h4>Matthew Marchal</h4>
             <p>Bio here</p>
+            <h2>
+              <a href="https://github.com/santyclause">
+                <i class="mdi mdi-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/matthewmarchal/">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </h2>
           </div>
           <div>
             <img src="" alt="">
@@ -63,6 +79,14 @@
           <div>
             <h4>Nigel Sprague</h4>
             <p>Bio here</p>
+            <h2>
+              <a href="https://github.com/nigelsprague">
+                <i class="mdi mdi-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/nigelsprague/">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </h2>
           </div>
         </div>
       </div>

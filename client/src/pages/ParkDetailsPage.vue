@@ -25,6 +25,7 @@ const articles = computed(() => AppState.articles)
 const fees = computed(() => AppState.activePark?.entranceFees)
 const phoneNumbers = computed(() => AppState.activePark?.phoneNumbers)
 const emails = computed(() => AppState.activePark?.emails)
+const operatingHours = computed(() => AppState.activePark?.operatingHours)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
@@ -138,28 +139,26 @@ async function deleteFollower() {
 <template>
   <div v-if="park">
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
-      <section class="row">
-        <div class="align-content-center justify-content-between d-flex">
-          <div class="col-md-5">
-            <div class="card m-5 p-3">
+      <section class="row justify-content-between">
+        <div class="col-12 col-md-5 align-content-md-center">
+            <div class="card mt-3 m-md-5 p-3">
               <h3>{{ park.fullName }}</h3>
               <span>{{ park.address.line1 }}</span>
               <span>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</span>
               <br />
               <p>{{ park.description }}</p>
             </div>
-          </div>
-          <div class="m-5">
-            <div class="col-md-2">
-              <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
-                <i class="mdi mdi-heart-outline fs-4"></i>
-                <p class="m-0">Follow</p>
-              </button>
-              <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
-                <i class="mdi mdi-heart fs-4"></i>
-                <p class="m-0">Unfollow</p>
-              </button>
-            </div>
+        </div>
+        <div class="col-12 col-md-2 d-flex justify-content-center">
+          <div class="m-md-5">
+            <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
+              <i class="mdi mdi-heart-outline fs-4"></i>
+              <p class="m-0">Follow</p>
+            </button>
+            <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
+              <i class="mdi mdi-heart fs-4"></i>
+              <p class="m-0">Unfollow</p>
+            </button>
           </div>
         </div>
       </section>
@@ -179,7 +178,7 @@ async function deleteFollower() {
         </div>
       </section>
     </div>
-    <div v-if="activeContainer == 'parkInformation'">
+    <div v-if="activeContainer == null || activeContainer == 'parkInformation'">
       <div v-if="fees">
         <div class="container">
           <Modalwrapper id="fee-card">
@@ -188,8 +187,9 @@ async function deleteFollower() {
           <section class="row">
             <div class="col-12">
               <h3>Park Information</h3>
+              <p>{{ operatingHours[0].description }}</p>
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               <h5>Park Fees</h5>
               <div v-for="fee in fees" :key="fee.id">
                 <button @click="activeFee = fee" data-bs-toggle="modal" data-bs-target="#fee-card"
@@ -198,7 +198,20 @@ async function deleteFollower() {
                 </button>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
+              <h5>Park Operating Hours</h5>
+              <div v-for="hours in operatingHours" :key="hours.id">
+                <p>Operating Hours :</p>
+                <div>Sunday: {{ hours.standardHours.sunday }}</div>
+                <div>Monday: {{ hours.standardHours.monday }}</div>
+                <div>Tuesday: {{ hours.standardHours.tuesday }}</div>
+                <div>Wednesday: {{ hours.standardHours.wednesday }}</div>
+                <div>Thursday: {{ hours.standardHours.thursday }}</div>
+                <div>Friday: {{ hours.standardHours.friday }}</div>
+                <div>Saturday: {{ hours.standardHours.saturday }}</div>
+              </div>
+            </div>
+            <div class="col-md-4">
               <h5>Park Contact Information</h5>
               <div v-for="phoneNumber in phoneNumbers" :key="phoneNumber.phoneNumber">
                 <p>Phone Number: {{ phoneNumber.phoneNumber }}</p>
@@ -206,9 +219,6 @@ async function deleteFollower() {
               <div v-for="email in emails" :key="email.emailAddress">
                 <p>Email: {{ email.emailAddress }}</p>
               </div>
-            </div>
-            <div class="col-4">
-              <h5>Park Operating Hours</h5>
             </div>
           </section>
         </div>
@@ -242,7 +252,7 @@ async function deleteFollower() {
         </div>
       </div>
     </div>
-    <div v-if="activeContainer == null || activeContainer == 'thingsToDo'">
+    <div v-if="activeContainer == 'thingsToDo'">
       <div v-if="thingsToDo">
         <div class="container">
           <section class="row">

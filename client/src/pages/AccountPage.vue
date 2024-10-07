@@ -5,14 +5,17 @@ import Pop from '@/utils/Pop.js';
 import { followersService } from '@/services/FollowersService.js';
 import { logger } from '@/utils/Logger.js';
 import { parksService } from '@/services/ParksService.js';
+import { articlesService } from '@/services/ArticlesService.js';
+import ArticleCard from '@/components/globals/ArticleCard.vue';
 
 onMounted(() => {
   getFavoriteParks()
+  getArticleByFavorites()
 })
 
 const account = computed(() => AppState.account)
 const favoritedParks = computed(() => AppState.favoritedParks)
-const visitedParks = computed(() => AppState.visitedParks)
+const articles = computed(() => AppState.articles)
 
 async function getFavoriteParks() {
   try {
@@ -22,6 +25,17 @@ async function getFavoriteParks() {
   }
   catch (error) {
     Pop.error(error);
+  }
+}
+
+async function getArticleByFavorites() {
+  try {
+    const codes = await followersService.getAccountFollows()
+    await articlesService.getArticleByFavorites(codes)
+  }
+  catch (error) {
+    Pop.error(error)
+    logger.log
   }
 }
 </script>
@@ -56,11 +70,13 @@ async function getFavoriteParks() {
             </div>
           </div>
           <div class="col-md-4">
-            <h4>Visited Parks</h4>
+            <h4>Park Articles</h4>
             <hr />
-            <div v-for="park in visitedParks" :key="park.parkCode" class="col-12">
-              <ParkCard :park="park" />
-            </div>
+            <section class="row">
+              <div v-for="article in articles" :key="article.id" class="col-12 article mb-2">
+                <ArticleCard :article />
+              </div>
+            </section>
           </div>
           <div class="col-md-3 text-end">
             <h4>Notifications</h4>
@@ -103,5 +119,9 @@ img {
 .form-check-input:checked {
   background-color: var(--bs-secondary);
   border-color: var(--bs-secondary);
+}
+
+.article {
+  width: 100%;
 }
 </style>

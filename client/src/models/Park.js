@@ -21,6 +21,15 @@ export class Fee {
   }
 }
 
+class OperatingHours {
+  constructor(data) {
+    this.id = data.id
+    this.exceptions = data.exceptions
+    this.description = data.description
+    this.standardHours = data.standardHours
+  }
+}
+
 export class Park {
   constructor(data) {
     this.id = data.id
@@ -30,7 +39,8 @@ export class Park {
     this.images = data.images
     this.parkCode = data.parkCode
     this.entranceFees = data.entranceFees.map(fee => new Fee(fee)) //NOTE - intelisense for an array of objects
-    this.operatingHours = data.operatingHours
+    /**@type {OperatingHours[]} */
+    this.operatingHours = data.operatingHours.map(hours => new OperatingHours(hours))
     this.weather = data.weather
     this.states = data.states
     this.designation = data.designation
@@ -43,6 +53,9 @@ export class Park {
     this.longitude = data.longitude
   }
 }
+
+
+
 const data = {
   "id": "36240051-018E-4915-B6EA-3F1A7F24FBE4",
   "url": "https://www.nps.gov/arch/index.htm",
@@ -303,4 +316,21 @@ const data = {
   "designation": "National Park",
   "multimedia": [],
   "relevanceScore": 1
+}
+
+const data2 = {
+  "operatingHours": [
+    {
+      "exceptions": [],
+      "description": "Arches National Park is generally open 24 hours a day, year-round. Fees apply. The park is very busy between March and October. To avoid traffic, we recommend entering the park before 8 am or after 3 pm.",
+      "standardHours": {
+        "wednesday": "All Day",
+        "monday": "All Day",
+        "thursday": "All Day",
+        "sunday": "All Day",
+        "tuesday": "All Day",
+        "friday": "All Day",
+        "saturday": "All Day"
+      },
+    }]
 }

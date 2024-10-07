@@ -63,7 +63,6 @@ function addMarkersToMap(map) {
 }
 </script>
 
-
 <template>
   <div id="map">
     <div id="mapContainer" style="height:600px;width:100%" ref="mapContainer"></div>

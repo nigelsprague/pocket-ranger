@@ -187,6 +187,7 @@ async function deleteFollower() {
           <section class="row">
             <div class="col-12">
               <h3>Park Information</h3>
+              <p>{{ operatingHours[0].description }}</p>
             </div>
             <div class="col-md-4">
               <h5>Park Fees</h5>

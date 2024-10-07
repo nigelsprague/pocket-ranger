@@ -18,6 +18,9 @@ class ParksService {
     AppState.parkQuery = parkQuery
     const newParks = response.data.data.map(park => new Park(park))
     AppState.parks = newParks
+    // let markers = [];
+    // newParks.forEach(park => markers.push(park.latitude + park.longitude));
+    // logger.log('👺☠️', markers)
   }
   async getParkByCode(parkCode) {
     const response = await npsAPI.get(`/parks/?parkcode=${parkCode}`)
@@ -33,6 +36,20 @@ class ParksService {
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks
+  }
+
+  async searchAllParks(limit) {
+    if (!limit) {
+      limit = 472;
+    }
+    const response = await npsAPI.get(`/parks/?limit=${limit}&parkcode=${AppState.parkList}`)
+    logger.log('Got all parks - parks service', response.data)
+    const newParks = response.data.data.map(parkData => new Park(parkData))
+    AppState.parks = newParks
+    let markers = [];
+    newParks.forEach(park => markers.push({ fullName: park.fullName, parkCode: park.parkCode, lat: park.latitude, lng: park.longitude }));
+    logger.log('👺☠️', markers)
+    AppState.mapMarkers = markers
   }
 }
 

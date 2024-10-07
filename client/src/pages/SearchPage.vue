@@ -8,18 +8,25 @@ import HereMap from '@/components/globals/HereMap.vue';
 
 onUnmounted(() => {
   parksService.clearSearch()
+  AppState.mapMarkers = [];
 })
 
 onMounted(() => {
-  getAllParks()
+  searchAllParks()
 })
 
 const editableQuery = ref('')
 const parks = computed(() => AppState.parks)
+const center = ref(() => {
+  const lat = '39.8283'
+  const lng = '-98.5795'
+  return { lat: lat, lng: lng }
+})
+let markersLoaded = false;
 
-async function getAllParks() {
+async function searchAllParks() {
   try {
-    await parksService.getAllParks(62)
+    await parksService.searchAllParks()
   }
   catch (error) {
     Pop.error(error)
@@ -47,7 +54,9 @@ async function searchParks() {
           placeholder="Search for...">
         <button class="btn bg-secondary ms-2"><span class="mdi mdi-magnify fs-3 text-cream"></span></button>
       </form>
-      <HereMap />
+      <div v-if="markersLoaded">
+        <HereMap :center="center" />
+      </div>
     </section>
     <section class="row">
       <section class="row g-3 m-0 mb-3">

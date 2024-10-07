@@ -26,6 +26,7 @@ const fees = computed(() => AppState.activePark?.entranceFees)
 const phoneNumbers = computed(() => AppState.activePark?.phoneNumbers)
 const emails = computed(() => AppState.activePark?.emails)
 const operatingHours = computed(() => AppState.activePark?.operatingHours)
+const images = computed(() => AppState.activePark?.images)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
@@ -174,11 +175,28 @@ async function deleteFollower() {
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
             <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
             <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
+            <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
           </div>
         </div>
       </section>
     </div>
-    <div v-if="activeContainer == null || activeContainer == 'parkInformation'">
+    <div v-if="activeContainer == null || activeContainer == 'gallery'">
+      <div v-if="images">
+        <div class="container">
+          <section class="row">
+            <div class="col-12">
+              <h3>Park Gallery</h3>
+            </div>
+            <div v-for="image in images" :key="image.url" class="col-md-4 pb-3">
+              <a :href="image.url">
+                <img :src="image.url + '?width=500'" :alt="image.title" class="img-fluid shadow" title="Click for full-size image!">
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div v-if="activeContainer == 'parkInformation'">
       <div v-if="fees">
         <div class="container">
           <Modalwrapper id="fee-card">
@@ -187,7 +205,9 @@ async function deleteFollower() {
           <section class="row">
             <div class="col-12">
               <h3>Park Information</h3>
-              <p>{{ operatingHours[0].description }}</p>
+              <p v-if="operatingHours[0].description">{{ operatingHours[0].description }}</p>
+              <h5>Weather</h5>
+              <span v-if="park.weather">{{ park.weather }}</span>
             </div>
             <div class="col-md-4">
               <h5>Park Fees</h5>
@@ -201,7 +221,7 @@ async function deleteFollower() {
             <div class="col-md-4">
               <h5>Park Operating Hours</h5>
               <div v-for="hours in operatingHours" :key="hours.id">
-                  <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
+                <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
                 <div>Sunday: {{ hours.standardHours.sunday }}</div>
                 <div>Monday: {{ hours.standardHours.monday }}</div>
                 <div>Tuesday: {{ hours.standardHours.tuesday }}</div>

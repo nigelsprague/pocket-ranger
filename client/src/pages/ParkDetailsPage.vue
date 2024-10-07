@@ -173,66 +173,88 @@ async function deleteFollower() {
           <div class="text-center">
             <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> |
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
+            <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
             <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
             <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
-            <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
           </div>
         </div>
       </section>
     </div>
-    <div v-if="activeContainer == null || activeContainer == 'gallery'">
+    <br>
+
+    <!-- // SECTION - GALLERY -->
+    <div v-if="activeContainer == 'gallery'">
       <div v-if="images">
         <div class="container">
-          <section class="row">
+          <section class="row justify-content-center">
             <div class="col-12">
               <h3>Park Gallery</h3>
             </div>
-            <div v-for="image in images" :key="image.url" class="col-md-4 pb-3">
-              <a :href="image.url">
-                <img :src="image.url + '?width=500'" :alt="image.title" class="img-fluid shadow" title="Click for full-size image!">
-              </a>
+            <div class="row">
+              <div class="col-12">
+                <div class="masonry-layout">
+                  <div class="masonry-item" v-for="image in images" :key="image.url">
+                    <a :href="image.url">
+                      <img :src="image.url + '?width=500'" :alt="image.title" class="img-fluid shadow"
+                        title="Click to see full-size image!">
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </div>
       </div>
+      <br>
     </div>
-    <div v-if="activeContainer == 'parkInformation'">
+
+    <!-- // SECTION - PARK INFORMATION -->
+    <div v-if="activeContainer == null || activeContainer == 'parkInformation'">
       <div v-if="fees">
         <div class="container">
           <Modalwrapper id="fee-card">
             <FeeCard v-if="activeFee" :activeFee />
           </Modalwrapper>
-          <section class="row">
+          <section class="row justify-content-center">
             <div class="col-12">
               <h3>Park Information</h3>
               <p v-if="operatingHours[0].description">{{ operatingHours[0].description }}</p>
               <h5>Weather</h5>
-              <span v-if="park.weather">{{ park.weather }}</span>
+              <p v-if="park.weather" class="box">{{ park.weather }}</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-12">
+              <br>
               <h5>Park Fees</h5>
-              <div v-for="fee in fees" :key="fee.id">
-                <button @click="activeFee = fee" data-bs-toggle="modal" data-bs-target="#fee-card"
-                  class="btn bg-info p-0 order-0 w-100">
-                  <div>{{ fee.title }} : ${{ fee.cost }}</div>
-                </button>
+            </div>
+            <div v-for="fee in fees" :key="fee.id" class="col-11 col-md-2 mb-3 mx-3 m-md-3 btn fee-btn">
+              <div @click="activeFee = fee" data-bs-toggle="modal" data-bs-target="#fee-card">
+                <div>{{ fee.title }}</div>
+                <div>${{ fee.cost }}</div>
               </div>
             </div>
-            <div class="col-md-4">
+          </section>
+          <section class="row">
+            <div class="col-md-9">
+              <br>
               <h5>Park Operating Hours</h5>
-              <div v-for="hours in operatingHours" :key="hours.id">
-                <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
-                <div>Sunday: {{ hours.standardHours.sunday }}</div>
-                <div>Monday: {{ hours.standardHours.monday }}</div>
-                <div>Tuesday: {{ hours.standardHours.tuesday }}</div>
-                <div>Wednesday: {{ hours.standardHours.wednesday }}</div>
-                <div>Thursday: {{ hours.standardHours.thursday }}</div>
-                <div>Friday: {{ hours.standardHours.friday }}</div>
-                <div>Saturday: {{ hours.standardHours.saturday }}</div>
-                <br>
+              <div class="container-fluid">
+                <section class="row">
+                  <div v-for="hours in operatingHours" :key="hours.id" class="col-6 col-md-3">
+                    <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
+                    <div>Sunday: {{ hours.standardHours.sunday }}</div>
+                    <div>Monday: {{ hours.standardHours.monday }}</div>
+                    <div>Tuesday: {{ hours.standardHours.tuesday }}</div>
+                    <div>Wednesday: {{ hours.standardHours.wednesday }}</div>
+                    <div>Thursday: {{ hours.standardHours.thursday }}</div>
+                    <div>Friday: {{ hours.standardHours.friday }}</div>
+                    <div>Saturday: {{ hours.standardHours.saturday }}</div>
+                    <br>
+                  </div>
+                </section>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+              <br>
               <h5>Park Contact Information</h5>
               <div v-for="phoneNumber in phoneNumbers" :key="phoneNumber.phoneNumber">
                 <p>Phone Number: {{ phoneNumber.phoneNumber }}</p>
@@ -245,6 +267,8 @@ async function deleteFollower() {
         </div>
       </div>
     </div>
+
+<!-- // SECTION - ARTICLES -->
     <div v-if="activeContainer == 'articles'">
       <div v-if="articles">
         <div class="container">
@@ -258,7 +282,10 @@ async function deleteFollower() {
           </section>
         </div>
       </div>
+      <br>
     </div>
+    
+    <!-- // SECTION - PARK ALERTS -->
     <div v-if="activeContainer == 'parkAlerts'">
       <div v-if="alerts">
         <div class="container">
@@ -272,7 +299,10 @@ async function deleteFollower() {
           </section>
         </div>
       </div>
+      <br>
     </div>
+
+    <!-- // SECTION - THINGS TO DO -->
     <div v-if="activeContainer == 'thingsToDo'">
       <div v-if="thingsToDo">
         <div class="container">
@@ -286,6 +316,7 @@ async function deleteFollower() {
           </section>
         </div>
       </div>
+      <br>
     </div>
   </div>
 </template>
@@ -307,5 +338,63 @@ async function deleteFollower() {
 .follow-btn {
   background-color: rgba(0, 0, 0, 0.334);
   color: white;
+}
+
+.box {
+  overflow-wrap: break-word;
+}
+
+.fee-btn {
+  background-color: #FDFBF1;
+  border-color: #2C4A1E;
+  border-style: solid;
+  border-width: 4px;
+}
+
+.masonry-layout {
+  column-count: 4;
+  /* Adjust the number of columns based on your design */
+  column-gap: 1rem;
+  /* Space between columns */
+  width: 100%;
+  /* Full width of the container */
+}
+
+.masonry-item {
+  break-inside: avoid;
+  /* Prevent items from splitting across columns */
+  margin-bottom: 1rem;
+  /* Space between items */
+  // background-color: #f2f2f2;
+  /* Example background color */
+  // padding: 1rem;
+  /* Padding inside items */
+}
+
+@media (max-width: 768px) {
+  .masonry-layout {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-layout {
+    column-count: 1;
+  }
+}
+</style>
+
+<style>
+#fee-card .modal-body {
+  padding: 8px;
+  /* background-color: #FDFBF1;
+  border-color: #2C4A1E;
+  border-style: solid; */
+  /* border-width: 4px; */
+  /* border-radius: 5%; */
+}
+
+#fee-card .modal-content{
+  background-color: #2C4A1E;
 }
 </style>

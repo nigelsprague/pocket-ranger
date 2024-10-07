@@ -141,13 +141,13 @@ async function deleteFollower() {
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
       <section class="row justify-content-between">
         <div class="col-12 col-md-5 align-content-md-center">
-            <div class="card mt-3 m-md-5 p-3">
-              <h3>{{ park.fullName }}</h3>
-              <span>{{ park.address.line1 }}</span>
-              <span>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</span>
-              <br />
-              <p>{{ park.description }}</p>
-            </div>
+          <div class="card mt-3 m-md-5 p-3">
+            <h3>{{ park.fullName }}</h3>
+            <span>{{ park.address.line1 }}</span>
+            <span>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</span>
+            <br />
+            <p>{{ park.description }}</p>
+          </div>
         </div>
         <div class="col-12 col-md-2 d-flex justify-content-center">
           <div class="m-md-5">
@@ -201,7 +201,7 @@ async function deleteFollower() {
             <div class="col-md-4">
               <h5>Park Operating Hours</h5>
               <div v-for="hours in operatingHours" :key="hours.id">
-                <p>Operating Hours :</p>
+                  <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
                 <div>Sunday: {{ hours.standardHours.sunday }}</div>
                 <div>Monday: {{ hours.standardHours.monday }}</div>
                 <div>Tuesday: {{ hours.standardHours.tuesday }}</div>
@@ -209,6 +209,7 @@ async function deleteFollower() {
                 <div>Thursday: {{ hours.standardHours.thursday }}</div>
                 <div>Friday: {{ hours.standardHours.friday }}</div>
                 <div>Saturday: {{ hours.standardHours.saturday }}</div>
+                <br>
               </div>
             </div>
             <div class="col-md-4">

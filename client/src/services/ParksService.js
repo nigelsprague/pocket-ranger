@@ -18,7 +18,6 @@ class ParksService {
     AppState.parkQuery = parkQuery
     const newParks = response.data.data.map(park => new Park(park))
     AppState.parks = newParks
-    AppState.mapMarkers = newParks
   }
   async getParkByCode(parkCode) {
     const response = await npsAPI.get(`/parks/?parkcode=${parkCode}`)
@@ -34,7 +33,6 @@ class ParksService {
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks
-    AppState.mapMarkers = newParks
   }
 }
 

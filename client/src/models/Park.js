@@ -24,6 +24,7 @@ export class Fee {
 class OperatingHours {
   constructor(data) {
     this.id = data.id
+    this.name = data.name
     this.exceptions = data.exceptions
     this.description = data.description
     this.standardHours = data.standardHours

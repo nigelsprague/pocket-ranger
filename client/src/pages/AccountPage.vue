@@ -31,7 +31,7 @@ async function getFavoriteParks() {
 async function getArticleByFavorites() {
   try {
     const codes = await followersService.getAccountFollows()
-    await articlesService.getArticleByFavorites(codes)
+    await articlesService.getArticleByCode(codes)
   }
   catch (error) {
     Pop.error(error)

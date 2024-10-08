@@ -141,8 +141,8 @@ async function deleteFollower() {
   <div v-if="park">
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
       <section class="row">
-        <div class="col-12 col-lg-9 align-content-md-center">
-          <div class="card bg-card mt-3 m-md-5 p-3">
+        <div class="col-12 col-lg-9 align-content-center">
+          <div class="card bg-card m-md-5 p-3">
             <div class="container-fluid">
               <section class="row">
                 <div class="col-6 col-md-7 p-0 d-flex">
@@ -187,7 +187,7 @@ async function deleteFollower() {
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
             <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
             <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
-            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
+            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button>
           </div>
         </div>
       </section>
@@ -247,12 +247,12 @@ async function deleteFollower() {
             </div>
           </section>
           <section class="row">
-            <div class="col-md-9">
+            <div class="col-12 col-md-6 col-lg-9">
               <br>
               <h5>Park Operating Hours</h5>
               <div class="container-fluid">
                 <section class="row">
-                  <div v-for="hours in operatingHours" :key="hours.id" class="col-6 col-md-3">
+                  <div v-for="hours in operatingHours" :key="hours.id" class="col-12 col-md-6 col-lg-3">
                     <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
                     <div>Sunday: {{ hours.standardHours.sunday }}</div>
                     <div>Monday: {{ hours.standardHours.monday }}</div>
@@ -266,7 +266,7 @@ async function deleteFollower() {
                 </section>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-12 col-md-6 col-lg-3">
               <br>
               <h5>Park Contact Information</h5>
               <div v-for="phoneNumber in phoneNumbers" :key="phoneNumber.phoneNumber">
@@ -348,7 +348,7 @@ async function deleteFollower() {
   border: none;
 }
 
-.bg-card{
+.bg-card {
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
 }
 
@@ -395,7 +395,7 @@ async function deleteFollower() {
   }
 
   .bg-hero {
-    height: 65vh;
+    height: 70vh;
   }
 }
 </style>

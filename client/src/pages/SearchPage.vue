@@ -1,7 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState';
 import { parksService } from '@/services/ParksService';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import HereMap from '@/components/globals/HereMap.vue';
@@ -17,12 +17,17 @@ onMounted(() => {
 
 const editableQuery = ref('')
 const parks = computed(() => AppState.parks)
-const center = ref(() => {
+const center = computed(() => {
   const lat = '39.8283'
   const lng = '-98.5795'
   return { lat: lat, lng: lng }
 })
+
 let markersLoaded = false;
+
+watch(parks, () => {
+  loadMarkers();
+})
 
 async function searchAllParks() {
   try {
@@ -43,6 +48,16 @@ async function searchParks() {
     logger.error(error)
   }
 }
+
+function loadMarkers() {
+  const markers = [];
+  parks.value.forEach(park => {
+    let marker = { lat: park.latitude, lng: park.longitude };
+    markers.push(marker);
+  })
+  AppState.mapMarkers = markers;
+  markersLoaded = true;
+}
 </script>
 
 
@@ -55,7 +70,7 @@ async function searchParks() {
         <button class="btn bg-secondary ms-2"><span class="mdi mdi-magnify fs-3 text-cream"></span></button>
       </form>
       <div v-if="markersLoaded">
-        <HereMap :center="center" />
+        <HereMap :center="center" :zoom="2.5" />
       </div>
     </section>
     <section class="row">

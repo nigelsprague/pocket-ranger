@@ -13,7 +13,7 @@ const markers = computed(() => AppState.mapMarkers);
 
 let platform = null;
 const apikey = "KvvHdUFGZY2O9XDAprwpX4vQCzvRds9lzfhwkff-Ux0";
-const mapContainer = ref('')
+const mapContainer = ref()
 
 onMounted(() => {
   initializeHereMap()
@@ -69,7 +69,7 @@ function addMarkersToMap(map) {
 </script>
 
 <template>
-  <div id="map">
+  <div id="map" class="m-0 w-100">
     <div id="mapContainer" style="height:600px;width:100%" ref="mapContainer"></div>
   </div>
 </template>

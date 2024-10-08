@@ -35,6 +35,12 @@ class ParksService {
     AppState.activePark = new Park(response.data.data[0])
   }
 
+  async getCommunityByCode(parkCode) {
+    const response = await npsAPI.get(`/community/?parkcode=${parkCode}`)
+    logger.log('Got park - park service', response.data.data)
+    AppState.activePark = new Park(response.data.data[0])
+  }
+
   async getAllParks(limit) {
     if (!limit) {
       limit = 472;

@@ -50,6 +50,7 @@ function initializeHereMap() {
   // @ts-ignore
   map = new H.Map(mapContainer.value, maptypes.vector.normal.map, {
     zoom: zoom,
+    // @ts-ignore
     center: props.center
     // center object { lat: 40.730610, lng: -73.935242 }
   });

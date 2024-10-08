@@ -145,26 +145,26 @@ async function deleteFollower() {
           <div class="card bg-card m-md-5 p-3">
             <div class="container-fluid">
               <section class="row">
-                <div class="col-6 col-md-7 p-0 d-flex">
-                  <h3 class=" align-content-center">{{ park.fullName }}</h3>
+                <div class="col-12 col-md-7 p-0 d-flex justify-content-center justify-content-md-start order-2 order-md-1">
+                  <h3 class="align-content-center">{{ park.fullName }}</h3>
                 </div>
-                <div class="col-6 col-md-5 d-flex p-0 justify-content-end align-items-center">
+                <div class="col-12 col-md-5 d-flex p-0 justify-content-center justify-content-md-end align-items-center order-1 order-md-2">
                   <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
-                    <i class="mdi mdi-heart-outline fs-4"></i>
+                    <i class="mdi mdi-heart-outline fs-5 fs-md-4"></i>
                     <p class="m-0">Follow</p>
                   </button>
                   <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
-                    <i class="mdi mdi-heart fs-4"></i>
+                    <i class="mdi mdi-heart fs-5 fs-md-4"></i>
                     <p class="m-0">Unfollow</p>
                   </button>
                   <RouterLink :to="{ name: 'Park Community' }">
                     <button class="btn follow-btn">
-                      <i class="mdi mdi-account-group-outline fs-4"></i>
+                      <i class="mdi mdi-account-group-outline fs-5 fs-md-4"></i>
                       <p class="m-0">Community</p>
                     </button>
                   </RouterLink>
                 </div>
-                <div class="col-12 p-0">
+                <div class="col-12 p-0 order-3">
                   <span>{{ park.address.line1 }}</span>
                   <br>
                   <p>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</p>
@@ -396,6 +396,13 @@ async function deleteFollower() {
 
   .bg-hero {
     height: 70vh;
+  }
+
+  .follow-btn {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
 }
 </style>

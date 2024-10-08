@@ -142,26 +142,23 @@ async function deleteFollower() {
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
       <section class="row">
         <div class="col-12 col-lg-9 align-content-md-center">
-
-
-          <div class="card mt-3 m-md-5 p-3">
+          <div class="card bg-card mt-3 m-md-5 p-3">
             <div class="container-fluid">
               <section class="row">
                 <div class="col-6 col-md-7 p-0 d-flex">
                   <h3 class=" align-content-center">{{ park.fullName }}</h3>
-
                 </div>
                 <div class="col-6 col-md-5 d-flex p-0 justify-content-end align-items-center">
-                  <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn2">
+                  <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
                     <i class="mdi mdi-heart-outline fs-4"></i>
                     <p class="m-0">Follow</p>
                   </button>
-                  <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn2">
+                  <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
                     <i class="mdi mdi-heart fs-4"></i>
                     <p class="m-0">Unfollow</p>
                   </button>
                   <RouterLink :to="{ name: 'Park Community' }">
-                    <button class="btn follow-btn2">
+                    <button class="btn follow-btn">
                       <i class="mdi mdi-account-group-outline fs-4"></i>
                       <p class="m-0">Community</p>
                     </button>
@@ -171,26 +168,12 @@ async function deleteFollower() {
                   <span>{{ park.address.line1 }}</span>
                   <br>
                   <p>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</p>
-
                   <p>{{ park.description }}</p>
                 </div>
               </section>
             </div>
           </div>
         </div>
-
-        <!-- <div class="col-12 col-md-2 d-flex justify-content-center">
-          <div class="m-md-5">
-            <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
-              <i class="mdi mdi-heart-outline fs-4"></i>
-              <p class="m-0">Follow</p>
-            </button>
-            <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
-              <i class="mdi mdi-heart fs-4"></i>
-              <p class="m-0">Unfollow</p>
-            </button>
-          </div>
-        </div> -->
       </section>
     </div>
     <div v-if="markersLoaded">
@@ -363,17 +346,13 @@ async function deleteFollower() {
   background-color: rgba(0, 0, 0, 0.542);
   color: white;
   border: none;
+}
+
+.bg-card{
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
 }
 
 .follow-btn {
-  background-color: rgba(0, 0, 0, 0.542);
-  text-shadow: rgb(0, 0, 0) 1px 0 2px;
-  color: white;
-}
-
-.follow-btn2 {
-  // background-color: rgba(0, 0, 0, 0.542);
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
   color: white;
 }
@@ -416,14 +395,7 @@ async function deleteFollower() {
   }
 
   .bg-hero {
-    height: 80vh;
-  }
-
-  .follow-btn {
-    background-color: rgba(0, 0, 0, 0);
-    position: absolute;
-    top: 142px;
-    right: 12px;
+    height: 65vh;
   }
 }
 </style>

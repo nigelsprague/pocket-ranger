@@ -141,7 +141,7 @@ async function deleteFollower() {
   <div v-if="park">
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
       <section class="row">
-        <div class="col-12 col-lg-9 align-content-md-center">
+        <div class="col-12 col-lg-9 align-content-center">
 
 
           <div class="card mt-3 m-md-5 p-3">

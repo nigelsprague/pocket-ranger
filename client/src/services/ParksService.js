@@ -35,6 +35,12 @@ class ParksService {
     AppState.activePark = new Park(response.data.data[0])
   }
 
+  async getCommunityByCode(parkCode) {
+    const response = await npsAPI.get(`/community/?parkcode=${parkCode}`)
+    logger.log('Got park - park service', response.data.data)
+    AppState.activePark = new Park(response.data.data[0])
+  }
+
   async getAllParks(limit) {
     if (!limit) {
       limit = 472;
@@ -43,8 +49,8 @@ class ParksService {
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks
-    AppState.currentPage = response.data.start =+ 1
-    AppState.totalPages = Math.ceil(response.data.total/limit)
+    AppState.currentPage = response.data.start = + 1
+    AppState.totalPages = Math.ceil(response.data.total / limit)
   }
 
   async searchAllParks(limit) {

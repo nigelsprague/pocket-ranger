@@ -17,6 +17,8 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
+const currentPage = computed(() => AppState.currentPage)
+const totalPages = computed(() => AppState.totalPages)
 const account = computed(() => AppState.account)
 const park = computed(() => AppState.activePark)
 const thingsToDo = computed(() => AppState.thingsToDo)
@@ -134,6 +136,14 @@ async function deleteFollower() {
   }
 }
 
+async function changeArticlePage(pageNumber) {
+  try {
+    await articlesService.changeArticlesPage(pageNumber, route.params.parkCode)
+  }
+  catch (error) {
+    Pop.error(error)
+  }
+}
 </script>
 
 
@@ -145,10 +155,12 @@ async function deleteFollower() {
           <div class="card bg-card m-md-5 p-3">
             <div class="container-fluid">
               <section class="row">
-                <div class="col-12 col-md-7 p-0 d-flex justify-content-center justify-content-md-start order-2 order-md-1">
+                <div
+                  class="col-12 col-md-7 p-0 d-flex justify-content-center justify-content-md-start order-2 order-md-1">
                   <h3 class="align-content-center">{{ park.fullName }}</h3>
                 </div>
-                <div class="col-12 col-md-5 d-flex p-0 justify-content-center justify-content-md-end align-items-center order-1 order-md-2">
+                <div
+                  class="col-12 col-md-5 d-flex p-0 justify-content-center justify-content-md-end align-items-center order-1 order-md-2">
                   <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
                     <i class="mdi mdi-heart-outline fs-5 fs-md-4"></i>
                     <p class="m-0">Follow</p>
@@ -291,6 +303,13 @@ async function deleteFollower() {
             </div>
             <div v-for="article in articles" :key="article.id">
               <ArticleCard :article />
+            </div>
+            <div class="col-12">
+              <div class="d-flex gap-3 align-items-center my-3">
+                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark">Previous</button>
+                <span class="fs-f"> Page {{ currentPage }} of {{ totalPages }}</span>
+                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark">Next</button>
+              </div>
             </div>
           </section>
         </div>

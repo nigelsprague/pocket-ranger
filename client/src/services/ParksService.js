@@ -2,6 +2,7 @@ import { logger } from "@/utils/Logger.js"
 import { npsAPI } from "./AxiosService.js"
 import { Park } from "@/models/Park.js"
 import { AppState } from "@/AppState.js"
+import { pagesService } from "./PagesService.js"
 
 class ParksService {
   async changeParksPage(pageNumber, limit) {
@@ -9,8 +10,7 @@ class ParksService {
     logger.log('Changed parks page - parks service', response.data)
     const newParks = response.data.data.map(park => new Park(park))
     AppState.parks = newParks
-    AppState.currentPage = Math.ceil(parseInt(response.data.start) / limit) + 1 || 1
-    AppState.totalPages = Math.ceil(response.data.total / limit)
+    pagesService.savePages(response.data, limit)
   }
 
   async getFavoriteParks(codes) {
@@ -44,8 +44,7 @@ class ParksService {
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks
-    AppState.currentPage = parseInt(response.data.start) || 1
-    AppState.totalPages = Math.ceil(response.data.total / limit)
+    pagesService.savePages(response.data, limit)
   }
 
   async searchAllParks(limit) {

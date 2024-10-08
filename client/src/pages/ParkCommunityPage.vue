@@ -7,7 +7,7 @@ import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 onMounted(() => {
-  getCommunityByCode()
+  getParkByCode()
 })
 
 const park = computed(() => AppState.activePark)
@@ -18,9 +18,9 @@ const center = computed(() => {
   return { lat: lat, lng: lng }
 })
 
-async function getCommunityByCode() {
+async function getParkByCode() {
   try {
-    await parksService.getCommunityByCode(route.params.parkCode)
+    await parksService.getParkByCode(route.params.parkCode)
   }
   catch (error) {
     Pop.error(error)

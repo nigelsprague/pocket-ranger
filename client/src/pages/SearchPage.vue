@@ -64,7 +64,7 @@ function loadMarkers() {
 <template>
   <div class="container">
     <section class="row">
-      <form @submit.prevent="searchParks()" class="d-flex">
+      <form @submit.prevent="searchParks()" class="d-flex mb-3">
         <input v-model="editableQuery" class="form-control" type="text" name="query" id="query"
           placeholder="Search for...">
         <button class="btn bg-secondary ms-2"><span class="mdi mdi-magnify fs-3 text-cream"></span></button>

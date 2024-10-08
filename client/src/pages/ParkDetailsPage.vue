@@ -141,17 +141,17 @@ async function deleteFollower() {
   <div v-if="park">
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
       <section class="row">
-        <div class="col-12 col-md-6 align-content-md-center">
+        <div class="col-12 col-lg-9 align-content-md-center">
 
 
           <div class="card mt-3 m-md-5 p-3">
             <div class="container-fluid">
               <section class="row">
-                <div class="col-9 p-0 d-flex">
+                <div class="col-6 col-md-7 p-0 d-flex">
                   <h3 class=" align-content-center">{{ park.fullName }}</h3>
 
                 </div>
-                <div class="col-3 d-flex justify-content-center">
+                <div class="col-6 col-md-5 d-flex p-0 justify-content-end align-items-center">
                   <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn2">
                     <i class="mdi mdi-heart-outline fs-4"></i>
                     <p class="m-0">Follow</p>
@@ -160,6 +160,12 @@ async function deleteFollower() {
                     <i class="mdi mdi-heart fs-4"></i>
                     <p class="m-0">Unfollow</p>
                   </button>
+                  <RouterLink :to="{ name: 'Park Community' }">
+                    <button class="btn follow-btn2">
+                      <i class="mdi mdi-account-group-outline fs-4"></i>
+                      <p class="m-0">Community</p>
+                    </button>
+                  </RouterLink>
                 </div>
                 <div class="col-12 p-0">
                   <span>{{ park.address.line1 }}</span>

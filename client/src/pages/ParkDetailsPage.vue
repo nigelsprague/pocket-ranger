@@ -142,26 +142,23 @@ async function deleteFollower() {
     <div :style="{ backgroundImage: 'url(' + park.images[0].url + ')' }" class="container-fluid bg-hero d-flex">
       <section class="row">
         <div class="col-12 col-lg-9 align-content-center">
-
-
-          <div class="card mt-3 m-md-5 p-3">
+          <div class="card bg-card m-md-5 p-3">
             <div class="container-fluid">
               <section class="row">
                 <div class="col-6 col-md-7 p-0 d-flex">
                   <h3 class=" align-content-center">{{ park.fullName }}</h3>
-
                 </div>
                 <div class="col-6 col-md-5 d-flex p-0 justify-content-end align-items-center">
-                  <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn2">
+                  <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
                     <i class="mdi mdi-heart-outline fs-4"></i>
                     <p class="m-0">Follow</p>
                   </button>
-                  <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn2">
+                  <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
                     <i class="mdi mdi-heart fs-4"></i>
                     <p class="m-0">Unfollow</p>
                   </button>
                   <RouterLink :to="{ name: 'Park Community' }">
-                    <button class="btn follow-btn2">
+                    <button class="btn follow-btn">
                       <i class="mdi mdi-account-group-outline fs-4"></i>
                       <p class="m-0">Community</p>
                     </button>
@@ -171,26 +168,12 @@ async function deleteFollower() {
                   <span>{{ park.address.line1 }}</span>
                   <br>
                   <p>{{ park.address.city }}, {{ park.address.stateCode }} {{ park.address.postalCode }}</p>
-
                   <p>{{ park.description }}</p>
                 </div>
               </section>
             </div>
           </div>
         </div>
-
-        <!-- <div class="col-12 col-md-2 d-flex justify-content-center">
-          <div class="m-md-5">
-            <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
-              <i class="mdi mdi-heart-outline fs-4"></i>
-              <p class="m-0">Follow</p>
-            </button>
-            <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
-              <i class="mdi mdi-heart fs-4"></i>
-              <p class="m-0">Unfollow</p>
-            </button>
-          </div>
-        </div> -->
       </section>
     </div>
     <div v-if="markersLoaded">
@@ -204,7 +187,7 @@ async function deleteFollower() {
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
             <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
             <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
-            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button> |
+            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button>
           </div>
         </div>
       </section>
@@ -264,12 +247,12 @@ async function deleteFollower() {
             </div>
           </section>
           <section class="row">
-            <div class="col-md-9">
+            <div class="col-12 col-md-6 col-lg-9">
               <br>
               <h5>Park Operating Hours</h5>
               <div class="container-fluid">
                 <section class="row">
-                  <div v-for="hours in operatingHours" :key="hours.id" class="col-6 col-md-3">
+                  <div v-for="hours in operatingHours" :key="hours.id" class="col-12 col-md-6 col-lg-3">
                     <span v-if="hours.name" class="fw-bold">{{ hours.name }}</span>
                     <div>Sunday: {{ hours.standardHours.sunday }}</div>
                     <div>Monday: {{ hours.standardHours.monday }}</div>
@@ -283,7 +266,7 @@ async function deleteFollower() {
                 </section>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-12 col-md-6 col-lg-3">
               <br>
               <h5>Park Contact Information</h5>
               <div v-for="phoneNumber in phoneNumbers" :key="phoneNumber.phoneNumber">
@@ -363,17 +346,13 @@ async function deleteFollower() {
   background-color: rgba(0, 0, 0, 0.542);
   color: white;
   border: none;
+}
+
+.bg-card {
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
 }
 
 .follow-btn {
-  background-color: rgba(0, 0, 0, 0.542);
-  text-shadow: rgb(0, 0, 0) 1px 0 2px;
-  color: white;
-}
-
-.follow-btn2 {
-  // background-color: rgba(0, 0, 0, 0.542);
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
   color: white;
 }
@@ -416,14 +395,7 @@ async function deleteFollower() {
   }
 
   .bg-hero {
-    height: 80vh;
-  }
-
-  .follow-btn {
-    background-color: rgba(0, 0, 0, 0);
-    position: absolute;
-    top: 142px;
-    right: 12px;
+    height: 70vh;
   }
 }
 </style>

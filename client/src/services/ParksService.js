@@ -4,11 +4,13 @@ import { Park } from "@/models/Park.js"
 import { AppState } from "@/AppState.js"
 
 class ParksService {
-
-  //TODO - Figure out how to get limit in the function
   async changeParksPage(pageNumber, limit) {
-    const response = await npsAPI.get(`/parks?page=${pageNumber}&limit=${limit}&parkcode=${AppState.parkList}?`)
+    const response = await npsAPI.get(`/parks?start=${limit * (pageNumber - 1)}&limit=${limit}&parkcode=${AppState.parkList}?`)
     logger.log('Changed parks page - parks service', response.data)
+    const newParks = response.data.data.map(park => new Park(park))
+    AppState.parks = newParks
+    AppState.currentPage = Math.ceil(parseInt(response.data.start) / limit) + 1 || 1
+    AppState.totalPages = Math.ceil(response.data.total / limit)
   }
 
   async getFavoriteParks(codes) {
@@ -49,7 +51,7 @@ class ParksService {
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks
-    AppState.currentPage = response.data.start = + 1
+    AppState.currentPage = parseInt(response.data.start) || 1
     AppState.totalPages = Math.ceil(response.data.total / limit)
   }
 

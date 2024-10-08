@@ -43,8 +43,8 @@ class ParksService {
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks
-    AppState.currentPage = response.data.start =+ 1
-    AppState.totalPages = Math.ceil(response.data.total/limit)
+    AppState.currentPage = response.data.start = + 1
+    AppState.totalPages = Math.ceil(response.data.total / limit)
   }
 
   async searchAllParks(limit) {
@@ -55,10 +55,10 @@ class ParksService {
     logger.log('Got all parks - parks service', response.data)
     const newParks = response.data.data.map(parkData => new Park(parkData))
     AppState.parks = newParks
-    let markers = [];
-    newParks.forEach(park => markers.push({ fullName: park.fullName, parkCode: park.parkCode, lat: park.latitude, lng: park.longitude }));
-    logger.log('👺☠️', markers)
-    AppState.mapMarkers = markers
+    // let markers = [];
+    // newParks.forEach(park => markers.push({ fullName: park.fullName, parkCode: park.parkCode, lat: park.latitude, lng: park.longitude }));
+    // logger.log('👺☠️', markers)
+    // AppState.mapMarkers = markers
   }
 }
 

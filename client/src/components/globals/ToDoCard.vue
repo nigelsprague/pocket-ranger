@@ -19,7 +19,7 @@ defineProps({ toDo: { type: ThingsToDo, required: true } })
               <h5>{{ toDo.title }}</h5>
               <p class="m-0">{{ toDo.shortDescription }}</p>
               <br>
-              <a v-if="toDo.url" :href="toDo.url" class="btn bg-info">More Details</a>
+              <a v-if="toDo.url" :href="toDo.url" class="btn">More Details</a>
             </div>
           </div>
         </div>
@@ -41,5 +41,12 @@ img {
   background-color: #FDFBF1;
   border-color: #2C4A1E;
   border-width: 4px;
+}
+
+.btn {
+  background-color: #FDFBF1;
+  border-color: #2C4A1E;
+  border-style: solid;
+  border-width: 2px;
 }
 </style>

@@ -20,7 +20,7 @@ defineProps({ article: { type: Article, required: true } })
               <h5>{{ article.title }}</h5>
               <p class="m-0">{{ article.body }}</p>
               <br />
-              <a v-if="article.url" :href="article.url" class="btn bg-info">Read More</a>
+              <a v-if="article.url" :href="article.url" class="btn">Read More</a>
             </div>
           </div>
         </div>
@@ -42,6 +42,13 @@ img {
   background-color: #FDFBF1;
   border-color: #2C4A1E;
   border-width: 4px;
+}
+
+.btn {
+  background-color: #FDFBF1;
+  border-color: #2C4A1E;
+  border-style: solid;
+  border-width: 2px;
 }
 
 p {

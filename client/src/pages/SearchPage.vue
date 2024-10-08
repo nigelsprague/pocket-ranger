@@ -73,12 +73,11 @@ function loadMarkers() {
         <HereMap :center="center" :zoom="2.5" />
       </div>
     </section>
-    <section class="row">
-      <section class="row g-3 m-0 mb-3">
-        <div v-for="park in parks" :key="park.parkCode" class="col-12">
-          <ParkCard :park="park" />
-        </div>
-      </section>
+    <i v-if="parks">{{ parks.length }} result{{ parks.length > 1 ? 's' : '' }}</i>
+    <section class="row g-3 m-0 mb-3">
+      <div v-for="park in parks" :key="park.parkCode" class="col-12">
+        <ParkCard :park="park" />
+      </div>
     </section>
   </div>
 </template>

@@ -15,7 +15,7 @@ export const PostSchema = new Schema({
   // latitude: { type: Number, min: -90, max: 90 },
   // longitude: { type: Number, min: -180, max: 180 },
   creatorId: { type: Schema.ObjectId, required: true, ref: 'Account' },
-  parkCode: { type: Schema.ObjectId, required: true, ref: 'Park' }
+  parkCode: { type: String, required: true, ref: 'Park' }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 PostSchema.virtual('creator', {

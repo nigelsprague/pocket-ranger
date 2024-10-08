@@ -14,9 +14,23 @@ const markers = computed(() => AppState.mapMarkers);
 let platform = null;
 const apikey = "KvvHdUFGZY2O9XDAprwpX4vQCzvRds9lzfhwkff-Ux0";
 const mapContainer = ref()
+/**@type {H.Map} */
+let map = null
+let currentMarkers = []
 
 onMounted(() => {
   initializeHereMap()
+})
+
+watch(markers, () => {
+
+  if (currentMarkers.length && map) {
+    map.removeObjects(currentMarkers)
+    currentMarkers = []
+  }
+
+  // console.log('did the markers change', markers)
+  addMarkersToMap();
 })
 
 function initializeHereMap() {
@@ -34,8 +48,9 @@ function initializeHereMap() {
   }
   // Instantiate (and display) a map object:
   // @ts-ignore
-  var map = new H.Map(mapContainer.value, maptypes.vector.normal.map, {
+  map = new H.Map(mapContainer.value, maptypes.vector.normal.map, {
     zoom: zoom,
+    // @ts-ignore
     center: props.center
     // center object { lat: 40.730610, lng: -73.935242 }
   });
@@ -51,20 +66,23 @@ function initializeHereMap() {
   H.ui.UI.createDefault(map, maptypes);
   // End rendering the initial map
 
-  watch(AppState.mapMarkers, () => {
-    addMarkersToMap(map)
-  })
 
-  addMarkersToMap(map)
+  addMarkersToMap()
 }
 
-function addMarkersToMap(map) {
+function addMarkersToMap() {
+  if (!map) { return }
+
   for (let i = 0; i < markers.value.length; i++) {
     let marker = markers.value[i];
     // @ts-ignore
     let newMarker = new H.map.Marker({ lat: marker.lat, lng: marker.lng });
     map.addObject(newMarker);
+    currentMarkers.push(newMarker)
   }
+
+  // TODO center and zoom the map
+
 }
 </script>
 

@@ -96,7 +96,7 @@ function addMarkersToMap() {
 <style lang="scss" scoped>
 #map {
   width: 60vw;
-  min-width: 360px;
+  min-width: 320px;
   text-align: center;
   margin: 5% auto;
   background-color: #ccc;

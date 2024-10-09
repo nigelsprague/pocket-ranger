@@ -156,11 +156,11 @@ async function changeArticlePage(pageNumber) {
             <div class="container-fluid">
               <section class="row">
                 <div
-                  class="col-12 col-md-7 p-0 d-flex justify-content-center justify-content-md-start order-2 order-md-1">
+                  class="col-12 col-md-7 p-0 d-flex justify-content-center justify-content-md-start order-1 order-md-0">
                   <h3 class="align-content-center">{{ park.fullName }}</h3>
                 </div>
                 <div
-                  class="col-12 col-md-5 d-flex p-0 justify-content-center justify-content-md-end align-items-center order-1 order-md-2">
+                  class="col-12 col-md-5 d-flex p-0 justify-content-center justify-content-md-end align-items-center order-0 order-md-1">
                   <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
                     <i class="mdi mdi-heart-outline fs-5 fs-md-4"></i>
                     <p class="m-0">Follow</p>

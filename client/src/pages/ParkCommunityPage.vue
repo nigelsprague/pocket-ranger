@@ -2,6 +2,7 @@
 import { AppState } from '@/AppState';
 import PostCard from '@/components/globals/PostCard.vue';
 import { parksService } from '@/services/ParksService';
+import { postsService } from '@/services/PostsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed, onMounted } from 'vue';
@@ -9,6 +10,7 @@ import { useRoute } from 'vue-router';
 
 onMounted(() => {
   getParkByCode()
+  getPostsByCommunity()
 })
 
 const park = computed(() => AppState.activePark)
@@ -22,6 +24,17 @@ const center = computed(() => {
 async function getParkByCode() {
   try {
     await parksService.getParkByCode(route.params.parkCode)
+  }
+  catch (error) {
+    Pop.error(error)
+    logger.log(error)
+  }
+}
+
+async function getPostsByCommunity() {
+  try {
+    const parkCode = route.params.parkCode
+    await postsService.getPostsByCommunity(parkCode)
   }
   catch (error) {
     Pop.error(error)

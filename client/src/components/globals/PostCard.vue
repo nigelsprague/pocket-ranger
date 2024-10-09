@@ -4,7 +4,12 @@
 
 
 <template>
-  <h1>hello</h1>
+  <div class="card">
+    <div class="card-body">
+
+      <h4>post title</h4>
+    </div>
+  </div>
 </template>
 
 

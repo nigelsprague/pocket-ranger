@@ -6,7 +6,7 @@ export const ReviewSchema = new Schema({
   title: { type: String, maxLength: 50 },
   body: { type: String, maxLength: 500 },
   creatorId: { type: Schema.ObjectId, required: true, ref: 'Account' },
-  parkId: { type: Schema.ObjectId, required: true, ref: 'Park' }
+  parkCode: { type: String, required: true, ref: 'Park' }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 ReviewSchema.virtual('creator', {
@@ -17,8 +17,8 @@ ReviewSchema.virtual('creator', {
 })
 
 ReviewSchema.virtual('park', {
-  localField: 'parkId',
+  localField: 'parkCode',
   ref: 'Park',
-  foreignField: '_id',
+  foreignField: 'parkCode',
   justOne: true
 })

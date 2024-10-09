@@ -27,9 +27,6 @@ class ParksService {
     AppState.parkQuery = parkQuery
     const newParks = response.data.data.map(park => new Park(park))
     AppState.parks = newParks
-    // let markers = [];
-    // newParks.forEach(park => markers.push(park.latitude + park.longitude));
-    // logger.log('👺☠️', markers)
   }
   async getParkByCode(parkCode) {
     const response = await npsAPI.get(`/parks/?parkcode=${parkCode}`)

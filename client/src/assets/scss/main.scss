@@ -40,10 +40,27 @@ a {
   text-decoration: none;
 }
 
+.H_ib_body {
+  margin-right: -250px !important;
+}
+
 .H_ib_content {
   min-width: 500px !important;
 }
 
-.test {
-  background-color: blue;
+.H_ib_content img {
+  width: 100px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  .H_ib_body {
+    margin-right: -150px !important;
+  }
+
+  .H_ib_content {
+    min-width: 300px !important;
+  }
 }

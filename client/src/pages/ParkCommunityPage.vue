@@ -46,10 +46,13 @@ async function getPostsByCommunity() {
 
 
 <template>
-  <h1>{{ park?.fullName }}</h1>
   <div class="container-fluid p-0">
-    <div class="mb-3">
+    <div class="mb-3 position-relative">
       <HereMap :center="center" />
+    </div>
+    <div class="position-absolute mx-2 p-2">
+      <h1>{{ park?.fullName }}</h1>
+      <span class="fs-4">Community Map</span>
     </div>
     <section class="row m-0">
       <div v-for="post in posts" :key="post.id" class="col-md-9 mb-3 order-md-0 order-1">
@@ -101,5 +104,12 @@ async function getPostsByCommunity() {
 .form-check-input:checked {
   background-color: var(--bs-secondary);
   border-color: var(--bs-secondary);
+}
+
+.position-absolute {
+  top: 8.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 8px;
 }
 </style>

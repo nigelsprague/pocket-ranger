@@ -16,6 +16,7 @@ const apikey = "KvvHdUFGZY2O9XDAprwpX4vQCzvRds9lzfhwkff-Ux0";
 const mapContainer = ref()
 /**@type {H.Map} */
 let map = null
+let ui = null;
 let currentMarkers = []
 
 onMounted(() => {
@@ -63,7 +64,7 @@ function initializeHereMap() {
 
   // add UI
   // @ts-ignore
-  H.ui.UI.createDefault(map, maptypes);
+  ui = H.ui.UI.createDefault(map, maptypes);
   // End rendering the initial map
 
 
@@ -73,11 +74,30 @@ function initializeHereMap() {
 function addMarkersToMap() {
   if (!map) { return }
 
+  var group = new H.map.Group();
+
+  map.addObject(group);
+
+  // add 'tap' event listener, that opens info bubble, to the group
+  group.addEventListener('tap', function (evt) {
+    // event target is the marker itself, group is a parent event target
+    // for all objects that it contains
+    var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+      // read custom data
+      content: evt.target.getData()
+    });
+    // show info bubble
+    bubble.addClass('test');
+    ui.addBubble(bubble);
+
+  }, false);
+
   for (let i = 0; i < markers.value.length; i++) {
     let marker = markers.value[i];
     // @ts-ignore
     let newMarker = new H.map.Marker({ lat: marker.lat, lng: marker.lng });
-    map.addObject(newMarker);
+    newMarker.setData(`<h5>Zion National Park</h5> <p>Visit zion national park right now stupid</p>`)
+    group.addObject(newMarker);
     currentMarkers.push(newMarker)
   }
 
@@ -100,5 +120,13 @@ function addMarkersToMap() {
   text-align: center;
   margin: 5% auto;
   background-color: #ccc;
+}
+
+.H_ib_content {
+  min-width: 500px !important;
+}
+
+.test {
+  background-color: blue;
 }
 </style>

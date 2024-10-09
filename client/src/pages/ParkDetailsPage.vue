@@ -10,6 +10,7 @@ import { alertsService } from '@/services/AlertsService.js';
 import { articlesService } from '@/services/ArticlesService.js';
 import { followersService } from '@/services/FollowersService.js';
 import { parksService } from '@/services/ParksService.js';
+import { reviewsService } from '@/services/ReviewsService.js';
 import { toDoService } from '@/services/ToDoService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
@@ -21,6 +22,7 @@ const currentPage = computed(() => AppState.currentPage)
 const totalPages = computed(() => AppState.totalPages)
 const account = computed(() => AppState.account)
 const park = computed(() => AppState.activePark)
+const reviews = computed(() => AppState.reviews)
 const thingsToDo = computed(() => AppState.thingsToDo)
 const alerts = computed(() => AppState.alerts)
 const articles = computed(() => AppState.articles)
@@ -53,6 +55,13 @@ const alreadyFollowing = computed(() => {
   } else {
     return false;
   }
+})
+
+const reviewData = ref({
+  recommended: 'true',
+  title: '',
+  body: '',
+  parkCode: route.params.parkCode
 })
 
 onMounted(() => {
@@ -144,6 +153,28 @@ async function changeArticlePage(pageNumber) {
     Pop.error(error)
   }
 }
+
+async function createReview() {
+  try {
+    const createReview = await reviewsService.createReview(reviewData.value)
+    resetReviewForm()
+    Pop.toast("Review submitted!", 'success', 'top')
+  }
+  catch (error) {
+    Pop.error(error)
+    logger.log(error)
+  }
+}
+
+function resetReviewForm() {
+  reviewData.value = {
+    recommended: 'true',
+    title: '',
+    body: '',
+    parkCode: route.params.parkCode
+  }
+}
+
 </script>
 
 
@@ -199,7 +230,6 @@ async function changeArticlePage(pageNumber) {
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
             <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
             <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
-            <button @click="activeContainer = 'reviews'" class="btn">Reviews</button> |
             <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button>
           </div>
         </div>
@@ -208,16 +238,38 @@ async function changeArticlePage(pageNumber) {
     <br>
 
     <!-- //SECTION - REVIEWS -->
-    <div v-if="activeContainer == 'reviews'">
-      <!-- <div v-if="reviews"> -->
+    <div v-if="activeContainer == null || activeContainer == 'reviews'">
+      <div v-if="reviews">
         <div class="container">
           <section class="row">
             <div class="col-12">
               <h3>Park Reviews</h3>
             </div>
+            <section class="row">
+              <div class="col-12">
+                <h4>See what people are saying...</h4>
+              </div>
+              <div class="col-md-7">
+                <form @submit.prevent="createReview()">
+                  <div class="mb-3">
+                    <label for="review-title" class="form-label">Title your review</label>
+                    <input v-model="reviewData.title" type="text" class="form-control" name="review-title" id="review-title"
+                      placeholder="Title">
+                  </div>
+                  <div class="mb-3">
+                    <label for="review-body" class="form-label">Write your review</label>
+                    <textarea v-model="reviewData.body" class="form-control" minlength="1" maxlength="500"
+                      name="review-body" id="review-body" placeholder="Review Details"></textarea>
+                  </div>
+                  <div class="text-end">
+                    <button class="btn fee-btn" type="submit">Post Review</button>
+                  </div>
+                </form>
+              </div>
+            </section>
           </section>
         </div>
-      <!-- </div> -->
+      </div>
     </div>
 
     <!-- // SECTION - GALLERY -->
@@ -247,7 +299,7 @@ async function changeArticlePage(pageNumber) {
     </div>
 
     <!-- // SECTION - PARK INFORMATION -->
-    <div v-if="activeContainer == null || activeContainer == 'parkInformation'">
+    <div v-if="activeContainer == 'parkInformation'">
       <div v-if="fees">
         <div class="container">
           <Modalwrapper id="fee-card">
@@ -320,11 +372,9 @@ async function changeArticlePage(pageNumber) {
             </div>
             <div class="col-12">
               <div class="d-flex gap-3 align-items-center my-3">
-                <button @click="changeArticlePage(currentPage + 1)" :disabled="AppState.displayCurrentPage == 1"
-                  class="btn btn-outline-dark">Previous</button>
+                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark">Previous</button>
                 <span class="fs-f"> Page {{ AppState.displayCurrentPage }} of {{ totalPages }}</span>
-                <button @click="changeArticlePage(currentPage - 1)"
-                  :disabled="AppState.displayCurrentPage == totalPages" class="btn btn-outline-dark">Next</button>
+                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark">Next</button>
               </div>
             </div>
           </section>

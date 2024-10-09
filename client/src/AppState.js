@@ -24,6 +24,8 @@ export const AppState = reactive({
   articles: [],
   /** @type {import('./models/Post.js').Post[]} */
   posts: [],
+    /** @type {import('./models/Review.js').Review[]} */
+    reviews: [],
   /** @type {import('./models/Follower.js').Follower[]} */
   followers: [],
   mapMarkers: [],

@@ -7,7 +7,7 @@ const locationSchema = new Schema({
 
 export const PostSchema = new Schema({
   title: { type: String, maxLength: 50, required: true },
-  body: { type: String, maxLength: 200, required: true },
+  body: { type: String, maxLength: 1000, required: true },
   category: { type: String, enum: ['wildlife alert', 'photography', 'point of interest', 'information', 'warning', 'miscellaneous'], required: true },
   image: { type: String, maxLength: 500, validate: { validator: validateImg } },
   location: { type: locationSchema, validate: { validator: validatePoint } },

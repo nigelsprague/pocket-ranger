@@ -199,26 +199,12 @@ async function changeArticlePage(pageNumber) {
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
             <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
             <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
-            <button @click="activeContainer = 'reviews'" class="btn">Reviews</button> |
             <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button>
           </div>
         </div>
       </section>
     </div>
     <br>
-
-    <!-- //SECTION - REVIEWS -->
-    <div v-if="activeContainer == 'reviews'">
-      <!-- <div v-if="reviews"> -->
-        <div class="container">
-          <section class="row">
-            <div class="col-12">
-              <h3>Park Reviews</h3>
-            </div>
-          </section>
-        </div>
-      <!-- </div> -->
-    </div>
 
     <!-- // SECTION - GALLERY -->
     <div v-if="activeContainer == 'gallery'">
@@ -320,11 +306,9 @@ async function changeArticlePage(pageNumber) {
             </div>
             <div class="col-12">
               <div class="d-flex gap-3 align-items-center my-3">
-                <button @click="changeArticlePage(currentPage + 1)" :disabled="AppState.displayCurrentPage == 1"
-                  class="btn btn-outline-dark">Previous</button>
+                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark">Previous</button>
                 <span class="fs-f"> Page {{ AppState.displayCurrentPage }} of {{ totalPages }}</span>
-                <button @click="changeArticlePage(currentPage - 1)"
-                  :disabled="AppState.displayCurrentPage == totalPages" class="btn btn-outline-dark">Next</button>
+                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark">Next</button>
               </div>
             </div>
           </section>

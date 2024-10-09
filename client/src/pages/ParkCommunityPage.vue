@@ -52,10 +52,10 @@ async function getPostsByCommunity() {
       <HereMap :center="center" />
     </div>
     <section class="row m-0">
-      <div v-for="post in posts" :key="post.id" class="col-md-9 mb-3 order-sm-0 order-1">
+      <div v-for="post in posts" :key="post.id" class="col-md-9 mb-3 order-md-0 order-1">
         <PostCard :post="post" />
       </div>
-      <div class="col-md-3 order-sm-1 order-0">
+      <div class="col-md-3 order-md-1 order-0">
         <form class="row">
           <div class="col-md-12 col-6">
             <div class="form-check form-switch">

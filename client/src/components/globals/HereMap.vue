@@ -1,6 +1,7 @@
 <!-- eslint-disable no-undef -->
 <script setup>
 import { AppState } from '@/AppState.js';
+import { logger } from '@/utils/Logger.js';
 import { computed, onMounted, ref, watch } from 'vue';
 
 
@@ -17,6 +18,7 @@ const mapContainer = ref()
 /**@type {H.Map} */
 let map = null
 let ui = null;
+let bubbles = [];
 let currentMarkers = []
 
 onMounted(() => {
@@ -24,7 +26,6 @@ onMounted(() => {
 })
 
 watch(markers, () => {
-
   if (currentMarkers.length && map) {
     map.removeObjects(currentMarkers)
     currentMarkers = []
@@ -39,7 +40,7 @@ function initializeHereMap() {
   platform = new window.H.service.Platform({ apikey: apikey })
 
   // Obtain the default map types from the platform object
-  var maptypes = platform.createDefaultLayers();
+  const maptypes = platform.createDefaultLayers();
 
   let zoom;
   if (!props.zoom) {
@@ -74,7 +75,7 @@ function initializeHereMap() {
 function addMarkersToMap() {
   if (!map) { return }
 
-  var group = new H.map.Group();
+  let group = new H.map.Group();
 
   map.addObject(group);
 
@@ -82,13 +83,29 @@ function addMarkersToMap() {
   group.addEventListener('tap', function (evt) {
     // event target is the marker itself, group is a parent event target
     // for all objects that it contains
-    var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+    const bubbleContent = evt.target.getData()
+    let bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
       // read custom data
-      content: evt.target.getData()
+      content: bubbleContent
     });
+
+
+    bubbles.push(bubble);
+    // bubble.addEventListener('blur', function () {
+    //   ui.removeBubble(bubble);
+    // })
     // show info bubble
-    bubble.addClass('test');
     ui.addBubble(bubble);
+    bubble.getElement().focus()
+    bubble.getElement().addEventListener('blur', () => bubble.close())
+
+    // group.addEventListener('tap', function () {
+    //   while (bubbles.length > 0) {
+    //     console.log('help')
+    //     ui.removeBubble(bubbles[0]);
+    //     bubbles.splice(0, 1);
+    //   }
+    // })
 
   }, false);
 
@@ -96,9 +113,9 @@ function addMarkersToMap() {
     let marker = markers.value[i];
     // @ts-ignore
     let newMarker = new H.map.Marker({ lat: marker.lat, lng: marker.lng });
-    newMarker.setData(`<h5>Zion National Park</h5> <p>Visit zion national park right now stupid</p>`)
+    newMarker.setData(`<div class="d-flex align-items-center gap-3"><img src="${marker.image}?width=100"><h5>${marker.title}</h5></div>`)
     group.addObject(newMarker);
-    currentMarkers.push(newMarker)
+    currentMarkers.push(newMarker);
   }
 
   // TODO center and zoom the map
@@ -120,13 +137,5 @@ function addMarkersToMap() {
   text-align: center;
   margin: 5% auto;
   background-color: #ccc;
-}
-
-.H_ib_content {
-  min-width: 500px !important;
-}
-
-.test {
-  background-color: blue;
 }
 </style>

@@ -5,6 +5,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import HereMap from '@/components/globals/HereMap.vue';
+import { MapMarker } from '@/models/MapMarker.js';
 
 onUnmounted(() => {
   parksService.clearSearch()
@@ -52,7 +53,7 @@ async function searchParks() {
 function loadMarkers() {
   const markers = [];
   parks.value.forEach(park => {
-    let marker = { lat: park.latitude, lng: park.longitude };
+    let marker = new MapMarker(park);
     markers.push(marker);
   })
   AppState.mapMarkers = markers;

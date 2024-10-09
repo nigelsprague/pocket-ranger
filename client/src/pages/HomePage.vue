@@ -24,14 +24,14 @@ async function getAllParks() {
   }
 }
 
-async function changePage(pageNumber){
+async function changePage(pageNumber) {
   try {
     await parksService.changeParksPage(pageNumber, 15)
     logger.log('Going to page', pageNumber)
-}
-catch (error){
-  Pop.error(error)
-}
+  }
+  catch (error) {
+    Pop.error(error)
+  }
 }
 
 </script>
@@ -57,9 +57,9 @@ catch (error){
       </div>
       <div class="col-12">
         <div class="d-flex gap-3 align-items-center my-3">
-          <button @click="changePage(currentPage -1)" class="btn btn-outline-dark">Previous</button>
+          <button @click="changePage(currentPage - 1)" class="btn btn-outline-dark">Previous</button>
           <span class="fs-f"> Page {{ currentPage }} of {{ totalPages }}</span>
-          <button @click="changePage(currentPage +1)" class="btn btn-outline-dark">Next</button>
+          <button @click="changePage(currentPage + 1)" class="btn btn-outline-dark">Next</button>
         </div>
       </div>
     </section>

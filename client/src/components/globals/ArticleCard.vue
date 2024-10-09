@@ -17,10 +17,21 @@ defineProps({ article: { type: Article, required: true } })
           </div>
           <div class="col-8">
             <div class="px-3">
-              <h5>{{ article.title }}</h5>
-              <p class="m-0">{{ article.body }}</p>
+              <div class="containter-fluid">
+                <section class="row">
+                  <div class="col-md-11">
+                    <h5>{{ article.title }}</h5>
+                  </div>
+                  <div class="col-md-1 text-end">
+                    <i class="fs-4 mdi mdi-bookmark-outline bookmark"></i>
+                  </div>
+                </section>
+              </div>
+              <div>
+                <p class="m-0">{{ article.body }}</p>
+              </div>
               <br />
-              <a v-if="article.url" :href="article.url" class="btn bg-info">Read More</a>
+              <a v-if="article.url" :href="article.url" class="btn">Read More</a>
             </div>
           </div>
         </div>
@@ -44,10 +55,25 @@ img {
   border-width: 4px;
 }
 
+.btn {
+  background-color: #FDFBF1;
+  border-color: #2C4A1E;
+  border-style: solid;
+  border-width: 2px;
+}
+
 p {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
   overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .bookmark{
+    position: absolute;
+    top: 8px;
+    right: 10px;
+  }
 }
 </style>

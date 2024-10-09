@@ -61,23 +61,7 @@ async function getArticleByFavorites() {
       </div>
 
       <div class="container mt-2">
-        <section class="row align-items-baseline justify-content-between text-forest fs-5">
-          <div class="col-md-4">
-            <h4>Favorited Parks</h4>
-            <hr />
-            <div v-for="park in favoritedParks" :key="park.parkCode" class="col-12 mb-3">
-              <ParkCard :park="park" />
-            </div>
-          </div>
-          <div class="col-md-4">
-            <h4>Park Articles</h4>
-            <hr />
-            <section class="row">
-              <div v-for="article in articles" :key="article.id" class="col-12 article mb-2">
-                <ArticleCard :article />
-              </div>
-            </section>
-          </div>
+        <section class="row justify-content-end">
           <div class="col-md-3 text-end">
             <h4>Notifications</h4>
             <div class="form-check form-switch">
@@ -97,6 +81,25 @@ async function getArticleByFavorites() {
               <label class="form-check-label" for="events">Events</label>
             </div>
           </div>
+        </section>
+        <section class="row align-items-baseline justify-content-between text-forest fs-5">
+          <div class="col-md-6">
+            <h4>Favorited Parks</h4>
+            <hr />
+            <div v-for="park in favoritedParks" :key="park.parkCode" class="col-12 mb-3">
+              <ParkCard :park="park" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h4>Park Articles</h4>
+            <hr />
+            <section class="row">
+              <div v-for="article in articles" :key="article.id" class="col-12 article mb-2">
+                <ArticleCard :article />
+              </div>
+            </section>
+          </div>
+
         </section>
       </div>
     </div>

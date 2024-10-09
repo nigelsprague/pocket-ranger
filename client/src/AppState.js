@@ -13,6 +13,7 @@ export const AppState = reactive({
   parkQuery: '',
   currentPage: 0,
   totalPages: 0,
+  displayCurrentPage: 0,
   /**@type {import('./models/Park.js').Park} */
   activePark: null,
   /**@type {import('./models/ThingsToDo.js').ThingsToDo[]} */

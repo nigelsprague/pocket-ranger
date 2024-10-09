@@ -1,4 +1,8 @@
 <script setup>
+import { AppState } from '@/AppState';
+import { postsService } from '@/services/PostsService';
+import { logger } from '@/utils/Logger';
+import Pop from '@/utils/Pop';
 import { ref } from 'vue';
 
 const categories = ['wildlife alert', 'photography', 'point of interest', 'information', 'warning', 'miscellaneous']
@@ -6,7 +10,8 @@ const postData = ref({
   title: '',
   body: '',
   category: '',
-  image: ''
+  image: '',
+  parkCode: null
 })
 
 function resetForm() {
@@ -14,14 +19,28 @@ function resetForm() {
     title: '',
     body: '',
     category: '',
-    image: ''
+    image: '',
+    parkCode: null
+  }
+}
+
+async function createPost() {
+  try {
+    postData.value.parkCode = AppState.activePark.parkCode
+    const createdPost = await postsService.createPost(postData.value)
+    resetForm()
+    Pop.toast(`${createdPost.title} created!`, 'success', 'top')
+  }
+  catch (error) {
+    Pop.error(error);
+    logger.log(error)
   }
 }
 </script>
 
 
 <template>
-  <form class="row m-0">
+  <form @submit.prevent="createPost()" class="row m-0">
     <h2>Create New Post</h2>
     <div class="mb-3">
       <label for="title">Post Title</label>
@@ -46,7 +65,7 @@ function resetForm() {
         placeholder="Body text here..." required></textarea>
     </div>
     <div class="d-flex justify-content-end">
-      <button class="btn col-2 btn-secondary mb-3 selectable">Post</button>
+      <button type="submit" class="btn col-2 btn-secondary mb-3 selectable">Post</button>
     </div>
   </form>
 </template>

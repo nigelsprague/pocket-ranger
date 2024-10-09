@@ -63,7 +63,7 @@ async function getPostsByCommunity() {
       <div v-for="post in posts" :key="post.id" class="col-md-9 mb-3 order-md-0 order-1">
         <PostCard :post="post" />
 
-        <section class="row justify-content-end mb-3 mx-2 fixed-bottom">
+        <section class="row justify-content-end mb-3 mx-3 fixed-bottom">
           <button class="col-1 btn btn-secondary p-0 px-2" data-bs-toggle="modal" data-bs-target="#post-form"
             title="Add a post!"><i class="mdi mdi-plus fs-1"></i></button>
         </section>

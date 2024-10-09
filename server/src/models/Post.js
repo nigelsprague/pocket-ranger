@@ -10,6 +10,7 @@ export const PostSchema = new Schema({
   body: { type: String, maxLength: 1000, required: true },
   category: { type: String, enum: ['wildlife alert', 'photography', 'point of interest', 'information', 'warning', 'miscellaneous'], required: true },
   image: { type: String, maxLength: 500, validate: { validator: validateImg } },
+  // image: { type: String, maxLength: 500, validate: { validator: validateImg } },
   location: { type: locationSchema, validate: { validator: validatePoint } },
   // default: { type: 'Point', coordinates: [180, 90] }
   // latitude: { type: Number, min: -90, max: 90 },
@@ -47,8 +48,8 @@ function validatePoint(value) {
 
 function validateImg(value) {
   const postData = value._doc;
-  if (postData.category == 'photography') {
-    if (postData.image == null) {
+  if (postData?.category == 'photography') {
+    if (postData?.image == null) {
       return false;
     }
   }

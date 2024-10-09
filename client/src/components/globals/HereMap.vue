@@ -96,8 +96,11 @@ function addMarkersToMap() {
     // })
     // show info bubble
     ui.addBubble(bubble);
-    bubble.getElement().focus()
-    bubble.getElement().addEventListener('blur', () => bubble.close())
+    const bubbleElm = bubble.getElement()
+    const bubbleLink = bubbleElm.querySelector('a')
+    bubbleLink.addEventListener('mousedown', (e) => e.preventDefault())
+    bubbleElm.focus()
+    bubbleElm.addEventListener('blur', () => bubble.close())
 
     // group.addEventListener('tap', function () {
     //   while (bubbles.length > 0) {
@@ -113,7 +116,7 @@ function addMarkersToMap() {
     let marker = markers.value[i];
     // @ts-ignore
     let newMarker = new H.map.Marker({ lat: marker.lat, lng: marker.lng });
-    newMarker.setData(`<div class="d-flex align-items-center gap-3"><img src="${marker.image}?width=100"><h5>${marker.title}</h5></div>`)
+    newMarker.setData(`<div class="d-flex align-items-center gap-3"><img src="${marker.image}?width=100"><a href="#/park/${marker.elemId}"><h5>${marker.title}</h5></a></div>`)
     group.addObject(newMarker);
     currentMarkers.push(newMarker);
   }

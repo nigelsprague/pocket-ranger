@@ -16,17 +16,15 @@ class ArticlesService {
   }
 
   async getArticleByCode(parkCodes) {
-    // const responseForTotal = await npsAPI.get(`/articles/?parkcode=${parkCodes}&limit=1`);
-    // const total = parseInt(responseForTotal.data.total);
+    const responseForTotal = await npsAPI.get(`/articles/?parkcode=${parkCodes}&limit=1`);
+    const total = parseInt(responseForTotal.data.total);
 
-    // // TODO Pagination
-    // const page = 1;
-    // const limit = 10;
-    // let start = total - (limit * page);
-    // if (start < 1) {
-    //   start = 0;
-    // }
-    const response = await npsAPI.get(`/articles/?parkcode=${parkCodes}&start=0&limit=${this.limit}`)
+    // TODO Pagination
+    let start = total - this.limit
+    if (start < 1) {
+      start = 0;
+    }
+    const response = await npsAPI.get(`/articles/?parkcode=${parkCodes}&start=${start}&limit=${this.limit}`)
     logger.log('Got articles - article service', response.data)
     const newArticle = response.data.data.map(articleData => new Article(articleData))
     AppState.articles = newArticle.reverse()

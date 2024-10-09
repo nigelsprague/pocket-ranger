@@ -1,6 +1,8 @@
 <script setup>
 import { AppState } from '@/AppState';
 import PostCard from '@/components/globals/PostCard.vue';
+import PostForm from '@/components/globals/PostForm.vue';
+import ModalWrapper from '@/components/ModalWrapper.vue';
 import { parksService } from '@/services/ParksService';
 import { postsService } from '@/services/PostsService';
 import { logger } from '@/utils/Logger';
@@ -47,6 +49,9 @@ async function getPostsByCommunity() {
 
 <template>
   <div class="container-fluid p-0">
+    <ModalWrapper id="post-form">
+      <PostForm />
+    </ModalWrapper>
     <div class="mb-3 position-relative">
       <HereMap :center="center" />
     </div>
@@ -57,6 +62,12 @@ async function getPostsByCommunity() {
     <section class="row m-0">
       <div v-for="post in posts" :key="post.id" class="col-md-9 mb-3 order-md-0 order-1">
         <PostCard :post="post" />
+
+        <section class="row justify-content-end mb-3 mx-2 fixed-bottom">
+          <button class="col-1 btn btn-secondary p-0 px-2" data-bs-toggle="modal" data-bs-target="#post-form"
+            title="Add a post!"><i class="mdi mdi-plus fs-1"></i></button>
+        </section>
+
       </div>
       <div class="col-md-3 order-md-1 order-0">
         <form class="row">

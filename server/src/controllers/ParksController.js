@@ -1,5 +1,6 @@
 import { followersService } from "../services/FollowersService.js";
 import { postsService } from "../services/PostsService.js";
+import { reviewsService } from "../services/ReviewsService.js";
 import BaseController from "../utils/BaseController.js";
 
 export class ParksController extends BaseController {
@@ -8,6 +9,7 @@ export class ParksController extends BaseController {
     this.router
       .get('/:parkCode/followers', this.getFollowersByCode)
       .get('/:parkCode/posts', this.getPostsByCode)
+      .get('/:parkCode/reviews', this.getReviewsByCode)
   }
 
   async getFollowersByCode(request, response, next) {
@@ -28,6 +30,16 @@ export class ParksController extends BaseController {
     }
     catch (error) {
       next(error);
+    }
+  }
+
+  async getReviewsByCode(request, response, next){
+    try {
+      const parkCode = request.params.parkCode
+      const reviews = await reviewsService.getReviewsByCode(parkCode)
+      response.send(reviews)
+    } catch (error) {
+      next(error)
     }
   }
 }

@@ -129,6 +129,7 @@ async function getFollowersByCode() {
 async function createFollower() {
   try {
     await followersService.createFollower(route.params.parkCode);
+    Pop.toast("You're now following this park!", 'success', 'top')
   }
   catch (error) {
     Pop.error('Log in to follow park', error)
@@ -139,6 +140,7 @@ async function deleteFollower() {
   try {
     const foundFollower = followers.value.find(follower => follower.creatorId == account.value?.id);
     await followersService.deleteFollower(foundFollower.id);
+    Pop.toast("You're no longer following this park", 'success', 'top')
   }
   catch (error) {
     Pop.error(error);

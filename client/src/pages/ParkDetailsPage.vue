@@ -220,12 +220,12 @@ async function getReviewsByPark() {
       <section class="row">
         <div class="col-12">
           <div class="text-center">
-            <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> |
-            <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
-            <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
-            <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
-            <button @click="activeContainer = 'reviews'" class="btn">Reviews</button> |
-            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button>
+            <button @click="activeContainer = 'parkAlerts'" class="btn text-light">Alerts</button> |
+            <button @click="activeContainer = 'articles'" class="btn text-light">Articles</button> |
+            <button @click="activeContainer = 'gallery'" class="btn text-light">Gallery</button> |
+            <button @click="activeContainer = 'parkInformation'" class="btn text-light">Park Information</button> |
+            <button @click="activeContainer = 'reviews'" class="btn text-light">Reviews</button> |
+            <button @click="activeContainer = 'thingsToDo'" class="btn text-light">Things To Do</button>
           </div>
         </div>
       </section>

@@ -41,7 +41,7 @@ async function createPost() {
 
 <template>
   <form @submit.prevent="createPost()" class="row m-0">
-    <h2>Create New Post</h2>
+    <h2 class="text-forest">Create New Post</h2>
     <div class="mb-3">
       <label for="title">Post Title</label>
       <input v-model="postData.title" type="text" class="form-control" name="title" id="title"
@@ -71,4 +71,8 @@ async function createPost() {
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.form-control {
+  background-color: var(--bs-offwhite);
+}
+</style>

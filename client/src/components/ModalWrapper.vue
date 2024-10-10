@@ -17,4 +17,8 @@ defineProps({ modalId: String })
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.modal-content {
+  background-color: var(--bs-page);
+}
+</style>

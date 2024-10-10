@@ -4,6 +4,8 @@ import AlertCard from '@/components/globals/AlertCard.vue';
 import ArticleCard from '@/components/globals/ArticleCard.vue';
 import FeeCard from '@/components/globals/FeeCard.vue';
 import HereMap from '@/components/globals/HereMap.vue';
+import ReviewCard from '@/components/globals/ReviewCard.vue';
+import ReviewForm from '@/components/globals/ReviewForm.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/ModalWrapper.vue';
 import { MapMarker } from '@/models/MapMarker.js';
@@ -65,19 +67,13 @@ const alreadyFollowing = computed(() => {
   }
 })
 
-const reviewData = ref({
-  recommended: 'true',
-  title: '',
-  body: '',
-  parkCode: route.params.parkCode
-})
-
 onMounted(() => {
   getParkByCode()
   getFollowersByCode()
   getToDoByCode()
   getAlertByCode()
   getArticleByCode()
+  getReviewsByPark()
 })
 
 onUnmounted(() => {
@@ -137,6 +133,7 @@ async function getFollowersByCode() {
 async function createFollower() {
   try {
     await followersService.createFollower(route.params.parkCode);
+    Pop.toast("You're now following this park!", 'success', 'top')
   }
   catch (error) {
     Pop.error('Log in to follow park', error)
@@ -147,6 +144,7 @@ async function deleteFollower() {
   try {
     const foundFollower = followers.value.find(follower => follower.creatorId == account.value?.id);
     await followersService.deleteFollower(foundFollower.id);
+    Pop.toast("You're no longer following this park", 'success', 'top')
   }
   catch (error) {
     Pop.error(error);
@@ -162,24 +160,13 @@ async function changeArticlePage(pageNumber) {
   }
 }
 
-async function createReview() {
+async function getReviewsByPark() {
   try {
-    const createReview = await reviewsService.createReview(reviewData.value)
-    resetReviewForm()
-    Pop.toast("Review submitted!", 'success', 'top')
+    await reviewsService.getReviewsByPark(route.params.parkCode)
   }
   catch (error) {
     Pop.error(error)
     logger.log(error)
-  }
-}
-
-function resetReviewForm() {
-  reviewData.value = {
-    recommended: 'true',
-    title: '',
-    body: '',
-    parkCode: route.params.parkCode
   }
 }
 
@@ -200,14 +187,16 @@ function resetReviewForm() {
                 </div>
                 <div
                   class="col-12 col-md-5 d-flex p-0 justify-content-center justify-content-md-end align-items-center order-0 order-md-1">
-                  <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
-                    <i class="mdi mdi-heart-outline fs-5 fs-md-4"></i>
-                    <p class="m-0">Follow</p>
-                  </button>
-                  <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
-                    <i class="mdi mdi-heart fs-5 fs-md-4"></i>
-                    <p class="m-0">Unfollow</p>
-                  </button>
+                  <div v-if="account">
+                    <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
+                      <i class="mdi mdi-heart-outline fs-5 fs-md-4"></i>
+                      <p class="m-0">Follow</p>
+                    </button>
+                    <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
+                      <i class="mdi mdi-heart fs-5 fs-md-4"></i>
+                      <p class="m-0">Unfollow</p>
+                    </button>
+                  </div>
                   <RouterLink :to="{ name: 'Park Community' }">
                     <button class="btn follow-btn">
                       <i class="mdi mdi-account-group-outline fs-5 fs-md-4"></i>
@@ -231,11 +220,12 @@ function resetReviewForm() {
       <section class="row">
         <div class="col-12">
           <div class="text-center">
-            <button @click="activeContainer = 'parkAlerts'" class="btn text-cream">Alerts</button> |
-            <button @click="activeContainer = 'articles'" class="btn text-cream">Articles</button> |
-            <button @click="activeContainer = 'gallery'" class="btn text-cream">Gallery</button> |
-            <button @click="activeContainer = 'parkInformation'" class="btn text-cream">Park Information</button> |
-            <button @click="activeContainer = 'thingsToDo'" class="btn text-cream">Things To Do</button>
+            <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> |
+            <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
+            <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
+            <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
+            <button @click="activeContainer = 'reviews'" class="btn">Reviews</button> |
+            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button>
           </div>
         </div>
       </section>
@@ -246,32 +236,20 @@ function resetReviewForm() {
     <div v-if="activeContainer == null || activeContainer == 'reviews'">
       <div v-if="reviews">
         <div class="container">
-          <section class="row">
-            <div class="col-12">
+          <Modalwrapper id="review-form">
+            <ReviewForm />
+          </Modalwrapper>
+          <section class="row d-flex justify-content-between ">
+            <div class="text-center text-md-start col-12 col-md-6 ">
               <h3>Park Reviews</h3>
             </div>
-            <section class="row">
-              <div class="col-12">
-                <h4>See what people are saying...</h4>
-              </div>
-              <div class="col-md-7">
-                <form @submit.prevent="createReview()">
-                  <div class="mb-3">
-                    <label for="review-title" class="form-label">Title your review</label>
-                    <input v-model="reviewData.title" type="text" class="form-control" name="review-title"
-                      id="review-title" placeholder="Title">
-                  </div>
-                  <div class="mb-3">
-                    <label for="review-body" class="form-label">Write your review</label>
-                    <textarea v-model="reviewData.body" class="form-control" minlength="1" maxlength="500"
-                      name="review-body" id="review-body" placeholder="Review Details"></textarea>
-                  </div>
-                  <div class="text-end">
-                    <button class="btn fee-btn" type="submit">Post Review</button>
-                  </div>
-                </form>
-              </div>
-            </section>
+            <div class="col-12 col-md-6 text-center text-md-end">
+              <button v-if="account" title="Create review" data-bs-toggle="modal" data-bs-target="#review-form"
+                class="btn btn-green mdi mdi-plus mb-2"></button>
+            </div>
+            <div v-for="review in reviews" :key="review.id" class="col-12 col-md-4 col-lg-3 p-2">
+              <ReviewCard :review="review" />
+            </div>
           </section>
         </div>
       </div>
@@ -439,19 +417,24 @@ function resetReviewForm() {
   background-position: center;
 }
 
-.card {
+.bg-card {
   background-color: rgba(0, 0, 0, 0.542);
   color: white;
   border: none;
-}
-
-.bg-card {
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
 }
 
 .follow-btn {
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
   color: white;
+}
+
+.btn-green {
+  background-color: #2C4A1E;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .box {

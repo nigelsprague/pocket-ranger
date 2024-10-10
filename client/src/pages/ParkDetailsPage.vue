@@ -234,20 +234,16 @@ async function getReviewsByPark() {
           <Modalwrapper id="review-form">
             <ReviewForm />
           </Modalwrapper>
-          <section class="row">
-            <div class="col-12">
+          <section class="row d-flex justify-content-between ">
+            <div class="text-center text-md-start col-12 col-md-6 ">
               <h3>Park Reviews</h3>
             </div>
-            <div class="col-12">
-              <h4>See what people are saying...</h4>
+            <div class="col-12 col-md-6 text-center text-md-end">
+              <button v-if="account" title="Create review" data-bs-toggle="modal" data-bs-target="#review-form"
+                class="btn btn-green mdi mdi-plus mb-2"></button>
             </div>
-            <div v-for="review in reviews" :key="review.id" class="col-md-3 p-2">
+            <div v-for="review in reviews" :key="review.id" class="col-12 col-md-4 col-lg-3 p-2">
               <ReviewCard :review="review" />
-            </div>
-          </section>
-          <section class="row">
-            <div class="col-12 text-end">
-              <button v-if="account" title="Create review" data-bs-toggle="modal" data-bs-target="#review-form" class="btn btn-green mdi mdi-plus mb-2"></button>
             </div>
           </section>
         </div>
@@ -409,13 +405,10 @@ async function getReviewsByPark() {
   background-position: center;
 }
 
-.card {
+.bg-card {
   background-color: rgba(0, 0, 0, 0.542);
   color: white;
   border: none;
-}
-
-.bg-card {
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
 }
 

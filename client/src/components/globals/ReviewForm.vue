@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 
 const reviewData = ref({
-  recommended: 'true',
+  recommended: true,
   title: '',
   body: '',
   parkCode: route.params.parkCode
@@ -17,7 +17,7 @@ const reviewData = ref({
 
 function resetReviewForm() {
   reviewData.value = {
-    recommended: 'true',
+    recommended: true,
     title: '',
     body: '',
     parkCode: route.params.parkCode
@@ -41,8 +41,8 @@ async function createReview() {
 
 <template>
   <div class="container">
-    <section class="row">
-      <div class="col-md-7">
+    <section class="row justify-content-center">
+      <div class="col-12">
         <form @submit.prevent="createReview()">
           <div class="mb-3">
             <label for="review-title" class="form-label">Title your review</label>
@@ -53,9 +53,13 @@ async function createReview() {
             <label for="review-body" class="form-label">Write your review</label>
             <textarea v-model="reviewData.body" class="form-control" minlength="1" maxlength="500" name="review-body"
               id="review-body" placeholder="Review Details"></textarea>
+            <div class="my-3">
+              <input v-model="reviewData.recommended"  type="checkbox" class="m-2" name="recommended" id="recommended">
+              <label for="recommended" class="form-label">Recommend park?</label>
+            </div>
           </div>
           <div class="text-end">
-            <button class="btn fee-btn" type="submit">Post Review</button>
+            <button class="btn btn-green" type="submit">Post Review</button>
           </div>
         </form>
       </div>
@@ -64,4 +68,9 @@ async function createReview() {
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.btn-green {
+  background-color: #2C4A1E;
+  color: white;
+}
+</style>

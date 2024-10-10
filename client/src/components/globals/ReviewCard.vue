@@ -24,15 +24,21 @@ async function deleteReview(reviewId) {
 </script>
 
 <template>
-  <div class="card bg-white text-black">
-    <i v-if="review.creator.id == account?.id" @click="deleteReview(review.id)" class="mdi mdi-delete text-danger fs-4 btn"
-      title="Delete"></i>
+  <div class="card bg-white text-black h-100">
+    <i v-if="review.creator.id == account?.id" @click="deleteReview(review.id)"
+      class="delete mdi mdi-delete text-danger fs-4 btn" title="Delete"></i>
     <div class="card-body text-center">
       <div class=" card-title col-12">
         <img :src="review.creator.picture" :alt="review.creator.name">
-        <p>{{ review.creator.name }}</p>
+        <p class="m-0">{{ review.creator.name }}</p>
+        <p v-if="review.recommended == true">
+          <i class="yes mdi mdi-check-circle"></i> Recommends park
+        </p>
+        <p v-if="!review.recommended == true">
+          <i class="text-danger mdi mdi-close-circle"></i> Does not recommend park
+        </p>
       </div>
-      <div class=" card-text col-12">
+      <div class="card-text col-12">
         <h5>{{ review.title }}</h5>
         <p class="m-0">{{ review.body }}</p>
       </div>
@@ -48,7 +54,11 @@ img {
   border-radius: 50%;
 }
 
-i {
+.yes {
+  color: #2C4A1E;
+}
+
+.delete {
   position: absolute;
   top: 5px;
   right: 10px;

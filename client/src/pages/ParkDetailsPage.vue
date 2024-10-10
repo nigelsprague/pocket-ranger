@@ -179,14 +179,16 @@ async function getReviewsByPark() {
                 </div>
                 <div
                   class="col-12 col-md-5 d-flex p-0 justify-content-center justify-content-md-end align-items-center order-0 order-md-1">
-                  <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
-                    <i class="mdi mdi-heart-outline fs-5 fs-md-4"></i>
-                    <p class="m-0">Follow</p>
-                  </button>
-                  <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
-                    <i class="mdi mdi-heart fs-5 fs-md-4"></i>
-                    <p class="m-0">Unfollow</p>
-                  </button>
+                  <div v-if="account">
+                    <button v-if="!alreadyFollowing" @click="createFollower()" class="btn follow-btn">
+                      <i class="mdi mdi-heart-outline fs-5 fs-md-4"></i>
+                      <p class="m-0">Follow</p>
+                    </button>
+                    <button v-if="alreadyFollowing" @click="deleteFollower()" class="btn follow-btn">
+                      <i class="mdi mdi-heart fs-5 fs-md-4"></i>
+                      <p class="m-0">Unfollow</p>
+                    </button>
+                  </div>
                   <RouterLink :to="{ name: 'Park Community' }">
                     <button class="btn follow-btn">
                       <i class="mdi mdi-account-group-outline fs-5 fs-md-4"></i>
@@ -217,6 +219,7 @@ async function getReviewsByPark() {
             <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
             <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
             <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
+            <button @click="activeContainer = 'reviews'" class="btn">Reviews</button> |
             <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button>
           </div>
         </div>
@@ -238,13 +241,13 @@ async function getReviewsByPark() {
             <div class="col-12">
               <h4>See what people are saying...</h4>
             </div>
-            <div v-for="review in reviews" :key="review.id" class="col-md-4 p-2">
+            <div v-for="review in reviews" :key="review.id" class="col-md-3 p-2">
               <ReviewCard :review="review" />
             </div>
           </section>
           <section class="row">
             <div class="col-12 text-end">
-              <button title="Create review" data-bs-toggle="modal" data-bs-target="#review-form" class="btn btn-green mdi mdi-plus mb-2"></button>
+              <button v-if="account" title="Create review" data-bs-toggle="modal" data-bs-target="#review-form" class="btn btn-green mdi mdi-plus mb-2"></button>
             </div>
           </section>
         </div>

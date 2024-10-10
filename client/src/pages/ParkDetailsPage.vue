@@ -216,7 +216,7 @@ async function getReviewsByPark() {
         </div>
       </section>
     </div>
-    <div class="container-fluid bg-primary text-light">
+    <div class="container-fluid bg-secondary-brown text-light">
       <section class="row">
         <div class="col-12">
           <div class="text-center">
@@ -448,6 +448,10 @@ async function getReviewsByPark() {
   border-color: #2C4A1E;
   border-style: solid;
   border-width: 4px;
+}
+
+.bg-secondary-brown {
+  background-color: var(--secondary-brown);
 }
 
 .masonry-layout {

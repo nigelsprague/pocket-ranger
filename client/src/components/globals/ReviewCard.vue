@@ -1,13 +1,28 @@
 <script setup>
 import { Review } from '@/models/Review.js';
+import { reviewsService } from '@/services/ReviewsService.js';
+import { logger } from '@/utils/Logger.js';
+import Pop from '@/utils/Pop.js';
 
 defineProps({ review: { type: Review, required: true } })
 
+async function deleteReview(reviewId){
+  try {
+    const confirmed = await Pop.confirm(`Are you sure you want to delete your review?`)
+    if(!confirmed) return
+    await reviewsService.deleteReview(reviewId)
+    Pop.toast("Deleted review!", 'success', 'center')
+  }
+  catch (error){
+    Pop.error(error)
+    logger.log(error)
+  }
+}
 </script>
 
 <template>
   <div class="card bg-white text-black">
-    <i class="mdi mdi-delete text-danger fs-4" title="Delete"></i>
+    <i @click="deleteReview(review.id)" class="mdi mdi-delete text-danger fs-4" title="Delete"></i>
     <div class="card-body text-center">
       <div class=" card-title col-12">
         <img :src="review.creator.picture" :alt="review.creator.name">

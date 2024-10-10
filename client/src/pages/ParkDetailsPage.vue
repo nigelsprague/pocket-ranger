@@ -242,6 +242,8 @@ async function getReviewsByPark() {
               <button v-if="account" title="Create review" data-bs-toggle="modal" data-bs-target="#review-form"
                 class="btn btn-green mdi mdi-plus mb-2"></button>
             </div>
+          </section>
+          <section class="row justify-content-center">
             <div v-for="review in reviews" :key="review.id" class="col-12 col-md-4 col-lg-3 p-2">
               <ReviewCard :review="review" />
             </div>

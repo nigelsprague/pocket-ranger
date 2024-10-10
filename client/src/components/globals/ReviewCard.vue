@@ -61,8 +61,7 @@ img {
 .delete {
   position: absolute;
   top: 5px;
-  right: 10px;
-}
+  right: 10px;}
 
 .card {
   background-color: #FDFBF1;

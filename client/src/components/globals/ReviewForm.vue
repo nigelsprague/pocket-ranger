@@ -54,7 +54,7 @@ async function createReview() {
             <textarea v-model="reviewData.body" class="form-control" minlength="1" maxlength="500" name="review-body"
               id="review-body" placeholder="Review Details"></textarea>
             <div class="my-3">
-              <input v-model="reviewData.recommended"  type="checkbox" class="m-2" name="recommended" id="recommended">
+              <input v-model="reviewData.recommended" type="checkbox" class="m-2" name="recommended" id="recommended">
               <label for="recommended" class="form-label">Recommend park?</label>
             </div>
           </div>

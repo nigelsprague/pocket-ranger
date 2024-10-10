@@ -233,7 +233,7 @@ async function getReviewsByPark() {
     <br>
 
     <!-- //SECTION - REVIEWS -->
-    <div v-if="activeContainer == null || activeContainer == 'reviews'">
+    <div v-if="activeContainer == 'reviews'">
       <div v-if="reviews">
         <div class="container">
           <Modalwrapper id="review-form">
@@ -284,7 +284,7 @@ async function getReviewsByPark() {
     </div>
 
     <!-- // SECTION - PARK INFORMATION -->
-    <div v-if="activeContainer == 'parkInformation'">
+    <div v-if="activeContainer == null || activeContainer == 'parkInformation'">
       <div v-if="fees">
         <div class="container">
           <Modalwrapper id="fee-card">

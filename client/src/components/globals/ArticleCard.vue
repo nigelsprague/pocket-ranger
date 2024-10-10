@@ -56,10 +56,8 @@ img {
 }
 
 .btn {
-  background-color: #FDFBF1;
-  border-color: #2C4A1E;
-  border-style: solid;
-  border-width: 2px;
+  color: #FDFBF1;
+  background-color: #2C4A1E;
 }
 
 p {

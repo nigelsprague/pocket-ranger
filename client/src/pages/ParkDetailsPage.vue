@@ -8,6 +8,7 @@ import ReviewCard from '@/components/globals/ReviewCard.vue';
 import ReviewForm from '@/components/globals/ReviewForm.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/ModalWrapper.vue';
+import { MapMarker } from '@/models/MapMarker.js';
 import { alertsService } from '@/services/AlertsService.js';
 import { articlesService } from '@/services/ArticlesService.js';
 import { followersService } from '@/services/FollowersService.js';
@@ -20,7 +21,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
-const currentPage = computed(() => AppState.currentPage)
+const currentPage = computed(() => AppState.displayCurrentPage)
 const totalPages = computed(() => AppState.totalPages)
 const account = computed(() => AppState.account)
 const park = computed(() => AppState.activePark)
@@ -36,11 +37,18 @@ const images = computed(() => AppState.activePark?.images)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
+// const center = computed(() => {
+//   const lat = park.value?.latitude
+//   const lng = park.value?.longitude
+//   return { lat: lat, lng: lng }
+// })
 const center = computed(() => {
-  const lat = park.value?.latitude
-  const lng = park.value?.longitude
-  return { lat: lat, lng: lng }
+  if (park.value) {
+    return new MapMarker(park.value)
+  }
+  return null
 })
+
 let markersLoaded = false;
 
 watch(center, () => {
@@ -208,10 +216,7 @@ async function getReviewsByPark() {
         </div>
       </section>
     </div>
-    <div v-if="markersLoaded">
-      <HereMap :center="center" />
-    </div>
-    <div class="container">
+    <div class="container-fluid bg-primary text-light">
       <section class="row">
         <div class="col-12">
           <div class="text-center">
@@ -304,7 +309,7 @@ async function getReviewsByPark() {
               </div>
             </div>
           </section>
-          <section class="row">
+          <section class="row mb-3">
             <div class="col-12 col-md-6 col-lg-9">
               <br>
               <h5>Park Operating Hours</h5>
@@ -334,6 +339,13 @@ async function getReviewsByPark() {
                 <p>Email: {{ email.emailAddress }}</p>
               </div>
             </div>
+            <div class="col-12">
+              <br>
+              <h5>Park Location</h5>
+              <div v-if="markersLoaded">
+                <HereMap :center="center" />
+              </div>
+            </div>
           </section>
         </div>
       </div>
@@ -352,9 +364,9 @@ async function getReviewsByPark() {
             </div>
             <div class="col-12">
               <div class="d-flex gap-3 align-items-center my-3">
-                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark">Previous</button>
+                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark">Previous</button>
                 <span class="fs-f"> Page {{ AppState.displayCurrentPage }} of {{ totalPages }}</span>
-                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark">Next</button>
+                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark">Next</button>
               </div>
             </div>
           </section>

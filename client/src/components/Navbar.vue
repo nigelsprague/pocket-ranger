@@ -42,12 +42,12 @@ function toggleTheme() {
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
-      <div>
+      <!-- <div>
         <button class="btn text-forest" @click="toggleTheme"
           :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
           <Icon :name="theme == 'light' ? 'weather-sunny' : 'weather-night'" />
         </button>
-      </div>
+      </div> -->
       <Login />
     </div>
   </nav>

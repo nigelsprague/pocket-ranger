@@ -43,14 +43,14 @@ async function getArticleByFavorites() {
 <template>
   <div class="about">
     <div v-if="account">
-      <div class="text-center">
+      <!-- <div class="text-center">
         <h1>Welcome {{ account.name }}</h1>
         <img class="rounded" :src="account.picture" alt="" />
         <p>{{ account.email }}</p>
-      </div>
+      </div> -->
 
       <div class="d-flex bg-primary px-3 p-2 align-items-center justify-content-between">
-        <h3 class="text-start text-offwhite">My Basecamp</h3>
+        <h3 class="text-start text-offwhite">Welcome {{ account.name }}</h3>
         <div>
           <button class="btn mdi mdi-map fs-2 text-offwhite p-0 px-1" title="My Parks"></button>
           <button class="btn mdi mdi-bookmark-outline fs-2 text-offwhite p-0 px-1" title="Bookmarked Articles"></button>

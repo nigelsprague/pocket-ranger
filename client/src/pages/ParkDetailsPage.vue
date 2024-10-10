@@ -6,6 +6,7 @@ import FeeCard from '@/components/globals/FeeCard.vue';
 import HereMap from '@/components/globals/HereMap.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/ModalWrapper.vue';
+import { MapMarker } from '@/models/MapMarker.js';
 import { alertsService } from '@/services/AlertsService.js';
 import { articlesService } from '@/services/ArticlesService.js';
 import { followersService } from '@/services/FollowersService.js';
@@ -18,7 +19,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
-const currentPage = computed(() => AppState.currentPage)
+const currentPage = computed(() => AppState.displayCurrentPage)
 const totalPages = computed(() => AppState.totalPages)
 const account = computed(() => AppState.account)
 const park = computed(() => AppState.activePark)
@@ -34,11 +35,18 @@ const images = computed(() => AppState.activePark?.images)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
+// const center = computed(() => {
+//   const lat = park.value?.latitude
+//   const lng = park.value?.longitude
+//   return { lat: lat, lng: lng }
+// })
 const center = computed(() => {
-  const lat = park.value?.latitude
-  const lng = park.value?.longitude
-  return { lat: lat, lng: lng }
+  if (park.value) {
+    return new MapMarker(park.value)
+  }
+  return null
 })
+
 let markersLoaded = false;
 
 watch(center, () => {
@@ -219,18 +227,15 @@ function resetReviewForm() {
         </div>
       </section>
     </div>
-    <div v-if="markersLoaded">
-      <HereMap :center="center" />
-    </div>
-    <div class="container">
+    <div class="container-fluid bg-primary text-light">
       <section class="row">
         <div class="col-12">
           <div class="text-center">
-            <button @click="activeContainer = 'parkAlerts'" class="btn">Alerts</button> |
-            <button @click="activeContainer = 'articles'" class="btn">Articles</button> |
-            <button @click="activeContainer = 'gallery'" class="btn">Gallery</button> |
-            <button @click="activeContainer = 'parkInformation'" class="btn">Park Information</button> |
-            <button @click="activeContainer = 'thingsToDo'" class="btn">Things To Do</button>
+            <button @click="activeContainer = 'parkAlerts'" class="btn text-cream">Alerts</button> |
+            <button @click="activeContainer = 'articles'" class="btn text-cream">Articles</button> |
+            <button @click="activeContainer = 'gallery'" class="btn text-cream">Gallery</button> |
+            <button @click="activeContainer = 'parkInformation'" class="btn text-cream">Park Information</button> |
+            <button @click="activeContainer = 'thingsToDo'" class="btn text-cream">Things To Do</button>
           </div>
         </div>
       </section>
@@ -253,8 +258,8 @@ function resetReviewForm() {
                 <form @submit.prevent="createReview()">
                   <div class="mb-3">
                     <label for="review-title" class="form-label">Title your review</label>
-                    <input v-model="reviewData.title" type="text" class="form-control" name="review-title" id="review-title"
-                      placeholder="Title">
+                    <input v-model="reviewData.title" type="text" class="form-control" name="review-title"
+                      id="review-title" placeholder="Title">
                   </div>
                   <div class="mb-3">
                     <label for="review-body" class="form-label">Write your review</label>
@@ -324,7 +329,7 @@ function resetReviewForm() {
               </div>
             </div>
           </section>
-          <section class="row">
+          <section class="row mb-3">
             <div class="col-12 col-md-6 col-lg-9">
               <br>
               <h5>Park Operating Hours</h5>
@@ -354,6 +359,13 @@ function resetReviewForm() {
                 <p>Email: {{ email.emailAddress }}</p>
               </div>
             </div>
+            <div class="col-12">
+              <br>
+              <h5>Park Location</h5>
+              <div v-if="markersLoaded">
+                <HereMap :center="center" />
+              </div>
+            </div>
           </section>
         </div>
       </div>
@@ -372,9 +384,9 @@ function resetReviewForm() {
             </div>
             <div class="col-12">
               <div class="d-flex gap-3 align-items-center my-3">
-                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark">Previous</button>
+                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark">Previous</button>
                 <span class="fs-f"> Page {{ AppState.displayCurrentPage }} of {{ totalPages }}</span>
-                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark">Next</button>
+                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark">Next</button>
               </div>
             </div>
           </section>

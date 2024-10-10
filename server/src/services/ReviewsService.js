@@ -11,7 +11,7 @@ class ReviewsService {
   }
   
   async getReviewsByCode(parkCode) {
-    const review = await dbContext.Reviews.find({ parkCode: parkCode })
+    const review = await dbContext.Reviews.find({ parkCode: parkCode }).populate('creator')
     return review
   }
 

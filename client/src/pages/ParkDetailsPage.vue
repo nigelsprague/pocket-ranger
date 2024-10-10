@@ -5,6 +5,7 @@ import ArticleCard from '@/components/globals/ArticleCard.vue';
 import FeeCard from '@/components/globals/FeeCard.vue';
 import HereMap from '@/components/globals/HereMap.vue';
 import ReviewCard from '@/components/globals/ReviewCard.vue';
+import ReviewForm from '@/components/globals/ReviewForm.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/ModalWrapper.vue';
 import { alertsService } from '@/services/AlertsService.js';
@@ -56,13 +57,6 @@ const alreadyFollowing = computed(() => {
   } else {
     return false;
   }
-})
-
-const reviewData = ref({
-  recommended: 'true',
-  title: '',
-  body: '',
-  parkCode: route.params.parkCode
 })
 
 onMounted(() => {
@@ -158,27 +152,6 @@ async function changeArticlePage(pageNumber) {
   }
 }
 
-async function createReview() {
-  try {
-    const createReview = await reviewsService.createReview(reviewData.value)
-    resetReviewForm()
-    Pop.toast("Review submitted!", 'success', 'top')
-  }
-  catch (error) {
-    Pop.error(error)
-    logger.log(error)
-  }
-}
-
-function resetReviewForm() {
-  reviewData.value = {
-    recommended: 'true',
-    title: '',
-    body: '',
-    parkCode: route.params.parkCode
-  }
-}
-
 async function getReviewsByPark() {
   try {
     await reviewsService.getReviewsByPark(route.params.parkCode)
@@ -256,40 +229,24 @@ async function getReviewsByPark() {
       <div v-if="reviews">
         <div class="container">
           <Modalwrapper id="review-form">
-            
+            <ReviewForm />
           </Modalwrapper>
           <section class="row">
             <div class="col-12">
               <h3>Park Reviews</h3>
             </div>
-              <div class="col-12">
-                <h4>See what people are saying...</h4>
-              </div>
-              <div v-for="review in reviews" :key="review.id" class="col-md-4 p-2">
-                <ReviewCard :review="review" />
-              </div>
-            </section>
-              <div class="container">
-                <section class="row">
-                  <div class="col-md-7">
-                    <form @submit.prevent="createReview()">
-                  <div class="mb-3">
-                    <label for="review-title" class="form-label">Title your review</label>
-                    <input v-model="reviewData.title" type="text" class="form-control" name="review-title"
-                    id="review-title" placeholder="Title">
-                  </div>
-                  <div class="mb-3">
-                    <label for="review-body" class="form-label">Write your review</label>
-                    <textarea v-model="reviewData.body" class="form-control" minlength="1" maxlength="500"
-                    name="review-body" id="review-body" placeholder="Review Details"></textarea>
-                  </div>
-                  <div class="text-end">
-                    <button class="btn fee-btn" type="submit">Post Review</button>
-                  </div>
-                </form>
-              </div>
-            </section>
-          </div>
+            <div class="col-12">
+              <h4>See what people are saying...</h4>
+            </div>
+            <div v-for="review in reviews" :key="review.id" class="col-md-4 p-2">
+              <ReviewCard :review="review" />
+            </div>
+          </section>
+          <section class="row">
+            <div class="col-12 text-end">
+              <button title="Create review" data-bs-toggle="modal" data-bs-target="#review-form" class="btn btn-green mdi mdi-plus mb-2"></button>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -462,6 +419,14 @@ async function getReviewsByPark() {
 .follow-btn {
   text-shadow: rgb(0, 0, 0) 1px 0 2px;
   color: white;
+}
+
+.btn-green {
+  background-color: #2C4A1E;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .box {

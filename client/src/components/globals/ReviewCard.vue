@@ -25,7 +25,7 @@ async function deleteReview(reviewId) {
 
 <template>
   <div class="card bg-white text-black">
-    <i v-if="review.creator.id == account?.id" @click="deleteReview(review.id)" class="mdi mdi-delete text-danger fs-4"
+    <i v-if="review.creator.id == account?.id" @click="deleteReview(review.id)" class="mdi mdi-delete text-danger fs-4 btn"
       title="Delete"></i>
     <div class="card-body text-center">
       <div class=" card-title col-12">

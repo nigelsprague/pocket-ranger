@@ -4,6 +4,7 @@ import AlertCard from '@/components/globals/AlertCard.vue';
 import ArticleCard from '@/components/globals/ArticleCard.vue';
 import FeeCard from '@/components/globals/FeeCard.vue';
 import HereMap from '@/components/globals/HereMap.vue';
+import ReviewCard from '@/components/globals/ReviewCard.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
 import Modalwrapper from '@/components/ModalWrapper.vue';
 import { alertsService } from '@/services/AlertsService.js';
@@ -70,6 +71,7 @@ onMounted(() => {
   getToDoByCode()
   getAlertByCode()
   getArticleByCode()
+  getReviewsByPark()
 })
 
 onUnmounted(() => {
@@ -177,6 +179,16 @@ function resetReviewForm() {
   }
 }
 
+async function getReviewsByPark() {
+  try {
+    await reviewsService.getReviewsByPark(route.params.parkCode)
+  }
+  catch (error) {
+    Pop.error(error)
+    logger.log(error)
+  }
+}
+
 </script>
 
 
@@ -243,25 +255,33 @@ function resetReviewForm() {
     <div v-if="activeContainer == null || activeContainer == 'reviews'">
       <div v-if="reviews">
         <div class="container">
+          <Modalwrapper id="review-form">
+            
+          </Modalwrapper>
           <section class="row">
             <div class="col-12">
               <h3>Park Reviews</h3>
             </div>
-            <section class="row">
               <div class="col-12">
                 <h4>See what people are saying...</h4>
               </div>
-              <div class="col-md-7">
-                <form @submit.prevent="createReview()">
+              <div v-for="review in reviews" :key="review.id" class="col-md-4 p-2">
+                <ReviewCard :review="review" />
+              </div>
+            </section>
+              <div class="container">
+                <section class="row">
+                  <div class="col-md-7">
+                    <form @submit.prevent="createReview()">
                   <div class="mb-3">
                     <label for="review-title" class="form-label">Title your review</label>
-                    <input v-model="reviewData.title" type="text" class="form-control" name="review-title" id="review-title"
-                      placeholder="Title">
+                    <input v-model="reviewData.title" type="text" class="form-control" name="review-title"
+                    id="review-title" placeholder="Title">
                   </div>
                   <div class="mb-3">
                     <label for="review-body" class="form-label">Write your review</label>
                     <textarea v-model="reviewData.body" class="form-control" minlength="1" maxlength="500"
-                      name="review-body" id="review-body" placeholder="Review Details"></textarea>
+                    name="review-body" id="review-body" placeholder="Review Details"></textarea>
                   </div>
                   <div class="text-end">
                     <button class="btn fee-btn" type="submit">Post Review</button>
@@ -269,7 +289,7 @@ function resetReviewForm() {
                 </form>
               </div>
             </section>
-          </section>
+          </div>
         </div>
       </div>
     </div>

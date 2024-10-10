@@ -12,6 +12,14 @@ class ReviewsService {
     return createReview
   }
 
+  async getReviewsByPark(parkCode) {
+    const response = await api.get(`api/park/${parkCode}/reviews`)
+    logger.log('What am I getting?', response.data)
+    const newReview = response.data.map(reviewData => new Review(reviewData))
+    AppState.reviews = newReview
+  }
+
+
 }
 
 export const reviewsService = new ReviewsService()

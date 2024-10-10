@@ -6,4 +6,4 @@ services:
     env_file:
       - pocket-ranger-env
     ports:
-      - "22:3000"
+      - "3000:3000"

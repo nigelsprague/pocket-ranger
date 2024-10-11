@@ -1,7 +1,25 @@
 <script setup>
 import { Article } from '@/models/Article.js';
+import { bookmarksService } from '@/services/BookmarksService.js';
+import { logger } from '@/utils/Logger.js';
+import Pop from '@/utils/Pop.js';
 
-defineProps({ article: { type: Article, required: true } })
+const props = defineProps({ article: { type: Article, required: true } })
+
+async function createBookmark() {
+  try {
+    const bookmarkData = {
+      title: props.article.title,
+      url: props.article.title,
+      articleId: props.article.id,
+      articleImage: props.article.listingImage.url
+    }
+    await bookmarksService.createBookmark(bookmarkData)
+  } catch (error) {
+    Pop.error(error)
+    logger.log(error)
+  }
+}
 
 </script>
 
@@ -23,7 +41,7 @@ defineProps({ article: { type: Article, required: true } })
                     <h5>{{ article.title }}</h5>
                   </div>
                   <div class="col-md-1 text-end">
-                    <i class="fs-4 mdi mdi-bookmark-outline bookmark"></i>
+                    <i @click="createBookmark()" class="fs-4 mdi mdi-bookmark-outline bookmark"></i>
                   </div>
                 </section>
               </div>
@@ -68,7 +86,7 @@ p {
 }
 
 @media (max-width: 480px) {
-  .bookmark{
+  .bookmark {
     position: absolute;
     top: 8px;
     right: 10px;

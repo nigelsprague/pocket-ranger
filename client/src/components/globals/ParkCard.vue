@@ -24,8 +24,4 @@ defineProps({ park: { type: Park, required: true } })
   object-fit: cover;
   object-position: center;
 }
-
-.card {
-  background-color: var(--offwhite);
-}
 </style>

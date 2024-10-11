@@ -37,8 +37,9 @@ const images = computed(() => AppState.activePark?.images)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
-const lat = park.value?.latitude
-const lon = park.value?.longitude
+const lat = computed(() => AppState.activePark.latitude)
+const lon = computed(() => AppState.activePark.longitude)
+
 
 const center = computed(() => {
   if (park.value) {
@@ -56,6 +57,7 @@ watch(center, () => {
   }
 })
 
+
 const alreadyFollowing = computed(() => {
   const foundFollower = followers.value.find(follower => follower.creatorId == account.value?.id);
   if (foundFollower) {
@@ -72,7 +74,6 @@ onMounted(() => {
   getAlertByCode()
   getArticleByCode()
   getReviewsByPark()
-  // getParkWeather()
 })
 
 onUnmounted(() => {
@@ -83,23 +84,13 @@ onUnmounted(() => {
 async function getParkByCode() {
   try {
     await parksService.getParkByCode(route.params.parkCode)
-    await parksService.getParkWeather(lat, lon)
+    await parksService.getParkWeather(lat.value, lon.value)
   }
   catch (error) {
     Pop.error(error)
     logger.log(error)
   }
 }
-
-// async function getParkWeather() {
-//   try {
-//     await parksService.getParkWeather(lat, lon)
-//   }
-//   catch (error) {
-//     Pop.error(error);
-//     logger.error(error)
-//   }
-// }
 
 async function getToDoByCode() {
   try {

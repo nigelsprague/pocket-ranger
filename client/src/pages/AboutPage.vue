@@ -83,7 +83,14 @@
           </div>
           <div>
             <h4>Nigel Sprague</h4>
-            <p>Bio here</p>
+            <p>Hello, I am Nigel. Aside from learning web and software development skills, I am spending most of my time
+              skateboarding, reading, or (most likely) working in filmmaking and the arts. With a passion for
+              storytelling, a deep appreciation for the visual, and an ever expanding development toolset, I am excited
+              to see where I can take the skills I have learned from the fall 2024 Codeworks cohort. Pocket Ranger
+              allowed me to work both collaboratively and creatively on a team, gaining a better understanding of a
+              project's journey from start to finish. Thank you to the Codeworks instructors, and to you for visiting
+              our
+              page.</p>
             <h2>
               <a href="https://github.com/nigelsprague">
                 <i class="mdi mdi-github"></i>

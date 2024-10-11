@@ -8,7 +8,6 @@ class BookmarksService {
   }
 
   async createBookmark(bookmarkData) {
-    // const currentBookmarks = await this.getAccountBookmarks(bookmarkData.userId)
     const bookmark = await dbContext.Bookmarks.create(bookmarkData)
     await bookmark.populate('creator')
     return bookmark

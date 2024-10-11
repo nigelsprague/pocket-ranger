@@ -1,10 +1,20 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { Article } from '@/models/Article.js';
 import { bookmarksService } from '@/services/BookmarksService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
+import { computed } from 'vue';
 
 const props = defineProps({ article: { type: Article, required: true } })
+const bookmarks = computed(() => AppState.bookmarks)
+const account = computed(() => AppState.account)
+
+const alreadyBookmarked = computed(() => {
+  const foundBookmark = bookmarks.value.find(bookmark => bookmark.articleId == props.article.id)
+  if (foundBookmark) return true
+  else return false
+})
 
 async function createBookmark() {
   try {
@@ -15,7 +25,20 @@ async function createBookmark() {
       articleImage: props.article.listingImage.url
     }
     await bookmarksService.createBookmark(bookmarkData)
+    Pop.success('You bookmarked this article!')
   } catch (error) {
+    Pop.error(error)
+    logger.log(error)
+  }
+}
+
+async function deleteBookmark() {
+  try {
+    const foundBookmark = bookmarks.value.find(bookmark => bookmark.creatorId == account.value?.id)
+    await bookmarksService.deleteBookmark(foundBookmark.id)
+    Pop.toast("Bookmark removed from article!")
+  }
+  catch (error) {
     Pop.error(error)
     logger.log(error)
   }
@@ -41,7 +64,9 @@ async function createBookmark() {
                     <h5>{{ article.title }}</h5>
                   </div>
                   <div class="col-md-1 text-end">
-                    <i @click="createBookmark()" class="fs-4 mdi mdi-bookmark-outline bookmark"></i>
+                    <i v-if="!alreadyBookmarked" @click="createBookmark()"
+                      class="fs-4 mdi mdi-bookmark-outline bookmark"></i>
+                    <i v-if="alreadyBookmarked" @click="deleteBookmark()" class="fs-4 mdi mdi-bookmark bookmark"></i>
                   </div>
                 </section>
               </div>

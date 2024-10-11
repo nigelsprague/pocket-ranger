@@ -9,11 +9,13 @@ import { articlesService } from '@/services/ArticlesService.js';
 import ArticleCard from '@/components/globals/ArticleCard.vue';
 import AlertCard from '@/components/globals/AlertCard.vue';
 import { alertsService } from '@/services/AlertsService.js';
+import { bookmarksService } from '@/services/BookmarksService.js';
 
 onMounted(() => {
   getFavoriteParks()
   getArticleByFavorites()
   getAlertsByCode()
+  getAccountBookmarks()
 })
 
 const account = computed(() => AppState.account)
@@ -29,6 +31,17 @@ async function getFavoriteParks() {
   }
   catch (error) {
     Pop.error(error);
+  }
+}
+
+async function getAccountBookmarks() {
+  try {
+    const bookmarks = await bookmarksService.getAccountBookmarks()
+    logger.log('Getting bookmarks', bookmarks)
+  }
+  catch (error) {
+    Pop.error(error)
+    logger.log(error)
   }
 }
 

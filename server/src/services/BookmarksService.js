@@ -3,7 +3,7 @@ import { BadRequest, NotFound } from "../utils/Errors.js"
 
 class BookmarksService {
   async getAccountBookmarks(userId) {
-    const bookmarks = await dbContext.Bookmarks.find({ creatorId: userId }).populate('article')
+    const bookmarks = await dbContext.Bookmarks.find({ creatorId: userId })
     return bookmarks
   }
 
@@ -11,7 +11,6 @@ class BookmarksService {
     // const currentBookmarks = await this.getAccountBookmarks(bookmarkData.userId)
     const bookmark = await dbContext.Bookmarks.create(bookmarkData)
     await bookmark.populate('creator')
-    await bookmark.populate('article')
     return bookmark
   }
 

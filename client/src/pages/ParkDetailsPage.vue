@@ -260,7 +260,7 @@ async function getReviewsByPark() {
       </div>
     </div>
 
-    <!-- // SECTION - GALLERY -->
+    <!-- SECTION - GALLERY -->
     <div v-if="activeContainer == 'gallery'">
       <div v-if="images">
         <div class="container">

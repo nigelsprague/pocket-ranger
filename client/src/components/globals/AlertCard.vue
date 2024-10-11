@@ -1,8 +1,9 @@
 <script setup>
 import { AppState } from '@/AppState';
 import { Alert } from '@/models/Alert.js';
+import { computed } from 'vue';
 
-defineProps({ alert: { type: Alert, required: true } })
+const props = defineProps({ alert: { type: Alert, required: true } })
 
 const alertTypes = [
   { category: 'Information', icon: 'mdi mdi-information-variant-circle text-info fs-1', text: 'text-info' },
@@ -10,6 +11,15 @@ const alertTypes = [
   { category: 'Danger', icon: 'mdi mdi-alert text-danger fs-1', text: 'text-danger' },
   { category: 'Park Closure', icon: 'mdi mdi-close-octagon text-danger fs-1', text: 'text-danger' }
 ]
+
+const parkName = computed(() => {
+  const foundPark = AppState.favoritedParks.find(park => park.parkCode == props.alert.parkCode);
+  if (foundPark) {
+    return foundPark.fullName;
+  } else {
+    return null;
+  }
+})
 
 </script>
 
@@ -28,6 +38,7 @@ const alertTypes = [
             </div>
             <div class="col-10">
               <h4 class="card-title">{{ alert.title }}</h4>
+              <p v-if="parkName" class="m-0">{{ parkName }}</p>
               <span v-if="alert.category == alertTypes[0].category" :class="alertTypes[0].text">{{ alert.category
                 }}</span>
               <span v-else-if="alert.category == alertTypes[1].category" :class="alertTypes[1].text">{{ alert.category

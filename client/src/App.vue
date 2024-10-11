@@ -17,23 +17,23 @@ import Navbar from './components/Navbar.vue';
       <section class="row text-cream justify-content-between align-items-center">
         <div class="col-5">
           <div class="d-flex justify-content-between">
-            <a class="mdi mdi-facebook" href="https://www.facebook.com/nationalparkservice"> Facebook</a>
-            <a class="mdi mdi-youtube" href="https://www.youtube.com/nationalparkservice"> Youtube</a>
+            <a class="mdi mdi-facebook" target="_blank" href="https://www.facebook.com/nationalparkservice"> Facebook</a>
+            <a class="mdi mdi-youtube" target="_blank" href="https://www.youtube.com/nationalparkservice"> Youtube</a>
           </div>
           <div class="d-flex justify-content-between">
-            <a class="mdi mdi-twitter" href="https://x.com/natlparkservice"> Twitter</a>
-            <a class="mdi mdi-instagram" href="https://www.instagram.com/nationalparkservice/"> Instagram</a>
+            <a class="mdi mdi-twitter" target="_blank" href="https://x.com/natlparkservice"> Twitter</a>
+            <a class="mdi mdi-instagram" target="_blank" href="https://www.instagram.com/nationalparkservice/"> Instagram</a>
           </div>
         </div>
         <div class="col-5">
           <div>
-            <a class="footer-links" href="https://www.nps.gov/index.htm">NPS WEBSITE</a>
+            <a class="footer-links" target="_blank" href="https://www.nps.gov/index.htm">NPS WEBSITE</a>
             <span> | </span>
-            <a class="footer-links" href="https://www.nps.gov/aboutus/faqs.htm">NPS FAQ</a>
+            <a class="footer-links" target="_blank" href="https://www.nps.gov/aboutus/faqs.htm">NPS FAQ</a>
             <span> | </span>
-            <a class="footer-links" href="https://www.usa.gov/">USA.GOV</a>
+            <a class="footer-links" target="_blank" href="https://www.usa.gov/">USA.GOV</a>
             <br />
-            <a class="footer-links" href="https://www.nps.gov/aboutus/contactus.htm">CONTACT NATIONAL PARK SERVICE</a>
+            <a class="footer-links" target="_blank" href="https://www.nps.gov/aboutus/contactus.htm">CONTACT NATIONAL PARK SERVICE</a>
           </div>
         </div>
       </section>

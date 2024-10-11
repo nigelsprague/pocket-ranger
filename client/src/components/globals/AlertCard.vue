@@ -38,7 +38,7 @@ const alertTypes = [
                 }}</span>
               <p>{{ alert.lastIndexedDate.toLocaleString() }}</p>
               <p class="card-text">{{ alert.body }}</p>
-              <a v-if="alert.url" :href="alert.url" class="btn ">More Information</a>
+              <a v-if="alert.url" :href="alert.url" target="_blank" class="btn ">More Information</a>
             </div>
           </div>
         </div>

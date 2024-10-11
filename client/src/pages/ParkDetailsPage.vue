@@ -269,7 +269,7 @@ async function getReviewsByPark() {
               <div class="col-12">
                 <div class="masonry-layout">
                   <div class="masonry-item" v-for="image in images" :key="image.url">
-                    <a :href="image.url">
+                    <a :href="image.url" target="_blank">
                       <img :src="image.url + '?width=500'" :alt="image.title" class="img-fluid shadow"
                         title="Click to see full-size image!">
                     </a>

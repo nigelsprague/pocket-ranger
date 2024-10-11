@@ -31,7 +31,7 @@ defineProps({ article: { type: Article, required: true } })
                 <p class="m-0">{{ article.body }}</p>
               </div>
               <br />
-              <a v-if="article.url" :href="article.url" class="btn">Read More</a>
+              <a v-if="article.url" :href="article.url" target="_blank" class="btn">Read More</a>
             </div>
           </div>
         </div>

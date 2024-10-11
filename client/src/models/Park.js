@@ -46,6 +46,7 @@ export class Park {
     this.address = data.addresses[0]
     this.fullName = data.fullName
     this.description = data.description
+    this.relevanceScore = data.relevanceScore
     /**@type {Image[]} */
     this.images = data.images.map(image => new Image(image))
     this.parkCode = data.parkCode

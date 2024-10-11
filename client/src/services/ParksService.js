@@ -27,6 +27,8 @@ class ParksService {
     AppState.parkQuery = parkQuery
     const newParks = response.data.data.map(park => new Park(park))
     AppState.parks = newParks
+    AppState.parks.sort((a, b) => b.relevanceScore - a.relevanceScore)
+    logger.log('👺☠️', AppState.parks)
   }
   async getParkByCode(parkCode) {
     const response = await npsAPI.get(`/parks/?parkcode=${parkCode}`)

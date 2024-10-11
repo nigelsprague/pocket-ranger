@@ -11,7 +11,7 @@ defineProps({
 
 <template>
   <div class="container">
-    <img :src="weather.icon" alt="weather icon">
+    <img :src="weather.iconUrl" alt="weather icon">
     <span>{{ weather.tempCels.toFixed(2) }}° C</span>
     <span>{{ weather.tempFar.toFixed(2) }}° F</span>
     <span>{{ weather.weather }}</span>

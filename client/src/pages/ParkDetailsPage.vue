@@ -299,7 +299,7 @@ async function getReviewsByPark() {
               <p v-if="operatingHours[0].description">{{ operatingHours[0].description }}</p>
               <br>
               <h5>Weather</h5>
-              <div :key="weather.id">
+              <div v-if="weather" :key="weather.id">
                 <Weather :weather="weather" />
               </div>
               <p v-if="park.weather" class="box">{{ park.weather }}</p>

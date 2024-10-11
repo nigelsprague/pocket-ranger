@@ -3,7 +3,7 @@ export class Weather {
     this.id = data.id
     this.temp = data.main.temp
     this.weather = data.weather[0].main
-    this.icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+    this.iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
     this.wind = data.wind.speed
   }
 

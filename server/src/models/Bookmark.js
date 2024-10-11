@@ -5,7 +5,7 @@ export const BookmarksSchema = new Schema(
     creatorId: { type: Schema.ObjectId, required: true },
     title: { type: String, required: true },
     url: { type: String, required: true },
-    articleImage: { type: String, required: true },
+    articleImage: { type: String, required: false },
     articleId: { type: String, required: true },
   },
   { timestamps: true, toJSON: { virtuals: true } }

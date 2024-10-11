@@ -10,10 +10,10 @@ defineProps({
 
 
 <template>
-  <div class="card bg-weather">
+  <div class="card bg-weather mb-2">
     <div class="container">
       <section class="row align-items-center">
-        <div class="col">
+        <div class="col mb-3">
           <div class="d-flex flex-column text-center align-items-center">
             <img :src="weather.iconUrl" alt="weather icon">
             <h4>{{ weather.weather }}</h4>
@@ -34,5 +34,9 @@ defineProps({
 .bg-weather {
   background-color: var(--bs-weather);
   color: var(--bs-text);
+}
+
+.card {
+  border: unset;
 }
 </style>

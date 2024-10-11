@@ -96,10 +96,9 @@ async function getPostsByCommunity() {
         </form>
       </div>
     </section>
-    <section class="row justify-content-end mb-3 mx-3 fixed-bottom">
-      <button class="col-1 btn btn-secondary p-0" data-bs-toggle="modal" data-bs-target="#post-form"
-        title="Add a post!"><i class="mdi mdi-plus fs-1"></i></button>
-    </section>
+    <button class="col-1 btn btn-secondary mb-3 mx-3 fixed-bottom p-0" data-bs-toggle="modal"
+      data-bs-target="#post-form" title="Add a post!"><i class="mdi mdi-plus fs-1"></i>
+    </button>
   </div>
 
 </template>

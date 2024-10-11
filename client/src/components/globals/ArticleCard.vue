@@ -34,7 +34,7 @@ async function createBookmark() {
 
 async function deleteBookmark() {
   try {
-    const foundBookmark = bookmarks.value.find(bookmark => bookmark.creatorId == account.value?.id)
+    const foundBookmark = bookmarks.value.find(bookmark => bookmark.articleId == props.article.id)
     await bookmarksService.deleteBookmark(foundBookmark.id)
     Pop.toast("Bookmark removed from article!")
   }

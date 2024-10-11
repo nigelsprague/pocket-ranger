@@ -48,11 +48,11 @@ async function getPostsByCommunity() {
 
 
 <template>
-  <div class="container-fluid p-0">
+  <div class="container-fluid p-0 position-relative">
     <ModalWrapper id="post-form">
       <PostForm />
     </ModalWrapper>
-    <div class="mb-3 position-relative">
+    <div class="mb-3">
       <HereMap :center="center" />
     </div>
     <div class="position-absolute mx-2 p-2">
@@ -96,10 +96,9 @@ async function getPostsByCommunity() {
         </form>
       </div>
     </section>
-    <section class="row justify-content-end mb-3 mx-3 fixed-bottom">
-      <button class="col-1 btn btn-secondary p-0" data-bs-toggle="modal" data-bs-target="#post-form"
-        title="Add a post!"><i class="mdi mdi-plus fs-1"></i></button>
-    </section>
+    <button class="col-1 btn btn-secondary mb-3 mx-3 fixed-bottom p-0" data-bs-toggle="modal"
+      data-bs-target="#post-form" title="Add a post!"><i class="mdi mdi-plus fs-1"></i>
+    </button>
   </div>
 
 </template>
@@ -116,7 +115,7 @@ async function getPostsByCommunity() {
 }
 
 .position-absolute {
-  top: 8.5em;
+  top: .75em;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border-radius: 8px;

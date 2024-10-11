@@ -48,11 +48,11 @@ async function getPostsByCommunity() {
 
 
 <template>
-  <div class="container-fluid p-0">
+  <div class="container-fluid p-0 position-relative">
     <ModalWrapper id="post-form">
       <PostForm />
     </ModalWrapper>
-    <div class="mb-3 position-relative">
+    <div class="mb-3">
       <HereMap :center="center" />
     </div>
     <div class="position-absolute mx-2 p-2">
@@ -116,7 +116,7 @@ async function getPostsByCommunity() {
 }
 
 .position-absolute {
-  top: 8.5em;
+  top: .75em;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border-radius: 8px;

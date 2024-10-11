@@ -15,6 +15,14 @@ export const npsAPI = Axios.create({
   timeout: 8000
 })
 
+export const weatherAPI = Axios.create({
+  baseURL: 'https://api.openweathermap.org/data/2.5',
+  params: {
+    appid: '9fa6abb5fe64cab1957bc1bc91667bdb'
+  },
+  timeout: 8000
+})
+
 api.interceptors.request.use(config => config, handleAxiosError)
 api.interceptors.response.use(response => response, handleAxiosError)
 

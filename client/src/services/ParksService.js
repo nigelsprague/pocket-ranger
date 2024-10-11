@@ -1,10 +1,14 @@
 import { logger } from "@/utils/Logger.js"
-import { npsAPI } from "./AxiosService.js"
+import { npsAPI, weatherAPI } from "./AxiosService.js"
 import { Park } from "@/models/Park.js"
 import { AppState } from "@/AppState.js"
 import { pagesService } from "./PagesService.js"
 
 class ParksService {
+  async getParkWeather(lat, lon) {
+    const response = await weatherAPI.get(`/weather?lat=${lat}&lon=${lon}`)
+    logger.log('👺☠️', response.data)
+  }
   async changeParksPage(pageNumber, limit) {
     const response = await npsAPI.get(`/parks?start=${limit * (pageNumber - 1)}&limit=${limit}&parkcode=${AppState.parkList}?`)
     logger.log('Changed parks page - parks service', response.data)

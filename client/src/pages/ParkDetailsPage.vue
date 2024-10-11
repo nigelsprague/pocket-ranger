@@ -37,11 +37,9 @@ const images = computed(() => AppState.activePark?.images)
 const activeFee = ref(null)
 const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
-// const center = computed(() => {
-//   const lat = park.value?.latitude
-//   const lng = park.value?.longitude
-//   return { lat: lat, lng: lng }
-// })
+const lat = park.value?.latitude
+const lon = park.value?.longitude
+
 const center = computed(() => {
   if (park.value) {
     return new MapMarker(park.value)
@@ -74,6 +72,7 @@ onMounted(() => {
   getAlertByCode()
   getArticleByCode()
   getReviewsByPark()
+  // getParkWeather()
 })
 
 onUnmounted(() => {
@@ -84,12 +83,23 @@ onUnmounted(() => {
 async function getParkByCode() {
   try {
     await parksService.getParkByCode(route.params.parkCode)
+    await parksService.getParkWeather(lat, lon)
   }
   catch (error) {
     Pop.error(error)
     logger.log(error)
   }
 }
+
+// async function getParkWeather() {
+//   try {
+//     await parksService.getParkWeather(lat, lon)
+//   }
+//   catch (error) {
+//     Pop.error(error);
+//     logger.error(error)
+//   }
+// }
 
 async function getToDoByCode() {
   try {
@@ -296,6 +306,7 @@ async function getReviewsByPark() {
               <p v-if="operatingHours[0].description">{{ operatingHours[0].description }}</p>
               <br>
               <h5>Weather</h5>
+              <h4>WEATHER</h4>
               <p v-if="park.weather" class="box">{{ park.weather }}</p>
             </div>
             <div class="col-12">

@@ -3,11 +3,12 @@ import { AppState } from '@/AppState';
 import PostCard from '@/components/globals/PostCard.vue';
 import PostForm from '@/components/globals/PostForm.vue';
 import ModalWrapper from '@/components/ModalWrapper.vue';
+import { MapMarker } from '@/models/MapMarker.js';
 import { parksService } from '@/services/ParksService';
 import { postsService } from '@/services/PostsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, onUnmounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 onMounted(() => {
@@ -15,13 +16,29 @@ onMounted(() => {
   getPostsByCommunity()
 })
 
+onUnmounted(() => {
+  // AppState.mapMarkers = [];
+  AppState.activePark = null;
+})
+
+
+
+let markersLoaded = false;
 const posts = computed(() => AppState.posts)
 const park = computed(() => AppState.activePark)
 const route = useRoute()
 const center = computed(() => {
-  const lat = park.value?.latitude
-  const lng = park.value?.longitude
-  return { lat: lat, lng: lng }
+  if (park.value) {
+    return new MapMarker(park.value)
+  }
+  return null
+})
+
+watch(center, () => {
+  if (center.value) {
+    AppState.mapMarkers.push(center.value);
+    markersLoaded = true;
+  }
 })
 
 async function getParkByCode() {
@@ -52,7 +69,7 @@ async function getPostsByCommunity() {
     <ModalWrapper id="post-form">
       <PostForm />
     </ModalWrapper>
-    <div class="mb-3">
+    <div v-if="markersLoaded" class="mb-3">
       <HereMap :center="center" />
     </div>
     <div class="position-absolute mx-2 p-2">

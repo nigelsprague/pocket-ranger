@@ -22,8 +22,9 @@
         <h2>Concepts and Tools Used</h2>
         <p>To do this, we wanted to retrieve and display the relevant data from the National Parks Service API using
           HTML,
-          CSS, and JS while utilizing the frameworks of Bootstrap, Mongoose, ExpressJs, and Vue.</p>
-        <p>We also display the relevant locations using the HERE Maps API.</p>
+          CSS, and JS while utilizing the frameworks of Bootstrap, ExpressJs, and Vue. We also employ Mongoose and
+          MongoDB in our backend.</p>
+        <p>Our maps are powered using the HERE Maps API.</p>
       </div>
       <div>
         <img src="../assets/img/vue-logo.png" alt="vue logo" class="sectional-img ms-3">
@@ -31,7 +32,7 @@
     </div>
     <div>
       <div class="sectional light">
-        <div class="w-50">
+        <div class="w-70">
           <h2>Contributors</h2>
           <div class="d-flex align-items-center">
             <div>
@@ -53,10 +54,14 @@
         </div>
       </div>
       <div class="sectional justify-content-end">
-        <div class="w-50 text-end">
+        <div class="w-70 text-end">
           <div>
             <h4>Matthew Marchal</h4>
-            <p>Bio here</p>
+            <p>I was initially introduced to web and software development in high school, and pursued it for a couple
+              years after, but took an extended break from programming for many years. CodeWorks has been a huge help on
+              my journey to refamiliarize myself with the development world and the Pocket Ranger site specifically has
+              been a great opportunity to collaborate with others and practice with skills and technologies we all were
+              interested in working with.</p>
             <h2>
               <a href="https://github.com/santyclause">
                 <i class="mdi mdi-github"></i>
@@ -72,7 +77,7 @@
         </div>
       </div>
       <div class="sectional light">
-        <div class="w-50">
+        <div class="w-70">
           <div>
             <img src="" alt="">
           </div>
@@ -107,5 +112,15 @@
 
 .light {
   background-color: var(--offwhite);
+}
+
+.w-70 {
+  width: 70%;
+}
+
+@media (max-width: 768px) {
+  .sectional {
+    flex-direction: column;
+  }
 }
 </style>

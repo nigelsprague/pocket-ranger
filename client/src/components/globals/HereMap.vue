@@ -18,6 +18,7 @@ const mapContainer = ref()
 /**@type {H.Map} */
 let map = null
 let ui = null;
+let group = null;
 let bubbles = [];
 let currentMarkers = []
 
@@ -27,7 +28,7 @@ onMounted(() => {
 
 watch(markers, () => {
   if (currentMarkers.length && map) {
-    map.removeObjects(currentMarkers)
+    group.removeObjects(currentMarkers)
     currentMarkers = []
   }
 
@@ -75,7 +76,7 @@ function initializeHereMap() {
 function addMarkersToMap() {
   if (!map) { return }
 
-  let group = new H.map.Group();
+  group = new H.map.Group();
 
   map.addObject(group);
 

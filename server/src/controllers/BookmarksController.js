@@ -14,7 +14,8 @@ export class ArticlesController extends BaseController {
   async createBookmark(request, response, next) {
     try {
       const bookmarkData = request.body
-      bookmarkData.creatorId = request.userInfo.id
+      const userInfo = request.userInfo
+      bookmarkData.accountId = userInfo.id
       const bookmark = await bookmarksService.createBookmark(bookmarkData)
       response.send(bookmark)
     } catch (error) {

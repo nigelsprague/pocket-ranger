@@ -2,6 +2,7 @@ import { Auth0Provider } from '@bcwdev/auth0provider'
 import { accountService } from '../services/AccountService'
 import BaseController from '../utils/BaseController'
 import { followersService } from '../services/FollowersService'
+import { bookmarksService } from '../services/BookmarksService.js'
 
 export class AccountController extends BaseController {
   constructor() {
@@ -10,7 +11,18 @@ export class AccountController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .get('/followers', this.getAccountFollows)
+      .get('/bookmarks', this.getAccountBookmarks)
       .put('', this.editUserAccount)
+  }
+
+  async getAccountBookmarks(request, response, next) {
+    try {
+      const userId = request.userInfo.id
+      const bookmarks = await bookmarksService.getAccountBookmarks(userId)
+      response.send(bookmarks)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async getAccountFollows(request, response, next) {

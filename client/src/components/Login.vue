@@ -7,6 +7,7 @@ const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
 async function login() {
   AuthService.loginWithRedirect()
+  // updated to redirect login
 }
 async function logout() {
   AuthService.logout()

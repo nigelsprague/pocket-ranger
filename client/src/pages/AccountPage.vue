@@ -20,7 +20,8 @@ onMounted(() => {
 
 const account = computed(() => AppState.account)
 const favoritedParks = computed(() => AppState.favoritedParks)
-const articles = computed(() => AppState.articles)
+const bookmarks = computed(() => AppState.bookmarks)
+const articles = computed(() => AppState.articles.filter(article => bookmarks.value.find(b => b.articleId == article.id)))
 const alerts = computed(() => AppState.alerts);
 
 async function getFavoriteParks() {
@@ -148,11 +149,9 @@ function changeVisible(elemId) {
               </div>
             </section>
           </div>
-
         </section>
       </div>
     </div>
-
     <div v-else>
       <h1>Loading... <i class="mdi mdi-loading mdi-spin"></i></h1>
     </div>

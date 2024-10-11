@@ -9,7 +9,7 @@ export class ArticlesController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createBookmark)
       .delete('/:bookmarkId', this.deleteBookmark)
-  }
+  } 
 
   async createBookmark(request, response, next) {
     try {

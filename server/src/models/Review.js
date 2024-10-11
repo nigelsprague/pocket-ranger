@@ -4,7 +4,7 @@ import { Schema } from "mongoose";
 export const ReviewSchema = new Schema({
   recommended: { type: Boolean, required: true },
   title: { type: String, maxLength: 50 },
-  body: { type: String, maxLength: 500 },
+  body: { type: String, maxLength: 500, required: true },
   creatorId: { type: Schema.ObjectId, required: true, ref: 'Account' },
   parkCode: { type: String, required: true, ref: 'Park' }
 }, { timestamps: true, toJSON: { virtuals: true } })

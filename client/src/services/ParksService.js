@@ -3,11 +3,12 @@ import { npsAPI, weatherAPI } from "./AxiosService.js"
 import { Park } from "@/models/Park.js"
 import { AppState } from "@/AppState.js"
 import { pagesService } from "./PagesService.js"
+import { Weather } from "@/models/Weather.js"
 
 class ParksService {
   async getParkWeather(lat, lon) {
     const response = await weatherAPI.get(`/weather?lat=${lat}&lon=${lon}`)
-    logger.log('👺☠️', response.data)
+    AppState.weather = new Weather(response.data)
   }
   async changeParksPage(pageNumber, limit) {
     const response = await npsAPI.get(`/parks?start=${limit * (pageNumber - 1)}&limit=${limit}&parkcode=${AppState.parkList}?`)
@@ -32,7 +33,6 @@ class ParksService {
     const newParks = response.data.data.map(park => new Park(park))
     AppState.parks = newParks
     AppState.parks.sort((a, b) => b.relevanceScore - a.relevanceScore)
-    logger.log('👺☠️', AppState.parks)
   }
   async getParkByCode(parkCode) {
     const response = await npsAPI.get(`/parks/?parkcode=${parkCode}`)

@@ -7,6 +7,7 @@ import HereMap from '@/components/globals/HereMap.vue';
 import ReviewCard from '@/components/globals/ReviewCard.vue';
 import ReviewForm from '@/components/globals/ReviewForm.vue';
 import ToDoCard from '@/components/globals/ToDoCard.vue';
+import Weather from '@/components/globals/Weather.vue';
 import Modalwrapper from '@/components/ModalWrapper.vue';
 import { MapMarker } from '@/models/MapMarker.js';
 import { alertsService } from '@/services/AlertsService.js';
@@ -39,6 +40,7 @@ const followers = computed(() => AppState.followers)
 const activeContainer = ref(null)
 const lat = computed(() => AppState.activePark.latitude)
 const lon = computed(() => AppState.activePark.longitude)
+const weather = computed(() => AppState.weather)
 
 
 const center = computed(() => {
@@ -297,7 +299,9 @@ async function getReviewsByPark() {
               <p v-if="operatingHours[0].description">{{ operatingHours[0].description }}</p>
               <br>
               <h5>Weather</h5>
-              <h4>WEATHER</h4>
+              <div :key="weather.id">
+                <Weather :weather="weather" />
+              </div>
               <p v-if="park.weather" class="box">{{ park.weather }}</p>
             </div>
             <div class="col-12">

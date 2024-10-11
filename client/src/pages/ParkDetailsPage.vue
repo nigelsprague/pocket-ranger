@@ -364,9 +364,11 @@ async function getReviewsByPark() {
             </div>
             <div class="col-12">
               <div class="d-flex gap-3 align-items-center my-3">
-                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark">Previous</button>
+                <button @click="changeArticlePage(currentPage - 1)" class="btn btn-outline-dark"
+                  :disabled="currentPage == 1">Previous</button>
                 <span class="fs-f"> Page {{ AppState.displayCurrentPage }} of {{ totalPages }}</span>
-                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark">Next</button>
+                <button @click="changeArticlePage(currentPage + 1)" class="btn btn-outline-dark"
+                  :disabled="currentPage == totalPages">Next</button>
               </div>
             </div>
           </section>

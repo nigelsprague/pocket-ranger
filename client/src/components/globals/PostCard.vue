@@ -41,7 +41,7 @@ async function deletePost(postId) {
           </div>
           <span class="fs-5">{{ post.body }}</span>
         </div>
-        <div v-if="account.id == post.creatorId" class="col text-end dropdown">
+        <div v-if="account?.id == post.creatorId" class="col text-end dropdown">
 
           <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="mdi mdi-dots-vertical fs-1"></i>

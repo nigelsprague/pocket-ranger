@@ -28,21 +28,19 @@ async function deletePost(postId) {
 <template>
   <div class="card">
     <div class="card-body">
-      <div class="d-flex align-items-start">
-        <div>
-          <img class="img-fluid profile me-3 mb-1" :src="post.creator.picture" :alt="post.creator.name"
+      <div class="d-flex align-items-center">
+        <div class="text-center me-3">
+          <img class="img-fluid profile mb-1" :src="post.creator.picture" :alt="post.creator.name"
             :title="post.creator.name">
           <h6>{{ post.creator.name }}</h6>
         </div>
         <div>
           <div>
             <span class="post-date">{{ post.postDate }}</span>
-            <h4 class="mb-1">{{ post.title }}</h4>
+            <h4>{{ post.title }}</h4>
           </div>
-          <span class="fs-5">{{ post.body }}</span>
         </div>
         <div v-if="account?.id == post.creatorId" class="col text-end dropdown">
-
           <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="mdi mdi-dots-vertical fs-1"></i>
           </button>
@@ -52,10 +50,10 @@ async function deletePost(postId) {
                 Post <i class="mdi mdi-delete-forever"></i></button>
             </li>
           </ul>
-
         </div>
       </div>
       <div>
+        <span>{{ post.body }}</span>
         <img class="img-fluid post-img" v-if="post.image" :src="post.image" alt="Image for post">
       </div>
     </div>

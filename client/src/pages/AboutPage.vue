@@ -9,7 +9,7 @@
       <div>
         <img src="../assets/img/pr-logo-alt.png" alt="alt pocket ranger logo" class="sectional-img">
       </div>
-      <div class="w-50">
+      <div class="width-50">
         <h1>About Pocket Ranger</h1>
         <p>For Pocket Ranger, we looked at the existing process of researching and visiting national parks and decided
           that we wanted to improve and streamline the experience by making an app that has all the needed information
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="sectional justify-content-evenly">
-      <div class="w-50 text-end">
+      <div class="width-50 text-end">
         <h2>Concepts and Tools Used</h2>
         <p>To do this, we wanted to retrieve and display the relevant data from the National Parks Service API using
           HTML,
@@ -27,20 +27,28 @@
         <p>Our maps are powered using the HERE Maps API.</p>
       </div>
       <div>
-        <img src="../assets/img/vue-logo.png" alt="vue logo" class="sectional-img ms-3">
+        <img src="../assets/img/vue-logo.png" alt="vue logo" class="sectional-img ms-md-3">
       </div>
     </div>
     <div>
       <div class="sectional light">
         <div class="w-70">
-          <h2>Contributors</h2>
+          <h2 class="mb-4">Contributors</h2>
           <div class="d-flex align-items-center">
             <div>
               <img src="" alt="">
             </div>
             <div>
-              <h4>Autumn Page</h4>
-              <p>Bio here</p>
+              <h4>Autumn Eckley</h4>
+              <p>I first discovered my passion for web development my freshman year of high school while I was enrolled
+                in the Oregon Coast Technical Program. I instantly fell in love with the art and process of coding, but
+                I didn’t consider making it my career until 10 years later in 2023. Enrolling in the Boise Codeworks
+                Fall 2024 Cohort was the best decision I could have made, and working on this application with such an
+                incredible team has solidified my passion for software development. I am a bit of a work-a-holic, and
+                frequently find myself with very little to no free time outside of my three jobs. When I am not
+                deep-diving into government APIs, you can find me at home reading or cooking, playing board games or
+                longboarding with friends, or planning my next big adventure overseas.
+              </p>
               <h2>
                 <a href="https://github.com/seasonofleaves">
                   <i class="mdi mdi-github"></i>
@@ -125,9 +133,27 @@
   width: 70%;
 }
 
+.width-50 {
+  width: 50%;
+}
+
 @media (max-width: 768px) {
   .sectional {
     flex-direction: column;
+  }
+
+  .width-50 {
+    width: 70%;
+  }
+}
+
+@media (max-width: 550px) {
+  .w-70 {
+    width: 100%;
+  }
+
+  .width-50 {
+    width: 100%;
   }
 }
 </style>
